@@ -3,26 +3,19 @@ import Nanoshooter from "./Nanoshooter";
 import State from "./State";
 import Entity from "./Entity";
 
-// Unique ID pulling station.
-let nextId = 0;
-const pullId = () => (++nextId).toString();
+// Log function for emitting debug information to the JS console.
+const log = (...messages: any[]) => console.debug.apply(console, messages);
 
-// Create the game state with a basic entity.
+// Create an empty game state.
 const state = new State();
-const entity = new Entity({ id: pullId() });
-state.add(entity);
+const entity = new Entity({ name: "test-entity" });
+state.attach(entity);
 
 // Instance the Nanoshooter game.
 const nanoshooter = new Nanoshooter({
-
-    // Game state to initialize with.
-    state,
-
-    // Where to place the canvas element.
     host: document.body,
-
-    // How to handle debug logging messages.
-    log: (...messages: any[]) => console.debug.apply(console, messages),
+    state,
+    log
 });
 
 // Attach nanoshooter to the global window object for easy debugging.

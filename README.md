@@ -1,5 +1,5 @@
 
-# Nanoshooter
+# Nanoshooter – [![Build Status](https://travis-ci.org/ChaseMoskal/Nanoshooter.svg?branch=master)](https://travis-ci.org/ChaseMoskal/Nanoshooter)
 
   1. Clone this repo.
   2. Open command line to project directory, enter `npm install`.

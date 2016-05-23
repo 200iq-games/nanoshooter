@@ -2,34 +2,28 @@
 ///<reference path="../bower_components/babylonjs/dist/babylon.2.3.d.ts"/>
 ///<reference path="../typings/browser.d.ts"/>
 
+import State from "./State";
+
 /**
  * Open source web game.
  * @todo: Everything.
  */
 export default class Nanoshooter {
 
+    /** Serializable game state. */
+    private state: State;
+
     /**
      * Initialize an instance of the Nanoshooter game.
-     *   - Create the canvas element.
-     *   - Boot up the Babylon game engine.
      */
-    constructor(options: NanoshooterOptions = {}) {
+    constructor(options: NanoshooterOptions) {
+        const { host, log, state } = options;
         const startTime = (+new Date);
 
-        // Host element that contains the canvas.
-        const host: HTMLElement = options.host || document.body;
-
-        // Log function for outputting debug information to the console.
-        const log: Logger = options.log || ((...messages: any[]) => console.debug.apply(console, messages));
-
-        // Establish the canvas, insert it into the host element.
         const canvas = document.createElement("canvas");
         host.appendChild(canvas);
 
-        // Initialize the Babylon engine.
         const engine = new BABYLON.Engine(canvas, true);
-
-        // Create a demo scene.
         const scene = (() => {
             const scene = new BABYLON.Scene(engine);
             scene.clearColor = new BABYLON.Color3(0, 0.1, 0);
@@ -37,20 +31,16 @@ export default class Nanoshooter {
             camera.setTarget(BABYLON.Vector3.Zero());
             camera.attachControl(canvas, false);
             const light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
-            light.intensity = .5;
+            light.intensity = 0.5;
             const sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
             sphere.position.y = 1;
             const ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
             return scene;
         })();
 
-        // Initiate render loop.
         engine.runRenderLoop(() => scene.render());
-
-        // Handle browser resize.
         window.addEventListener("resize", () => engine.resize());
 
-        // Logging some timings.
         const endTime = (+new Date);
         log(``);
         log(`Loading time ————————→ ${(startTime - performance.timing.navigationStart).toFixed(0)} ms`);
@@ -58,22 +48,12 @@ export default class Nanoshooter {
         log(`Total startup time ——→ ${(endTime - performance.timing.navigationStart).toFixed(0)} ms`);
         log(``);
     }
-
-    /**
-     * Throw an error on purpose, just to see the debugger in action.
-     */
-    throwAnError() {
-        throw "Terrible mistake!";
-    }
 }
 
-/**
- * Inputs for a Nanoshooter instance.
- */
 export interface NanoshooterOptions {
-    host?: HTMLElement;
-    log?: Logger;
+    state: State;
+    host: HTMLElement;
+    log: Logger;
 }
 
-/** Outputs debugging-oriented log messages. */
 export type Logger = (...messages: string[]) => void;

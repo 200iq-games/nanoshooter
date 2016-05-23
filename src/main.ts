@@ -1,22 +1,20 @@
 
+///<reference path="../bower_components/babylonjs/dist/babylon.2.3.d.ts"/>
+///<reference path="../typings/browser.d.ts"/>
+
 import Nanoshooter from "./Nanoshooter";
-import State from "./State";
-import Entity from "./Entity";
-
-// Log function for emitting debug information to the JS console.
+import Entity from "./Engine/Entity";
 const log = (...messages: any[]) => console.debug.apply(console, messages);
-
-// Create an empty game state.
-const state = new State();
-const entity = new Entity({ name: "test-entity" });
-state.attach(entity);
 
 // Instance the Nanoshooter game.
 const nanoshooter = new Nanoshooter({
     host: document.body,
-    state,
     log
 });
+
+// Attach our first entity.
+const entity = new Entity({ name: "test-entity" });
+nanoshooter.attach(entity);
 
 // Attach nanoshooter to the global window object for easy debugging.
 (<any>window).nanoshooter = nanoshooter;

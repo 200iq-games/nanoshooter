@@ -11,7 +11,7 @@ define(["require", "exports"], function (require, exports) {
             this.awesome = true;
             this.canvas = document.createElement("canvas");
             this.engine = new BABYLON.Engine(this.canvas, true);
-            var startupDuration = ((+new Date) - startTime);
+            var startupDuration = (+new Date) - startTime;
             console.debug("Game took " + startupDuration.toFixed(0) + "ms to initialize.");
         }
         Nanoshooter.prototype.throwAnError = function () {

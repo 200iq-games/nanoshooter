@@ -1,0 +1,27 @@
+{
+  "name": "nanoshooter",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install": "bower install && npm run build --silent",
+    "build": "tsc && echo Build complete.",
+    "test": "echo No tests yet, lol && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChaseMoskal/Nanoshooter.git"
+  },
+  "author": "Chase Moskal <chasemoskal@gmail.com>",
+  "private": true,
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ChaseMoskal/Nanoshooter/issues"
+  },
+  "homepage": "https://github.com/ChaseMoskal/Nanoshooter#readme",
+  "devDependencies": {
+    "bower": "^1.7.9",
+    "typescript": "^1.8.10"
+  },
+  "dependencies": {}
+}

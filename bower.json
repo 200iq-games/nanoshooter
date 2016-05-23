@@ -1,0 +1,22 @@
+{
+  "name": "nanoshooter",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Chase Moskal <chasemoskal@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/ChaseMoskal/Nanoshooter",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "private": true,
+  "dependencies": {
+    "babylonjs": "^2.3.0",
+    "requirejs": "^2.2.0"
+  }
+}

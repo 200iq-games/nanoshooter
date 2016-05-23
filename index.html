@@ -1,0 +1,33 @@
+
+<!doctype html>
+
+<html>
+    <head>
+        <title>Nanoshooter</title>
+
+        <!-- Babylon and RequireJS. -->
+
+        <script src="bower_components/babylonjs/dist/babylon.2.3.js"></script>
+        <script src="bower_components/requirejs/require.js"></script>
+
+        <!-- Requiring and instancing the main Nanoshooter class. -->
+
+        <script>
+            require({
+                packages: [
+                    {
+                        name: "Nanoshooter",
+                        location: "build"
+                    }
+                ]
+            });
+            require(["Nanoshooter/Nanoshooter"], function(Nanoshooter) {
+                window.nanoshooter = new Nanoshooter.default();
+            });
+        </script>
+
+    </head>
+    <body>
+        <h1>Nanoshooter Playground</h1>
+    </body>
+</html>

@@ -7,21 +7,29 @@
  * @todo: Everything.
  */
 export default class Nanoshooter {
-    awesome: boolean;
     canvas: HTMLCanvasElement;
     engine: BABYLON.Engine;
 
-    constructor() {
+    /** Game initialization duration, in milliseconds. */
+    startupDuration: number;
+
+    /**
+     * Initialize an instance of the Nanoshooter game.
+     *   - Create the canvas element.
+     *   - Boot up the Babylon game engine.
+     */
+    constructor(hostElement: HTMLElement) {
         const startTime = (+new Date);
 
-        this.awesome = true;
         this.canvas = document.createElement("canvas");
         this.engine = new BABYLON.Engine(this.canvas, true);
 
-        const startupDuration = (+new Date) - startTime;
-        console.debug(`Game took ${startupDuration.toFixed(0)}ms to initialize.`);
+        this.startupDuration = (+new Date) - startTime;
     }
 
+    /**
+     * Throw an error on purpose, just to see the debugger in action.
+     */
     throwAnError() {
         throw "Terrible mistake!";
     }

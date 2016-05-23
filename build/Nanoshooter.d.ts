@@ -5,9 +5,18 @@
  * @todo: Everything.
  */
 export default class Nanoshooter {
-    awesome: boolean;
     canvas: HTMLCanvasElement;
     engine: BABYLON.Engine;
-    constructor();
+    /** Game initialization duration, in milliseconds. */
+    startupDuration: number;
+    /**
+     * Initialize an instance of the Nanoshooter game.
+     *   - Create the canvas element.
+     *   - Boot up the Babylon game engine.
+     */
+    constructor(hostElement: HTMLElement);
+    /**
+     * Throw an error on purpose, just to see the debugger in action.
+     */
     throwAnError(): void;
 }

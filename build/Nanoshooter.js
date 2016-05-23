@@ -7,14 +7,20 @@ define(["require", "exports"], function (require, exports) {
      * @todo: Everything.
      */
     var Nanoshooter = (function () {
-        function Nanoshooter() {
+        /**
+         * Initialize an instance of the Nanoshooter game.
+         *   - Create the canvas element.
+         *   - Boot up the Babylon game engine.
+         */
+        function Nanoshooter(hostElement) {
             var startTime = (+new Date);
-            this.awesome = true;
             this.canvas = document.createElement("canvas");
             this.engine = new BABYLON.Engine(this.canvas, true);
-            var startupDuration = (+new Date) - startTime;
-            console.debug("Game took " + startupDuration.toFixed(0) + "ms to initialize.");
+            this.startupDuration = (+new Date) - startTime;
         }
+        /**
+         * Throw an error on purpose, just to see the debugger in action.
+         */
         Nanoshooter.prototype.throwAnError = function () {
             throw "Terrible mistake!";
         };

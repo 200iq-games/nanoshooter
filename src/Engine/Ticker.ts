@@ -6,16 +6,15 @@ export default class Ticker {
         this.action = action;
     }
 
-    stopTicking: () => void;
     stop(): Promise<void> {
         return new Promise<void>((resolve, reject) => {
-            this.stopTicking = () => resolve();
+            this.stopTickingCallback = () => resolve();
         });
     }
+    stopTickingCallback: () => void;
 
-    lastTickTime = performance.now();
     tick(): void {
-        if (this.stopTicking) return this.stopTicking();
+        if (this.stopTickingCallback) return this.stopTickingCallback();
         const since = performance.now() - this.lastTickTime;
 
         this.action({since});
@@ -25,6 +24,7 @@ export default class Ticker {
             this.tick();
         });
     }
+    lastTickTime = performance.now();
 
     start() { this.tick(); }
 }

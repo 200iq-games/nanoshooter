@@ -5,8 +5,15 @@
     "editor.renderWhitespace": true,
     "editor.wrappingIndent": "indent",
     "search.exclude": {
-        "node_modules": true,
         "bower_components": true,
+        "build": true,
+        "node_modules": true,
+        "typings": true
+    },
+    "files.exclude": {
+        "bower_components": true,
+        "build": true,
+        "node_modules": true,
         "typings": true
     }
 }

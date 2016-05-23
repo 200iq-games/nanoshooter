@@ -20,6 +20,9 @@ export default class Nanoshooter extends Game {
         sphere.position.y = 1;
 
         const ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
+
+        // Start the game.
+        this.start();
     }
 }
 

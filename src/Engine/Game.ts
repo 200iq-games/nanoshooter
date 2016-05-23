@@ -1,64 +1,93 @@
 
 import Stateful from "./Stateful";
+import Ticker, {TickInfo} from "./Ticker";
 import Entity from "./Entity";
 
 export default class Game extends Stateful {
     log: Logger;
-
     state: GameState;
+    logicTicker: Ticker;
+
     canvas: HTMLCanvasElement;
     engine: BABYLON.Engine;
     scene: BABYLON.Scene;
 
+    totalTicks: number = 0;
+    totalFrames: number = 0;
+
     constructor(options: GameOptions) {
         super();
-        const { host, log } = options;
         const startTime = (+new Date);
+
+        this.log = options.log;
 
         this.state = {
             entities: {}
         };
 
         this.canvas = document.createElement("canvas");
-        host.appendChild(this.canvas);
+        options.host.appendChild(this.canvas);
 
-        const engine = this.engine = new BABYLON.Engine(this.canvas, true); // Canvas must already be attached to the document.
-        const scene = this.scene = new BABYLON.Scene(engine);
+        this.engine = new BABYLON.Engine(this.canvas, true); // Canvas must already be attached to the document.
+        this.scene = new BABYLON.Scene(this.engine);
 
-        window.addEventListener("resize", () => engine.resize());
-        engine.runRenderLoop(() => scene.render());
+        window.addEventListener("resize", () => this.engine.resize());
+
+        // We establish our own ticker for logic, but not for rendering (Babylon handles its own render loop).
+        this.logicTicker = new Ticker(tickInfo => this.logic(tickInfo));
 
         const endTime = (+new Date);
         const loadingTime = (startTime - performance.timing.navigationStart).toFixed(0);
         const gameInitTime = (endTime - startTime).toFixed(0);
         const totalStartupTime = (endTime - performance.timing.navigationStart).toFixed(0);
-        log(`Total startup ${totalStartupTime}ms – Page loading ${loadingTime}ms – Game initialization ${gameInitTime}ms`);
+        this.log(`Total startup ${totalStartupTime} ms – Page loading ${loadingTime} ms – Game initialization ${gameInitTime} ms`);
     }
 
-    stopTicking: () => void;
-    stop(): Promise<void> {
-        this.engine.stopRenderLoop();
-        return new Promise<void>((resolve, reject) => {
-            this.stopTicking = () => resolve();
+    /**
+     * Game logic loop.
+     * All game logic occurs here.
+     */
+    logic(tickInfo: TickInfo) {
+        ++this.totalTicks;
+    }
+
+    /**
+     * Rendering loop.
+     * All rendering activities happen here.
+     */
+    render(renderInfo: RenderInfo): void {
+        this.scene.render();
+        ++this.totalFrames;
+    }
+
+    /**
+     * Run the game engine (rendering and logic loops).
+     */
+    start() {
+        this.logicTicker.start();
+        this.engine.runRenderLoop(() => {
+            const since = performance.now() - this.lastRenderTime;
+            this.render({since});
+            this.lastRenderTime = performance.now();
         });
     }
+    private lastRenderTime = performance.now();
 
-    lastTickTime = (+new Date);
-    tick(): void {
-        if (this.stopTicking) return this.stopTicking();
-        const since = (+new Date) - this.lastTickTime;
-        this.tick();
+    /**
+     * Halt the game engine (rendering and logic loops).
+     */
+    stop(): Promise<void> {
+        this.engine.stopRenderLoop();
+        return this.logicTicker.stop();
     }
 
-    lastRender = (+new Date);
-    render(): void {
-        const since = (+new Date) - this.lastRender;
-        this.scene.render();
-    }
-
-    // Entities must be attached to the game after they are created.
-    nextId = 0;
+    /** Entity ID pulling station. */
     pullId = () => (++this.nextId).toString();
+    nextId = 0;
+
+    /**
+     * Attach an entity to the game.
+     */
     attach(...entities: Entity[]): void {
         for (const entity of entities) {
             const id = this.pullId();
@@ -79,4 +108,10 @@ export interface GameState {
     entities: {
         [id: string]: Entity;
     };
+}
+
+export interface RenderInfo {
+
+    /** Time since the last frame, in milliseconds. */
+    since: number;
 }

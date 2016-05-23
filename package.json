@@ -21,7 +21,8 @@
   "homepage": "https://github.com/ChaseMoskal/Nanoshooter#readme",
   "devDependencies": {
     "bower": "^1.7.9",
-    "typescript": "^1.8.10"
+    "typescript": "^1.8.10",
+    "typings": "^1.0.4"
   },
   "dependencies": {}
 }

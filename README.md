@@ -13,3 +13,4 @@
     - `Ctrl-Shift-B` to build.
   - Startup performance will be improved when module bundling via Almond is introduced.
   - [Travis CI builds on each commit.](https://travis-ci.org/ChaseMoskal/Nanoshooter)
+  - `npm run watch` – Start a compile-on-save process.

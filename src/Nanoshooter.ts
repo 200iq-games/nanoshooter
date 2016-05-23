@@ -13,14 +13,14 @@ export default class Nanoshooter {
      *   - Create the canvas element.
      *   - Boot up the Babylon game engine.
      */
-    constructor(settings: NanoshooterSettings = {}) {
+    constructor(options: NanoshooterOptions = {}) {
         const startTime = (+new Date);
 
         // Host element that contains the canvas.
-        const host: HTMLElement = settings.host || document.body;
+        const host: HTMLElement = options.host || document.body;
 
         // Log function for outputting debug information to the console.
-        const log: Logger = settings.log || ((...messages: any[]) => console.debug.apply(console, messages));
+        const log: Logger = options.log || ((...messages: any[]) => console.debug.apply(console, messages));
 
         // Establish the canvas, insert it into the host element.
         const canvas = document.createElement("canvas");
@@ -70,7 +70,7 @@ export default class Nanoshooter {
 /**
  * Inputs for a Nanoshooter instance.
  */
-export interface NanoshooterSettings {
+export interface NanoshooterOptions {
     host?: HTMLElement;
     log?: Logger;
 }

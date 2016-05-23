@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "install": "bower install && npm run build --silent",
+    "install": "bower install",
     "build": "tsc && echo Build complete.",
     "test": "echo No tests yet, lol && exit 0"
   },

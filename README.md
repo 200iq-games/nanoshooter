@@ -3,18 +3,13 @@
 
   1. Clone this repo.
   2. Open command line to project directory. Enter: 
-    - `npm install` – Install all project dependencies (locally).
-    - `npm run build` – Build the project's TypeScript source.
-  3. Open the directory in [Visual Studio Code](https://code.visualstudio.com/).
-    - `Ctrl-Shift-B` to build.
-  4. Browse to `index.html`.
-  5. Open the JS console (F12).
-  6. Enter `nanoshooter.throwAnError()`.
-  7. See the debugger in action.
-  8. Start coding!
-
-[Travis CI will build on each commit.](https://travis-ci.org/ChaseMoskal/Nanoshooter)
+    1. `npm install` – Install all project dependencies (locally).
+    2. `npm run build` – Build the project's TypeScript source.
+  3. Browse to `index.html`.
 
 ## Notes
 
-  - Startup performance will be improved by module bundling via Almond.
+  - Open the directory in [Visual Studio Code](https://code.visualstudio.com/).
+    - `Ctrl-Shift-B` to build.
+  - Startup performance will be improved when module bundling via Almond is introduced.
+  - [Travis CI builds on each commit.](https://travis-ci.org/ChaseMoskal/Nanoshooter)

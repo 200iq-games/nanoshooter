@@ -16,7 +16,7 @@ state.add(entity);
 const nanoshooter = new Nanoshooter({
 
     // Game state to initialize with.
-    state: state,
+    state,
 
     // Where to place the canvas element.
     host: document.body,

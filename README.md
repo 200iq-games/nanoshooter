@@ -14,3 +14,7 @@
   8. Start coding!
 
 [Travis CI will build on each commit.](https://travis-ci.org/ChaseMoskal/Nanoshooter)
+
+## Notes
+
+  - Startup performance will be improved by module bundling via Almond.

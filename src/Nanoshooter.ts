@@ -13,12 +13,18 @@ export default class Nanoshooter {
      *   - Create the canvas element.
      *   - Boot up the Babylon game engine.
      */
-    constructor(hostElement: HTMLElement) {
+    constructor(settings: NanoshooterSettings = {}) {
         const startTime = (+new Date);
+
+        // Host element that contains the canvas.
+        const host: HTMLElement = settings.host || document.body;
+
+        // Log function for outputting debug information to the console.
+        const log: Logger = settings.log || ((...messages: any[]) => console.debug.apply(console, messages));
 
         // Establish the canvas, insert it into the host element.
         const canvas = document.createElement("canvas");
-        hostElement.appendChild(canvas);
+        host.appendChild(canvas);
 
         // Initialize the Babylon engine.
         const engine = new BABYLON.Engine(canvas, true);
@@ -44,9 +50,13 @@ export default class Nanoshooter {
         // Handle browser resize.
         window.addEventListener("resize", () => engine.resize());
 
-        // Log game initialization duration.
-        const startupDuration = (+new Date) - startTime;
-        console.debug(`Game took ${startupDuration.toFixed(0)}ms to initialize.`);
+        // Logging some timings.
+        const endTime = (+new Date);
+        log(``);
+        log(`Loading time ————————→ ${(startTime - performance.timing.navigationStart).toFixed(0)} ms`);
+        log(`Game initialization —→ ${(endTime - startTime).toFixed(0)} ms`);
+        log(`Total startup time ——→ ${(endTime - performance.timing.navigationStart).toFixed(0)} ms`);
+        log(``);
     }
 
     /**
@@ -56,3 +66,14 @@ export default class Nanoshooter {
         throw "Terrible mistake!";
     }
 }
+
+/**
+ * Inputs for a Nanoshooter instance.
+ */
+export interface NanoshooterSettings {
+    host?: HTMLElement;
+    log?: Logger;
+}
+
+/** Outputs debugging-oriented log messages. */
+export type Logger = (...messages: string[]) => void;

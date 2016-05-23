@@ -55,7 +55,7 @@ export default class Game extends Stateful {
      * Rendering loop.
      * All rendering activities happen here.
      */
-    render(renderInfo: RenderInfo): void {
+    render(renderInfo: TickInfo): void {
         this.scene.render();
         ++this.totalFrames;
     }
@@ -108,10 +108,4 @@ export interface GameState {
     entities: {
         [id: string]: Entity;
     };
-}
-
-export interface RenderInfo {
-
-    /** Time since the last frame, in milliseconds. */
-    since: number;
 }

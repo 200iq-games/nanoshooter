@@ -1,11 +1,22 @@
 
+/**
+ * Utility dedicated to stop/start controls for ticking loops, like game logic or physics.
+ */
 export default class Ticker {
+
+    /** Action to be called for every tick while the ticker is running. */
     action: TickAction;
 
+    /**
+     * Create a ticker with an action function which will be called repeatedly.
+     */
     constructor(action: TickAction) {
         this.action = action;
     }
 
+    /**
+     * Halt the ticker.
+     */
     stop(): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             this.stopTickingCallback = () => resolve();
@@ -13,6 +24,9 @@ export default class Ticker {
     }
     stopTickingCallback: () => void;
 
+    /**
+     * Start the recursive tick loop.
+     */
     tick(): void {
         if (this.stopTickingCallback) return this.stopTickingCallback();
         const since = performance.now() - this.lastTickTime;
@@ -26,6 +40,7 @@ export default class Ticker {
     }
     lastTickTime = performance.now();
 
+    /** Alias to start ticking. */
     start() { this.tick(); }
 }
 

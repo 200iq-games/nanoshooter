@@ -43,9 +43,9 @@ export default class Nanoshooter {
 
         const endTime = (+new Date);
         log(``);
-        log(`Loading time ————————→ ${(startTime - performance.timing.navigationStart).toFixed(0)} ms`);
-        log(`Game initialization —→ ${(endTime - startTime).toFixed(0)} ms`);
-        log(`Total startup time ——→ ${(endTime - performance.timing.navigationStart).toFixed(0)} ms`);
+        log(`Loading ————————→ ${(startTime - performance.timing.navigationStart).toFixed(0)} ms`);
+        log(`Game init ——————→ ${(endTime - startTime).toFixed(0)} ms`);
+        log(`TOTAL startup ——→ ${(endTime - performance.timing.navigationStart).toFixed(0)} ms`);
         log(``);
     }
 }

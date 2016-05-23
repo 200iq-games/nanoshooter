@@ -17,7 +17,7 @@ export default class Nanoshooter {
         this.canvas = document.createElement("canvas");
         this.engine = new BABYLON.Engine(this.canvas, true);
 
-        const startupDuration = ((+new Date) - startTime);
+        const startupDuration = (+new Date) - startTime;
         console.debug(`Game took ${startupDuration.toFixed(0)}ms to initialize.`);
     }
 

@@ -6,6 +6,7 @@
   "scripts": {
     "install": "bower install",
     "build": "tsc && echo Build complete.",
+    "watch": "tsc -w",
     "test": "echo No tests yet, lol && exit 0"
   },
   "repository": {

@@ -3,7 +3,12 @@ import Stateful from "./Stateful";
 import Entity from "./Entity";
 
 export default class Game extends Stateful {
+    log: Logger;
+
     state: GameState;
+    canvas: HTMLCanvasElement;
+    engine: BABYLON.Engine;
+    scene: BABYLON.Scene;
 
     constructor(options: GameOptions) {
         super();
@@ -14,40 +19,49 @@ export default class Game extends Stateful {
             entities: {}
         };
 
-        const canvas = document.createElement("canvas");
-        host.appendChild(canvas);
+        this.canvas = document.createElement("canvas");
+        host.appendChild(this.canvas);
 
-        const engine = new BABYLON.Engine(canvas, true);
-        const scene = (() => {
-            const scene = new BABYLON.Scene(engine);
-            scene.clearColor = new BABYLON.Color3(0, 0.1, 0);
-            const camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
-            camera.setTarget(BABYLON.Vector3.Zero());
-            camera.attachControl(canvas, false);
-            const light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
-            light.intensity = 0.5;
-            const sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
-            sphere.position.y = 1;
-            const ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
-            return scene;
-        })();
+        const engine = this.engine = new BABYLON.Engine(this.canvas, true); // Canvas must already be attached to the document.
+        const scene = this.scene = new BABYLON.Scene(engine);
 
-        engine.runRenderLoop(() => scene.render());
         window.addEventListener("resize", () => engine.resize());
+        engine.runRenderLoop(() => scene.render());
 
         const endTime = (+new Date);
-        log(``);
-        log(`Loading ————————→ ${(startTime - performance.timing.navigationStart).toFixed(0)} ms`);
-        log(`Game init ——————→ ${(endTime - startTime).toFixed(0)} ms`);
-        log(`TOTAL startup ——→ ${(endTime - performance.timing.navigationStart).toFixed(0)} ms`);
-        log(``);
+        const loadingTime = (startTime - performance.timing.navigationStart).toFixed(0);
+        const gameInitTime = (endTime - startTime).toFixed(0);
+        const totalStartupTime = (endTime - performance.timing.navigationStart).toFixed(0);
+        log(`Total startup ${totalStartupTime}ms – Page loading ${loadingTime}ms – Game initialization ${gameInitTime}ms`);
     }
 
+    stopTicking: () => void;
+    stop(): Promise<void> {
+        this.engine.stopRenderLoop();
+        return new Promise<void>((resolve, reject) => {
+            this.stopTicking = () => resolve();
+        });
+    }
+
+    lastTickTime = (+new Date);
+    tick(): void {
+        if (this.stopTicking) return this.stopTicking();
+        const since = (+new Date) - this.lastTickTime;
+        this.tick();
+    }
+
+    lastRender = (+new Date);
+    render(): void {
+        const since = (+new Date) - this.lastRender;
+        this.scene.render();
+    }
+
+    // Entities must be attached to the game after they are created.
     nextId = 0;
     pullId = () => (++this.nextId).toString();
-    attach(...entities: Entity[]) {
+    attach(...entities: Entity[]): void {
         for (const entity of entities) {
-            let id = this.pullId();
+            const id = this.pullId();
             entity.attach(this, id);
             this.state.entities[id] = entity;
         }

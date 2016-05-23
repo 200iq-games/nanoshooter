@@ -4,7 +4,9 @@
 
 import Nanoshooter from "./Nanoshooter";
 import Entity from "./Engine/Entity";
-const log = (...messages: any[]) => console.debug.apply(console, messages);
+import {Logger} from "./Engine/Game";
+
+const log: Logger = (...messages: any[]) => console.debug.apply(console, messages);
 
 // Instance the Nanoshooter game.
 const nanoshooter = new Nanoshooter({

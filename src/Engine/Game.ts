@@ -1,39 +1,53 @@
 
 import Stateful from "./Stateful";
+import Director from "./Director";
 import Ticker, {TickInfo} from "./Ticker";
 import Entity from "./Entity";
 
+/**
+ * Networkable 3D web game infrastructure.
+ * Establishes a robust serializble game state and network-ready game logic engine.
+ * Employs the 'director' to bring the game state to life with Babylon.
+ */
 export default class Game extends Stateful {
+
+    /** Serializable game state data. */
+    state: GameState = {
+        entities: {}
+    };
+
+    /** Logging utility. */
     log: Logger;
-    state: GameState;
+
+    /** Game logic loop utility. */
     logicTicker: Ticker;
 
-    canvas: HTMLCanvasElement;
-    engine: BABYLON.Engine;
-    scene: BABYLON.Scene;
+    /** Nifty debug info. */
+    diagnostics = {
+        totalTicks: 0
+    };
 
-    totalTicks: number = 0;
-    totalFrames: number = 0;
+    /** Manages the Babylon game scene. */
+    director: Director;
 
+    /**
+     * Initialize a game.
+     *   - Create the director.
+     *   - Establish the game logic loop ticker.
+     *   - Log some nifty timing info.
+     */
     constructor(options: GameOptions) {
         super();
+        this.log = options.log;
         const startTime = (+new Date);
 
-        this.log = options.log;
+        // Create the director, which will represent this game as a BabylonJS scene.
+        this.director = new Director({
+            game: this,
+            hostElement: options.hostElement
+        });
 
-        this.state = {
-            entities: {}
-        };
-
-        this.canvas = document.createElement("canvas");
-        options.host.appendChild(this.canvas);
-
-        this.engine = new BABYLON.Engine(this.canvas, true); // Canvas must already be attached to the document.
-        this.scene = new BABYLON.Scene(this.engine);
-
-        window.addEventListener("resize", () => this.engine.resize());
-
-        // We establish our own ticker for logic, but not for rendering (Babylon handles its own render loop).
+        // We establish our own ticker for game logic (the babylon rendering loop is managed by the director).
         this.logicTicker = new Ticker(tickInfo => this.logic(tickInfo));
 
         const endTime = (+new Date);
@@ -46,38 +60,25 @@ export default class Game extends Stateful {
     /**
      * Game logic loop.
      * All game logic occurs here.
+     * We'll probably want to poke the director from here a lot.
      */
     logic(tickInfo: TickInfo) {
-        ++this.totalTicks;
+        ++this.diagnostics.totalTicks;
     }
-
+    
     /**
-     * Rendering loop.
-     * All rendering activities happen here.
-     */
-    render(renderInfo: TickInfo): void {
-        this.scene.render();
-        ++this.totalFrames;
-    }
-
-    /**
-     * Run the game engine (rendering and logic loops).
+     * Run the whole game engine (start the logic ticker, prompt the director to start rendering).
      */
     start() {
         this.logicTicker.start();
-        this.engine.runRenderLoop(() => {
-            const since = performance.now() - this.lastRenderTime;
-            this.render({since});
-            this.lastRenderTime = performance.now();
-        });
+        this.director.start();
     }
-    private lastRenderTime = performance.now();
 
     /**
-     * Halt the game engine (rendering and logic loops).
+     * Halt the whole game engine (stop the logic ticker, tell the director to stop rendering).
      */
     stop(): Promise<void> {
-        this.engine.stopRenderLoop();
+        this.director.stop();
         return this.logicTicker.stop();
     }
 
@@ -86,7 +87,7 @@ export default class Game extends Stateful {
     nextId = 0;
 
     /**
-     * Attach an entity to the game.
+     * Attach an entity to this game.
      */
     attach(...entities: Entity[]): void {
         for (const entity of entities) {
@@ -97,13 +98,18 @@ export default class Game extends Stateful {
     }
 }
 
+/**
+ * Structure of options for creating a new game.
+ */
 export interface GameOptions {
-    host: HTMLElement;
     log: Logger;
+    hostElement: HTMLElement;
 }
 
+/** Log utility signature. */
 export type Logger = (...messages: string[]) => void;
 
+/** Structure of serializable game state data. */
 export interface GameState {
     entities: {
         [id: string]: Entity;

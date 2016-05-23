@@ -21,7 +21,7 @@ export default class Entity extends Stateful {
 
     /**
      * Create a new Entity.
-     * You can optionally provide a label for each instance.
+     * You can optionally provide your own label for each instance.
     */
     constructor(options: EntityOptions) {
         super();

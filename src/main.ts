@@ -9,7 +9,7 @@ const log: Logger = (...messages: any[]) => console.debug.apply(console, message
 
 // Instance the Nanoshooter game.
 const nanoshooter = new Nanoshooter({
-    host: document.body,
+    hostElement: document.body,
     log
 });
 

@@ -12,7 +12,7 @@ import Entity from "./Entity";
  */
 export default class Game {
 
-    /** All entities in the game world. */
+    /** All entities in the game world. This is the core of the game's state. */
     entities: { [id: string]: Entity; } = {};
 
     /** Logging utility. */
@@ -42,13 +42,13 @@ export default class Game {
         this.log = options.log;
         const startTime = (+new Date);
 
-        // The director manages the Babylon scene.
+        // The director manages the Babylon scene based on this game's state.
         this.director = new Director({
             game: this,
             hostElement: options.hostElement
         });
 
-        // Mediates entity messages.
+        // System for entities to send messages to each other.
         this.messenger = new Messenger(this);
 
         // We establish our own ticker for game logic (the babylon rendering loop is managed by the director).
@@ -61,12 +61,20 @@ export default class Game {
         this.log(`Total startup ${totalStartupTime} ms – Page loading ${loadingTime} ms – Game initialization ${gameInitTime} ms`);
     }
 
-    /** Add an entity to this game. */
+    /** Entity ID pulling station. */
+    pullId = () => (++this.nextId).toString();
+    nextId = 0;
+
+    /**
+     * Add an entity to this game.
+     */
     add(entity: Entity) {
         this.entities[entity.id] = entity;
     }
 
-    /** Remove an entity from this game. */
+    /**
+     * Remove an entity from this game.
+     */
     remove(entity: Entity) {
         entity.removal();
         delete this.entities[entity.id];
@@ -102,10 +110,6 @@ export default class Game {
         this.director.stop();
         return this.logicTicker.stop();
     }
-
-    /** Entity ID pulling station. */
-    pullId = () => (++this.nextId).toString();
-    nextId = 0;
 }
 
 /**

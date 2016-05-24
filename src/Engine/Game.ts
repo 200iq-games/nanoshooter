@@ -1,7 +1,8 @@
 
 import Stateful from "./Stateful";
-import Director from "./Director";
 import Ticker, {TickInfo} from "./Ticker";
+import Messenger from "./Messenger";
+import Director from "./Director";
 import Entity from "./Entity";
 
 /**
@@ -9,12 +10,10 @@ import Entity from "./Entity";
  * Establishes a robust serializble game state and network-ready game logic engine.
  * Employs the 'director' to bring the game state to life with Babylon.
  */
-export default class Game extends Stateful {
+export default class Game {
 
-    /** Serializable game state data. */
-    state: GameState = {
-        entities: {}
-    };
+    /** All entities in the game world. */
+    entities: { [id: string]: Entity; } = {};
 
     /** Logging utility. */
     log: Logger;
@@ -30,6 +29,9 @@ export default class Game extends Stateful {
     /** Manages the Babylon game scene. */
     director: Director;
 
+    /** Delivers entity messages. */
+    messenger: Messenger;
+
     /**
      * Initialize a game.
      *   - Create the director.
@@ -37,18 +39,20 @@ export default class Game extends Stateful {
      *   - Log some nifty timing info.
      */
     constructor(options: GameOptions) {
-        super();
         this.log = options.log;
         const startTime = (+new Date);
 
-        // Create the director, which will represent this game as a BabylonJS scene.
+        // The director manages the Babylon scene.
         this.director = new Director({
             game: this,
             hostElement: options.hostElement
         });
 
+        // Mediates entity messages.
+        this.messenger = new Messenger(this);
+
         // We establish our own ticker for game logic (the babylon rendering loop is managed by the director).
-        this.logicTicker = new Ticker(tickInfo => this.logic(tickInfo));
+        this.logicTicker = new Ticker(info => this.logic(info));
 
         const endTime = (+new Date);
         const loadingTime = (startTime - performance.timing.navigationStart).toFixed(0);
@@ -57,13 +61,30 @@ export default class Game extends Stateful {
         this.log(`Total startup ${totalStartupTime} ms – Page loading ${loadingTime} ms – Game initialization ${gameInitTime} ms`);
     }
 
+    /** Add an entity to this game. */
+    add(entity: Entity) {
+        this.entities[entity.id] = entity;
+    }
+
+    /** Remove an entity from this game. */
+    remove(entity: Entity) {
+        entity.removal();
+        delete this.entities[entity.id];
+    }
+
     /**
      * Game logic loop.
      * All game logic occurs here.
      * We'll probably want to poke the director from here a lot.
      */
-    logic(tickInfo: TickInfo) {
+    logic(info: TickInfo) {
         ++this.diagnostics.totalTicks;
+
+        // Loop over all entities and run their logic routines.
+        for (const id of Object.keys(this.entities)) {
+            const entity = this.entities[id];
+            entity.logic(info);
+        }
     }
     
     /**
@@ -85,17 +106,6 @@ export default class Game extends Stateful {
     /** Entity ID pulling station. */
     pullId = () => (++this.nextId).toString();
     nextId = 0;
-
-    /**
-     * Attach an entity to this game.
-     */
-    attach(...entities: Entity[]): void {
-        for (const entity of entities) {
-            const id = this.pullId();
-            entity.attach(this, id);
-            this.state.entities[id] = entity;
-        }
-    }
 }
 
 /**
@@ -107,11 +117,4 @@ export interface GameOptions {
 }
 
 /** Log utility signature. */
-export type Logger = (...messages: string[]) => void;
-
-/** Structure of serializable game state data. */
-export interface GameState {
-    entities: {
-        [id: string]: Entity;
-    };
-}
+export type Logger = (...messages: any[]) => void;

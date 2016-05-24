@@ -1,5 +1,6 @@
 
-import Entity, {EntityState} from "../Engine/Entity";
+import Entity, {EntityState, EntityOptions} from "../Engine/Entity";
+import {TickInfo} from "../Engine/Ticker";
 
 /**
  * A simple cube object in the game world.

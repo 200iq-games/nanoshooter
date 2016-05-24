@@ -27,7 +27,7 @@ export default class Ticker {
     /**
      * Start the recursive tick loop.
      */
-    tick(): void {
+    tick() {
         if (this.stopTickingCallback) return this.stopTickingCallback();
         const since = performance.now() - this.lastTickTime;
 

@@ -1,45 +1,35 @@
 
-import Stateful, {State} from "./Stateful";
-import Game from "./Game";
-import {TickInfo} from "./Ticker";
-import {Message} from "./Messenger";
+import Game from "./Game"
+import {TickInfo} from "./Ticker"
+import {Message} from "./World"
 
 /**
  * Game world object.
  */
-export default class Entity extends Stateful {
+export default class Entity {
 
-    /** Human-readable name for an entity. Doesn't have to be unique. */
-    label: string = "Entity";
+    /** Module ID for this entity class. Entity classes are referenced by this string in the serializable game state. */
+    static type: string = "Nanoshooter/Entities/Entity"
 
-    /** Reference to the parent game. */
-    game: Game;
+    /** Unique identifier for this entity instance, assigned to this entity by the parent game during attachment. */
+    tag: string
 
-    /** Unique identifier for this entity, assigned to this entity by the parent game during attachment. */
-    id: string;
-
-    /** Serializable state for this entity. */
-    state: EntityState = {};
+    /** Human-friendly nickname for this entity instance. Doesn't have to be unique. */
+    label: string
 
     /**
-     * Create a new Entity, and have it attached to a game instance.
+     * Create a new entity instance.
      * You can optionally provide your own label for each instance.
      */
-    constructor(options: EntityOptions) {
-        super();
-
-        this.game = options.game;
-        this.id = options.id;
-        this.game.add(this);
-
-        if (options.label)
-            this.label = options.label;
+    constructor({tag, label = ""}: EntityOptions) {
+        this.tag = tag
+        this.label = label
     }
 
     /**
      * Run game logic for this entity, every tick.
      */
-    logic(info: TickInfo) {}
+    logic(entityState: EntityState, tickInfo: TickInfo) {}
 
     /**
      * Handle messages received from other entities.
@@ -56,20 +46,16 @@ export default class Entity extends Stateful {
      * Entity's aesthetic appearance in debugging logs.
      */
     toString() {
-        return `<${this.label}${this.id?' id='+this.id:''}>`;
+        return `<${this.label}${this.tag?' id='+this.tag:''}>`
     }
 }
 
-/**
- * Structure of options for instancing a new entity.
- */
 export interface EntityOptions {
-    game: Game;
-    id: string;
-    label?: string;
+    tag: string
+    label?: string
 }
 
-/**
- * Structure of serializable entity state data.
- */
-export interface EntityState extends State {}
+export interface EntityState {
+    type?: string
+    label?: string
+}

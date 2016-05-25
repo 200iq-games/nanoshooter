@@ -8,13 +8,13 @@ import {Message} from "./World"
  */
 export default class Entity {
 
-    /** Module ID for this entity class. Entity classes are referenced by this string in the serializable game state. */
+    /** Module ID for this entity class. Used to load entity classes on-the-fly. */
     static type: string = "Nanoshooter/Entities/Entity"
 
-    /** Unique identifier for this entity instance, assigned to this entity by the parent game during attachment. */
+    /** Unique ID tag for this entity instance. */
     tag: string
 
-    /** Human-friendly nickname for this entity instance. Doesn't have to be unique. */
+    /** Human-friendly nickname for this entity instance. Doesn't have to be unique. Useful for entity queries. */
     label: string
 
     /**
@@ -27,7 +27,7 @@ export default class Entity {
     }
 
     /**
-     * Run game logic for this entity, every tick.
+     * Run game logic for this entity.
      */
     logic(entityState: EntityState, tickInfo: TickInfo) {}
 

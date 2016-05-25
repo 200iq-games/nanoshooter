@@ -6,7 +6,6 @@ import Ticker, {TickInfo} from "./Ticker"
 
 /**
  * Networkable 3D web game infrastructure.
- * This class connects together the components
  */
 export default class Game {
 
@@ -54,9 +53,8 @@ export default class Game {
      * Add an entity by state.
      */
     addEntity(entityState: EntityState) {
-        const {state} = this
         const tag = this.pullTag()
-        state.entities[tag] = entityState
+        this.state.entities[tag] = entityState
         if (!entityState.type) throw "type required in entityState"
         if (!entityState.label) throw "label required in entityState"
     }
@@ -65,8 +63,7 @@ export default class Game {
      * Remove an entity by state.
      */
     removeEntity(tag: string) {
-        const {state} = this
-        delete state.entities[tag]
+        delete this.state.entities[tag]
     }
 
     /**

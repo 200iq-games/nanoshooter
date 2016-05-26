@@ -1,7 +1,7 @@
 
 import Entity from "./Entity"
 import {TickInfo} from "./Ticker"
-import {GameState} from "./Game"
+import {GameState, Logger} from "./Game"
 declare const require: (moduleIds: string[], callback?: (...modules:any[]) => void, errback?: (error: Error) => void) => void
 
 /**
@@ -10,8 +10,18 @@ declare const require: (moduleIds: string[], callback?: (...modules:any[]) => vo
  */
 export default class World {
 
-    /** Entity instances. */
-    entities: { [tag: string]: Entity } = {}
+    /** Function for logging interesting world events. */
+    private log: Logger
+
+    /** Entity. */
+    private entities: { [tag: string]: Entity } = {}
+
+    /**
+     * Create a world instance with some world options.
+     */
+    constructor({log}: WorldOptions) {
+        this.log = log
+    }
 
     /**
      * Synchronize the world to the provided game state data.
@@ -63,6 +73,9 @@ export default class World {
 
     /**
      * Deliver a message.
+     * TODO: Entities should ONLY be able to message THEMSELVES.
+     *   Why? Entities will be allowed to keep direct references to other entities, and even query for world entities.
+     *   Messaging isn't about 
      */
     sendMessage(message: Message) {
         let delivered = false;
@@ -90,6 +103,10 @@ export default class World {
 
         if (!delivered) throw "Message delivery failed"
     }
+}
+
+export interface WorldOptions {
+    log: Logger
 }
 
 /**

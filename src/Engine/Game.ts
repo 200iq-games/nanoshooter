@@ -9,34 +9,33 @@ import Ticker, {TickInfo} from "./Ticker"
  */
 export default class Game {
 
+    /** Manages the Babylon game scene. */
+    protected stage: Stage
+
     /** JSON data that describes the entire game world. */
-    state: GameState;
+    private state: GameState;
 
     /** Maintains entity instances, synchronizes with game state. */
-    world: World
-
-    /** Manages the Babylon game scene. */
-    stage: Stage
+    private world: World
 
     /** Game logic loop utility. */
-    ticker: Ticker
+    private ticker: Ticker
 
     /** Logging utility. */
-    log: Logger
+    private log: Logger
 
     /**
      * Initialize a game.
      */
     constructor({
-      hostElement = document.body,
-      log = logger
+      log = (...messages: any[]) => console.log.apply(console, messages),
+      hostElement = document.body
     }: GameOptions = {}) {
         const startTime = (+new Date)
 
         // Wire up the components that make a game happen.
-        this.log = log;
         this.state = { entities: {} }
-        this.world = new World()
+        this.world = new World({log})
         this.stage = new Stage({hostElement})
         this.ticker = new Ticker({
             tick: info => this.logic(info)
@@ -83,13 +82,13 @@ export default class Game {
     }
 
     /** Entity tag pulling station. */
-    protected pullTag = () => (++this.nextTag).toString()
+    private pullTag = () => (++this.nextTag).toString()
     private nextTag = 0
 
     /**
      * Game logic tick.
      */
-    protected logic(tickInfo: TickInfo) {
+    private logic(tickInfo: TickInfo) {
         const {world, state} = this
         world.sync(state)
         world.logic(state, tickInfo)
@@ -99,7 +98,6 @@ export default class Game {
 /**
  * Simple log function, outputs to the console.
  */
-export const logger: Logger = (...messages: any[]) => console.log.apply(console, messages)
 export type Logger = (...messages: any[]) => void
 
 export interface GameOptions {

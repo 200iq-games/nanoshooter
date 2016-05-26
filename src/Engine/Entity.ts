@@ -50,7 +50,7 @@ export default class Entity {
      * Entity's aesthetic appearance in debugging logs.
      */
     toString() {
-        return `<${this.label}${this.tag?' id='+this.tag:''}>`
+        return `<${this.label}${this.tag?' tag='+this.tag:''}>`
     }
 }
 

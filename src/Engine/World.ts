@@ -34,6 +34,7 @@ export default class World {
         for (const tag of Object.keys(state.entities)) {
             const entityState = state.entities[tag]
             const entity = this.entities[tag]
+
             if (!entity) { // Entity is missing (is present in the state).
                 return new Promise<void>((resolve, reject)=>{
                     require([entityState.type], module => {
@@ -41,6 +42,7 @@ export default class World {
                             tag,
                             label: entityState.label
                         })
+                        this.log(`(+) Added ${this.entities[tag]}`)
                     }, error => { throw error })
                 });
             }
@@ -54,6 +56,7 @@ export default class World {
             if (!entityState) { // Entity is extraneous (not present in state).
                 entity.removal()
                 delete this.entities[tag]
+                this.log(`(-) Removed ${entity}`)
             }
         }
 

@@ -53,9 +53,9 @@ export default class Game {
      */
     addEntity(entityState: EntityState) {
         const tag = this.pullTag()
-        this.state.entities[tag] = entityState
         if (!entityState.type) throw "type required in entityState"
         if (!entityState.label) throw "label required in entityState"
+        this.state.entities[tag] = entityState
     }
 
     /**

@@ -70,53 +70,8 @@ export default class World {
             if (entity) entity.logic(entityState, tickInfo)
         }
     }
-
-    /**
-     * Deliver a message.
-     * TODO: Entities should ONLY be able to message THEMSELVES.
-     *   Why? Entities will be allowed to keep direct references to other entities, and even query for world entities.
-     *   Messaging isn't about 
-     */
-    sendMessage(message: Message) {
-        let delivered = false;
-
-        for (const tag of Object.keys(this.entities)) {
-            const entity = this.entities[tag]
-
-            // Broadcast message.
-            if (message.recipients === "*") {
-                entity.receive(message)
-                delivered = true
-            }
-
-            // Targeted message.
-            else if (message.recipients.constructor === Array) {
-                const recipients = <string[]> message.recipients
-                if (recipients.some(id => id === entity.tag)) {
-                    entity.receive(message)
-                    delivered = true
-                }
-            }
-
-            else throw "Unknown type for message recipients"
-        }
-
-        if (!delivered) throw "Message delivery failed"
-    }
 }
 
 export interface WorldOptions {
     log: Logger
-}
-
-/**
- * Message to world entities.
- */
-export interface Message {
-
-    /** Array of recipient entity tag strings, or "*" indicating broadcast to all entities. */
-    recipients: string | string[]
-
-    /** Message data body. */
-    data: any
 }

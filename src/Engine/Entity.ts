@@ -1,7 +1,6 @@
 
 import Game from "./Game"
 import {TickInfo} from "./Ticker"
-import {Message} from "./World"
 
 /**
  * Game world object.
@@ -32,7 +31,12 @@ export default class Entity {
     logic(entityState: EntityState, tickInfo: TickInfo) {}
 
     /**
-     * Handle messages received from other entities.
+     * Send a message to remote copies of this entity.
+     */
+    send(message: Message) { this.receive(message) }
+
+    /**
+     * Handle a message received from a remote copy of this entity.
      */
     receive(message: Message) {}
 
@@ -50,12 +54,27 @@ export default class Entity {
     }
 }
 
+/**
+ * Options for creating an entity.
+ */
 export interface EntityOptions {
     tag: string
     label?: string
 }
 
+/**
+ * Serializable state for an entity.
+ */
 export interface EntityState {
     type?: string
     label?: string
+}
+
+/**
+ * Message to world entities.
+ */
+export interface Message {
+
+    /** Message data body. */
+    payload: any
 }

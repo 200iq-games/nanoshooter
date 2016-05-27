@@ -13,7 +13,7 @@ export default class Stage {
         // Initializing a blank Babylon scene.
         this.canvas = document.createElement("canvas")
         options.hostElement.appendChild(this.canvas)
-        this.engine = new BABYLON.Engine(this.canvas, true) // Canvas must already be attached to the document.
+        this.engine = new BABYLON.Engine(this.canvas, true)
         this.scene = new BABYLON.Scene(this.engine)
         window.addEventListener("resize", () => this.engine.resize())
     }

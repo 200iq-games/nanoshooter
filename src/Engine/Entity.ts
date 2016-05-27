@@ -1,5 +1,6 @@
 
 import Game from "./Game"
+import Stage from "./Stage"
 import {TickInfo} from "./Ticker"
 
 /**
@@ -7,17 +8,20 @@ import {TickInfo} from "./Ticker"
  */
 export default class Entity {
 
+    /** Module ID for this entity class. Used to load entity classes on-the-fly. */
+    static type: string = "Nanoshooter/Entities/Entity"
+
     /**
      * Create a new entity instance.
      * You can optionally provide your own label for each instance.
      */
-    constructor({tag, label = ""}: EntityOptions) {
+    constructor({stage, tag, label = ""}: EntityOptions) {
         this.tag = tag
         this.label = label
     }
 
-    /** Module ID for this entity class. Used to load entity classes on-the-fly. */
-    static type: string = "Nanoshooter/Entities/Entity"
+    /** Access to the Babylon scene. */
+    private stage: Stage
 
     /** Unique ID tag for this entity instance. */
     tag: string
@@ -58,6 +62,7 @@ export default class Entity {
  * Options for creating an entity.
  */
 export interface EntityOptions {
+    stage: Stage
     tag: string
     label?: string
 }

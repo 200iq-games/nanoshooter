@@ -12,40 +12,32 @@ export default class Game {
     /**
      * Initialize a game.
      */
-    constructor({
-      log = (...messages: any[]) => console.log.apply(console, messages),
-      hostElement = document.body
-    }: GameOptions = {}) {
-        const startTime = (+new Date)
-
-        // Wire up the components that make a game happen.
+    constructor({log, hostElement}: GameOptions = {}) {
         this.state = { entities: {} }
-        this.world = new World({log})
         this.stage = new Stage({hostElement})
-        this.ticker = new Ticker({
-            tick: info => this.logic(info)
+        this.world = new World({log, stage: this.stage})
+        this.logicTicker = new Ticker({
+            tick: tickInfo => {
+                this.world.sync(this.state)
+                this.world.logic(this.state, tickInfo)
+            }
         })
-
-        const endTime = (+new Date)
-        const loadingTime = (startTime - performance.timing.navigationStart).toFixed(0)
-        const gameInitTime = (endTime - startTime).toFixed(0)
-        log(`→ Page load ${loadingTime} ms / Game initialization ${gameInitTime} ms`)
     }
 
-    /** Manages the Babylon game scene. */
+    /** JSON data that describes the entire game world. */
+    protected state: GameState
+
+    /** Babylon game scene. */
     protected stage: Stage
 
-    /** JSON data that describes the entire game world. */
-    private state: GameState
-
     /** Maintains entity instances, synchronizes with game state. */
-    private world: World
+    protected world: World
 
     /** Game logic loop utility. */
-    private ticker: Ticker
+    protected logicTicker: Ticker
 
     /** Logging utility. */
-    private log: Logger
+    protected log: Logger
 
     /**
      * Add an entity by state.
@@ -68,7 +60,7 @@ export default class Game {
      * Run the whole game engine (start the logic ticker, prompt the director to start rendering).
      */
     start() {
-        this.ticker.start()
+        this.logicTicker.start()
         this.stage.start()
     }
 
@@ -77,21 +69,12 @@ export default class Game {
      */
     stop(): Promise<void> {
         this.stage.stop()
-        return this.ticker.stop()
+        return this.logicTicker.stop()
     }
 
     /** Entity tag pulling station. */
     private pullTag = () => (++this.nextTag).toString()
     private nextTag = 0
-
-    /**
-     * Game logic tick.
-     */
-    private logic(tickInfo: TickInfo) {
-        const {world, state} = this
-        world.sync(state)
-        world.logic(state, tickInfo)
-    }
 }
 
 /**

@@ -8,7 +8,8 @@ export default class Nanoshooter extends Game {
         // Create a silly Babylon demo scene.
         const {engine, canvas, scene} = this.stage
         scene.clearColor = new BABYLON.Color3(0, 0.1, 0)
-        const camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene)
+        //const camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene)
+        const camera = new BABYLON.UniversalCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene)
         camera.setTarget(BABYLON.Vector3.Zero())
         camera.attachControl(canvas, false)
         const light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene)

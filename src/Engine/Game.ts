@@ -29,8 +29,7 @@ export default class Game {
         const endTime = (+new Date)
         const loadingTime = (startTime - performance.timing.navigationStart).toFixed(0)
         const gameInitTime = (endTime - startTime).toFixed(0)
-        const totalStartupTime = (endTime - performance.timing.navigationStart).toFixed(0)
-        log(`Total startup ${totalStartupTime} ms – Page loading ${loadingTime} ms – Game initialization ${gameInitTime} ms`)
+        log(`→ Page load ${loadingTime} ms / Game initialization ${gameInitTime} ms`)
     }
 
     /** Manages the Babylon game scene. */

@@ -18,7 +18,7 @@ export default class Nanoshooter extends Game {
         const ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene)
 
         // Start running the game engine.
-        this.start();
+        this.start()
     }
 }
 

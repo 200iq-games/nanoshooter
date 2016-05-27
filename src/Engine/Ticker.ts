@@ -9,14 +9,14 @@ export default class Ticker {
      */
     constructor({tick, relax = 16}: TickerOptions) {
         this.tick = tick
-        this.relax = relax;
+        this.relax = relax
     }
 
     /** Action to be called for every tick while the ticker is running. */
     private tick: TickAction
 
     /** Time to relax in between ticks. */
-    private relax: number;
+    private relax: number
 
     /** Nifty statistics. */
     private stats = {
@@ -56,7 +56,7 @@ export default class Ticker {
             window.requestAnimationFrame(() => {
                 this.start()
             })
-        }, this.relax);
+        }, this.relax)
     }
 
     /**
@@ -70,8 +70,8 @@ export default class Ticker {
 }
 
 export interface TickerOptions {
-    tick: TickAction;
-    relax?: number;
+    tick: TickAction
+    relax?: number
 }
 
 export type TickAction = (tickInfo: TickInfo) => void;

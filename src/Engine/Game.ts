@@ -37,7 +37,7 @@ export default class Game {
     protected stage: Stage
 
     /** JSON data that describes the entire game world. */
-    private state: GameState;
+    private state: GameState
 
     /** Maintains entity instances, synchronizes with game state. */
     private world: World

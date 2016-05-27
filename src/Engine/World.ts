@@ -60,7 +60,7 @@ export default class World {
             }
         }
 
-        return Promise.resolve();
+        return Promise.resolve()
     }
 
     /**

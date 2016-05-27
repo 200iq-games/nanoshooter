@@ -74,7 +74,7 @@ export interface TickerOptions {
     relax?: number
 }
 
-export type TickAction = (tickInfo: TickInfo) => void;
+export type TickAction = (tickInfo: TickInfo) => void
 
 export interface TickInfo {
 

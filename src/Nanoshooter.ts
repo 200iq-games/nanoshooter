@@ -1,9 +1,9 @@
 
-import Game, {GameOptions} from "./Engine/Game";
+import Game, {GameOptions} from "./Engine/Game"
 
 export default class Nanoshooter extends Game {
     constructor(options: NanoshooterOptions = {}) {
-        super(options);
+        super(options)
 
         // Create a silly Babylon demo scene.
         const {engine, canvas, scene} = this.stage

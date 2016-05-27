@@ -6,7 +6,10 @@ import {GameState, Logger} from "./Game"
 declare const require: (moduleIds: string[], callback?: (...modules:any[]) => void, errback?: (error: Error) => void) => void
 
 /**
- * Collection of game entities
+ * Contain the entities of the game world.
+ * Synchronizes with provided game state by adding or removing entities.
+ * Responsible for dynamically loading and instancing entities.
+ * Requires a stage reference, so it can be passed to each instanced entity.
  */
 export default class World {
 
@@ -18,14 +21,14 @@ export default class World {
         this.stage = stage
     }
 
-    /** Debug log function. */
-    private log: Logger
-
-    /** Babylon scene. */
+    /** Babylon scene, provided to each entity instance upon creation. */
     private stage: Stage
 
-    /** Entity. */
+    /** Collection of entity instances. */
     private entities: { [tag: string]: Entity } = {}
+
+    /** Debug log function. */
+    private log: Logger
 
     /**
      * Run the logic routine for every entity.

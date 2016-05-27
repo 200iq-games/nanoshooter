@@ -1,5 +1,5 @@
 
-import {TickInfo} from "./Ticker";
+import {TickInfo} from "./Ticker"
 
 /**
  * Governs the Babylon scene from a high level.
@@ -35,7 +35,7 @@ export default class Stage {
             const since = performance.now() - this.lastRenderTime
             this.render({since})
             this.lastRenderTime = performance.now()
-        });
+        })
     }
     private lastRenderTime = performance.now()
 

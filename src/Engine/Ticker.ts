@@ -49,7 +49,7 @@ export default class Ticker {
         this.lastTickTime = now
         const tickTime = now - tickStartTime
 
-        ++this.stats.totalTicks;
+        ++this.stats.totalTicks
 
         // Recurse, but give the browser some time to relax.
         setTimeout(()=>{

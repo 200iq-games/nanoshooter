@@ -44,7 +44,7 @@ export default class World {
                         })
                         this.log(`(+) Added ${this.entities[tag]}`)
                     }, error => { throw error })
-                });
+                })
             }
         }
 

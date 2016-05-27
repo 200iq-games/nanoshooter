@@ -5,14 +5,6 @@ import {TickInfo} from "./Ticker";
  * Governs the Babylon scene from a high level.
  */
 export default class Stage {
-    canvas: HTMLCanvasElement
-    engine: BABYLON.Engine
-    scene: BABYLON.Scene
-
-    /** Nifty debug info. */
-    stats = {
-        totalFrames: 0
-    }
 
     /**
      * Create a blank game world in Babylon.
@@ -24,6 +16,15 @@ export default class Stage {
         this.engine = new BABYLON.Engine(this.canvas, true) // Canvas must already be attached to the document.
         this.scene = new BABYLON.Scene(this.engine)
         window.addEventListener("resize", () => this.engine.resize())
+    }
+
+    canvas: HTMLCanvasElement
+    engine: BABYLON.Engine
+    scene: BABYLON.Scene
+
+    /** Nifty debug info. */
+    stats = {
+        totalFrames: 0
     }
 
     /**

@@ -9,21 +9,6 @@ import Ticker, {TickInfo} from "./Ticker"
  */
 export default class Game {
 
-    /** Manages the Babylon game scene. */
-    protected stage: Stage
-
-    /** JSON data that describes the entire game world. */
-    private state: GameState;
-
-    /** Maintains entity instances, synchronizes with game state. */
-    private world: World
-
-    /** Game logic loop utility. */
-    private ticker: Ticker
-
-    /** Logging utility. */
-    private log: Logger
-
     /**
      * Initialize a game.
      */
@@ -47,6 +32,21 @@ export default class Game {
         const totalStartupTime = (endTime - performance.timing.navigationStart).toFixed(0)
         log(`Total startup ${totalStartupTime} ms – Page loading ${loadingTime} ms – Game initialization ${gameInitTime} ms`)
     }
+
+    /** Manages the Babylon game scene. */
+    protected stage: Stage
+
+    /** JSON data that describes the entire game world. */
+    private state: GameState;
+
+    /** Maintains entity instances, synchronizes with game state. */
+    private world: World
+
+    /** Game logic loop utility. */
+    private ticker: Ticker
+
+    /** Logging utility. */
+    private log: Logger
 
     /**
      * Add an entity by state.

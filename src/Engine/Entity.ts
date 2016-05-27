@@ -7,15 +7,6 @@ import {TickInfo} from "./Ticker"
  */
 export default class Entity {
 
-    /** Module ID for this entity class. Used to load entity classes on-the-fly. */
-    static type: string = "Nanoshooter/Entities/Entity"
-
-    /** Unique ID tag for this entity instance. */
-    tag: string
-
-    /** Human-friendly nickname for this entity instance. Doesn't have to be unique. Useful for entity queries. */
-    label: string
-
     /**
      * Create a new entity instance.
      * You can optionally provide your own label for each instance.
@@ -24,6 +15,15 @@ export default class Entity {
         this.tag = tag
         this.label = label
     }
+
+    /** Module ID for this entity class. Used to load entity classes on-the-fly. */
+    static type: string = "Nanoshooter/Entities/Entity"
+
+    /** Unique ID tag for this entity instance. */
+    tag: string
+
+    /** Human-friendly nickname for this entity instance. Doesn't have to be unique. Useful for entity queries. */
+    label: string
 
     /**
      * Run game logic for this entity.

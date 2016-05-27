@@ -4,6 +4,14 @@
  */
 export default class Ticker {
 
+    /**
+     * Create a ticker with an action function which will be called repeatedly.
+     */
+    constructor({tick, relax = 16}: TickerOptions) {
+        this.tick = tick
+        this.relax = relax;
+    }
+
     /** Action to be called for every tick while the ticker is running. */
     private tick: TickAction
 
@@ -13,14 +21,6 @@ export default class Ticker {
     /** Nifty statistics. */
     private stats = {
         totalTicks: 0
-    }
-
-    /**
-     * Create a ticker with an action function which will be called repeatedly.
-     */
-    constructor({tick, relax = 16}: TickerOptions) {
-        this.tick = tick
-        this.relax = relax;
     }
 
     // For starting and stopping.

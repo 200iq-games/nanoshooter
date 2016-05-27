@@ -10,18 +10,18 @@ declare const require: (moduleIds: string[], callback?: (...modules:any[]) => vo
  */
 export default class World {
 
-    /** Function for logging interesting world events. */
-    private log: Logger
-
-    /** Entity. */
-    private entities: { [tag: string]: Entity } = {}
-
     /**
      * Create a world instance with some world options.
      */
     constructor({log}: WorldOptions) {
         this.log = log
     }
+
+    /** Function for logging interesting world events. */
+    private log: Logger
+
+    /** Entity. */
+    private entities: { [tag: string]: Entity } = {}
 
     /**
      * Synchronize the world to the provided game state data.

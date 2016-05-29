@@ -19,10 +19,11 @@ export default class Stage {
     }
 
     canvas: HTMLCanvasElement
+
     engine: BABYLON.Engine
+
     scene: BABYLON.Scene
 
-    /** Nifty debug info. */
     stats = {
         totalFrames: 0
     }

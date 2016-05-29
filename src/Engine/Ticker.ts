@@ -1,6 +1,6 @@
 
 /**
- * Utility dedicated to stop/start controls for ticking loops, like game logic or physics.
+ * Stop/start controls for generic ticking loops.
  */
 export default class Ticker {
 

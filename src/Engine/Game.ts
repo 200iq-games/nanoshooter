@@ -19,34 +19,45 @@ export default class Game {
         this.logicTicker = new Ticker({
             tick: tickInfo => {
                 this.world.sync(this.state)
-                this.world.logic(this.state, tickInfo)
+                this.world.loop((entity, tag) => entity.logic(this.state.entities[tag], tickInfo))
             }
         })
+        this.initialize()
     }
 
     /** JSON data that describes the entire game world. */
-    protected state: GameState
+    state: GameState
 
     /** Babylon game scene. */
-    protected stage: Stage
+    stage: Stage
 
     /** Maintains entity instances, synchronizes with game state. */
-    protected world: World
+    world: World
 
     /** Game logic loop utility. */
-    protected logicTicker: Ticker
+    logicTicker: Ticker
 
     /** Logging utility. */
-    protected log: Logger
+    log: Logger
+
+    /**
+     * Initialize a game.
+     */
+    initialize() {}
+
+    /**
+     * Apply a game state delta patch.
+     */
+    applyState(delta: GameState) {}
 
     /**
      * Add an entity by state.
      */
-    addEntity(entityState: EntityState) {
+    addEntity(state: EntityState) {
         const tag = this.pullTag()
-        if (!entityState.type) throw "type required in entityState"
-        if (!entityState.label) throw "label required in entityState"
-        this.state.entities[tag] = entityState
+        if (!state.type) throw "type required in entity state"
+        if (!state.label) throw "label required in entity state"
+        this.state.entities[tag] = state
     }
 
     /**
@@ -88,5 +99,7 @@ export interface GameOptions {
 }
 
 export interface GameState {
-    entities: { [tag: string]: EntityState }
+    entities: { [tag: string]: EntityState },
 }
+
+export {TickInfo}

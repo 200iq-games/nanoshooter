@@ -4,12 +4,21 @@
 
 import Nanoshooter from "./Nanoshooter"
 
+// This script instantiates the Nanoshooter game and profiles the timing of that.
+
 const timeBeforeInitialize = (+new Date)
 
 const nanoshooter = window["nanoshooter"] = new Nanoshooter({
     log: (...messages: any[]) => console.log.apply(console, messages),
-    hostElement: document.body
+    hostElement: <HTMLElement>document.querySelector(".game")
 })
+
+{ // Framerate counter.
+    const fps = <HTMLElement>document.querySelector(".fps")
+    setInterval(() => {
+        fps.textContent = nanoshooter.stage.engine.getFps().toFixed(0);
+    }, 100)
+}
 
 const timeAfterInitialize = (+new Date)
 const loadTime = (timeBeforeInitialize - performance.timing.navigationStart).toFixed(0)

@@ -21,24 +21,21 @@ export default class World {
         this.stage = stage
     }
 
-    /** Babylon scene, provided to each entity instance upon creation. */
-    private stage: Stage
-
     /** Collection of entity instances. */
     private entities: { [tag: string]: Entity } = {}
+
+    /** Babylon scene, provided to each entity instance upon creation. */
+    private stage: Stage
 
     /** Debug log function. */
     private log: Logger
 
     /**
-     * Run the logic routine for every entity.
+     * Loop over every entity.
      */
-    logic(state: GameState, tickInfo: TickInfo) {
-        for (const tag of Object.keys(state.entities)) {
-            const entityState = state.entities[tag]
-            const entity = this.entities[tag]
-            if (entity) entity.logic(entityState, tickInfo)
-        }
+    loop(looper: (entity: Entity, tag: string) => void): void {
+        for (const tag of Object.keys(this.entities))
+            looper(this.entities[tag], tag)
     }
 
     /**
@@ -47,19 +44,19 @@ export default class World {
      *   - Remove extraneous state entities from the world.
      *   - Return a report of all added or removed entities.
      */
-    sync(state: GameState): Promise<{ added: Entity[]; removed: string[] }> {
+    sync(gameState: GameState): Promise<{ added: Entity[]; removed: string[] }> {
         const added: Promise<Entity>[] = []
         const removed: Promise<string>[] = []
 
         // Add entities that are in the state, but not in the entities collection.
-        for (const tag of Object.keys(state.entities))
+        for (const tag of Object.keys(gameState.entities))
             if (!this.entities.hasOwnProperty(tag)) added.push(
-                this.addEntity(tag, state.entities[tag]).then(() => undefined)
+                this.addEntity(tag, gameState.entities[tag]).then(() => undefined)
             )
 
         // Remove entities that are in the entities collection, but not in the state.
         for (const tag of Object.keys(this.entities))
-            if (!state.entities.hasOwnProperty(tag)) removed.push(
+            if (!gameState.entities.hasOwnProperty(tag)) removed.push(
                 this.removeEntity(tag).then(() => tag)
             )
 
@@ -73,17 +70,17 @@ export default class World {
     /**
      * Load an entity, instance it, and add it to the game world.
      */
-    private addEntity(tag: string, entityState: EntityState): Promise<Entity> {
+    private addEntity(tag: string, state: EntityState): Promise<Entity> {
         return new Promise<Entity>((resolve, reject) => require(
-            [entityState.type],
+            [state.type],
             entityModule => {
                 const entity = new entityModule.default({
                     stage: this.stage,
                     tag,
-                    label: entityState.label
+                    label: state.label
                 })
                 this.entities[tag] = entity
-                this.log(`(+) Added ${entity}`)
+                this.log(`(+) Added entity ${entity}`)
                 resolve(entity)
             },
             error => { throw error }
@@ -97,7 +94,7 @@ export default class World {
         const entity = this.entities[tag]
         entity.removal()
         delete this.entities[tag]
-        this.log(`(-) Removed ${entity}`)
+        this.log(`(-) Removed entity ${entity}`)
         return Promise.resolve()
     }
 }

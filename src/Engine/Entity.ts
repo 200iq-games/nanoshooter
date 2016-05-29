@@ -4,7 +4,7 @@ import Stage from "./Stage"
 import {TickInfo} from "./Ticker"
 
 /**
- * Game world object.
+ * Game world object which runs logic on every tick.
  */
 export default class Entity {
 
@@ -16,12 +16,15 @@ export default class Entity {
      * You can optionally provide your own label for each instance.
      */
     constructor({stage, tag, label = ""}: EntityOptions) {
+        this.stage = stage
         this.tag = tag
         this.label = label
+
+        this.initialize()
     }
 
     /** Access to the Babylon scene. */
-    private stage: Stage
+    stage: Stage
 
     /** Unique ID tag for this entity instance. */
     tag: string
@@ -30,19 +33,26 @@ export default class Entity {
     label: string
 
     /**
-     * Run game logic for this entity.
+     * Entity initialization.
      */
-    logic(entityState: EntityState, tickInfo: TickInfo) {}
+    initialize() {}
 
     /**
-     * Send a message to remote copies of this entity.
+     * Run game logic for this entity.
      */
-    send(message: Message) { this.receive(message) }
+    logic(state: EntityState, tickInfo: TickInfo): { stateDelta: any } {
+        return undefined
+    }
+
+    /**
+     * Send a message (reliably) to remote copies of this entity.
+     */
+    send(message: EntityMessage) { this.receive(message) }
 
     /**
      * Handle a message received from a remote copy of this entity.
      */
-    receive(message: Message) {}
+    receive(message: EntityMessage) {}
 
     /**
      * Handle being removed from the game.
@@ -54,32 +64,29 @@ export default class Entity {
      * Entity's aesthetic appearance in debugging logs.
      */
     toString() {
-        return `<${this.label}${this.tag?' tag='+this.tag:''}>`
+        return `<${this.tag}${this.label?'-':''}${this.label}>`
     }
 }
 
-/**
- * Options for creating an entity.
- */
 export interface EntityOptions {
     stage: Stage
     tag: string
     label?: string
 }
 
-/**
- * Serializable state for an entity.
- */
 export interface EntityState {
-    type?: string
+    type: string
     label?: string
 }
 
-/**
- * Message to world entities.
- */
-export interface Message {
+export interface EntityLogicReturns {
+    stateDelta: { [key: string]: string }
+}
+
+export interface EntityMessage {
 
     /** Message data body. */
     payload: any
 }
+
+export {TickInfo}

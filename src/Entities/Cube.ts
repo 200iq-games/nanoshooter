@@ -1,6 +1,5 @@
 
-import Entity, {EntityOptions, EntityState} from "../Engine/Entity"
-import {TickInfo} from "../Engine/Ticker"
+import Entity, {EntityOptions} from "../Engine/Entity"
 
 /**
  * A simple cube object in the game world.
@@ -9,18 +8,14 @@ export default class Cube extends Entity {
 
     static type = "Nanoshooter/Entities/Cube"
 
-    label = "Cube"
+    private mesh: BABYLON.Mesh
 
-    health: number = 100
+    initialize() {
+        const mesh = this.mesh = BABYLON.Mesh.CreateBox(this.tag, 1, this.stage.scene)
+        mesh.position.y = 1
+    }
 
-    logic(entityState: EntityState, tickInfo: TickInfo) {}
-}
-
-
-/**
- * Structure of a cube's serializable state data.
- */
-export interface CubeState extends EntityState {
-
-    health: number
+    removal() {
+        this.mesh.dispose()
+    }
 }

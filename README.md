@@ -1,6 +1,8 @@
 
 # Nanoshooter – [![Build Status](https://travis-ci.org/ChaseMoskal/Nanoshooter.svg?branch=master)](https://travis-ci.org/ChaseMoskal/Nanoshooter)
 
+# Tinker
+
   1. Clone this repo.
   2. Open command line to project directory. Enter: 
     1. `npm install` – Install all project dependencies (locally).
@@ -14,3 +16,22 @@
   - Startup performance will be improved when module bundling via Almond is introduced.
   - [Travis CI builds on each commit.](https://travis-ci.org/ChaseMoskal/Nanoshooter)
   - `npm run watch` – Start a compile-on-save process.
+
+# Engine architecture
+
+## Entities
+
+### Roles
+
+For online multiplayer, entities run their game logic differently based on two mode booleans, which together form four possible 'Entity Roles':
+
+| HOST | CONTROL | ROLE   |
+|:----:|:-------:|:------:|
+| true | true    | Master |
+| true | –       | Server |
+| –    | true    | Client |
+| –    | –       | Proxy  |
+
+The best pattern to provide this information to each entity is yet unsettled:
+  - The `World` could instantiate the entities with these two booleans as options, factoring in circumstances from `Game` or `Network`.
+  - The `Game` could provide each entity with the information during each logic tick.

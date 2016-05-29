@@ -1,5 +1,5 @@
 
-///<reference path="../bower_components/babylonjs/dist/babylon.2.3.d.ts"/>
+///<reference path="../bower_components/babylonjs/dist/preview release/babylon.d.ts"/>
 ///<reference path="../typings/browser.d.ts"/>
 
 import Nanoshooter from "./Nanoshooter"
@@ -16,9 +16,11 @@ const nanoshooter = window["nanoshooter"] = new Nanoshooter({
 { // Framerate counter.
     const fps = <HTMLElement>document.querySelector(".fps")
     setInterval(() => {
-        fps.textContent = nanoshooter.stage.engine.getFps().toFixed(0);
+        fps.textContent = nanoshooter.engine.getFps().toFixed(0);
     }, 100)
 }
+
+nanoshooter.start()
 
 const timeAfterInitialize = (+new Date)
 const loadTime = (timeBeforeInitialize - performance.timing.navigationStart).toFixed(0)

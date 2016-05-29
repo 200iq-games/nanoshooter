@@ -34,8 +34,8 @@ export default class Ticker {
 
         // Stop the recursive ticking process by returning.
         if (this.stopTickingCallback) {
-            this.stopTickingCallback = null
             this.stopTickingCallback()
+            this.stopTickingCallback = null
             return
         }
 

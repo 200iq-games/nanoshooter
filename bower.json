@@ -19,6 +19,7 @@
     "babylonjs": "^2.3.0",
     "requirejs": "^2.2.0",
     "handjs": "^1.3.9",
-    "pepjs": "^0.4.1"
+    "pepjs": "^0.4.1",
+    "cannon.js": "^0.6.2"
   }
 }

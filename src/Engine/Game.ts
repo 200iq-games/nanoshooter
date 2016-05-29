@@ -7,15 +7,15 @@ import Ticker, {TickInfo} from "./Ticker"
 /**
  * Networkable 3D web game infrastructure.
  */
-export default class Game {
+export default class Game extends Stage {
 
     /**
      * Initialize a game.
      */
     constructor({log, hostElement}: GameOptions = {}) {
+        super({hostElement})
         this.state = { entities: {} }
-        this.stage = new Stage({hostElement})
-        this.world = new World({log, stage: this.stage})
+        this.world = new World({log, game: this})
         this.logicTicker = new Ticker({
             tick: tickInfo => {
                 this.world.sync(this.state)
@@ -28,9 +28,6 @@ export default class Game {
     /** JSON data that describes the entire game world. */
     state: GameState
 
-    /** Babylon game scene. */
-    stage: Stage
-
     /** Maintains entity instances, synchronizes with game state. */
     world: World
 
@@ -39,11 +36,6 @@ export default class Game {
 
     /** Logging utility. */
     log: Logger
-
-    /**
-     * Initialize a game.
-     */
-    initialize() {}
 
     /**
      * Apply a game state delta patch.
@@ -72,14 +64,14 @@ export default class Game {
      */
     start() {
         this.logicTicker.start()
-        this.stage.start()
+        super.start()
     }
 
     /**
      * Halt the whole game engine (stop the logic ticker, tell the director to stop rendering).
      */
     stop(): Promise<void> {
-        this.stage.stop()
+        super.stop()
         return this.logicTicker.stop()
     }
 
@@ -99,7 +91,7 @@ export interface GameOptions {
 }
 
 export interface GameState {
-    entities: { [tag: string]: EntityState },
+    entities: { [tag: string]: EntityState }
 }
 
 export {TickInfo}

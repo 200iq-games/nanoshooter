@@ -1,22 +1,14 @@
 
-import {TickInfo} from "./Ticker"
-
 /**
- * Governs the Babylon scene from a high level.
+ * Governs a 3D Babylon scene from a high level.
  */
 export default class Stage {
 
-    /**
-     * Create a blank game world in Babylon.
-     */
     constructor(options: StageOptions) {
-        // Initializing a blank Babylon scene.
-        this.canvas = document.createElement("canvas")
-        options.hostElement.appendChild(this.canvas)
-        this.engine = new BABYLON.Engine(this.canvas, true)
-        this.scene = new BABYLON.Scene(this.engine)
-        window.addEventListener("resize", () => this.engine.resize())
+        this.hostElement = options.hostElement
     }
+
+    hostElement: HTMLElement
 
     canvas: HTMLCanvasElement
 
@@ -24,8 +16,18 @@ export default class Stage {
 
     scene: BABYLON.Scene
 
-    stats = {
-        totalFrames: 0
+    totalFrames = 0
+
+    /**
+     * Set the stage.
+     * Create a blank game world in Babylon.
+     */
+    initialize() {
+        this.canvas = document.createElement("canvas")
+        this.hostElement.appendChild(this.canvas)
+        this.engine = new BABYLON.Engine(this.canvas, true)
+        this.scene = new BABYLON.Scene(this.engine)
+        window.addEventListener("resize", () => this.engine.resize())
     }
 
     /**
@@ -52,7 +54,7 @@ export default class Stage {
      */
     private render({since}: RenderInfo) {
         this.scene.render()
-        ++this.stats.totalFrames
+        ++this.totalFrames
     }
 }
 

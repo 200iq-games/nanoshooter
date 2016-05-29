@@ -15,16 +15,16 @@ export default class Entity {
      * Create a new entity instance.
      * You can optionally provide your own label for each instance.
      */
-    constructor({stage, tag, label = ""}: EntityOptions) {
-        this.stage = stage
+    constructor({game, tag, label = ""}: EntityOptions) {
+        this.game = game
         this.tag = tag
         this.label = label
 
         this.initialize()
     }
 
-    /** Access to the Babylon scene. */
-    stage: Stage
+    /** Parent game instance. */
+    game: Game
 
     /** Unique ID tag for this entity instance. */
     tag: string
@@ -69,7 +69,7 @@ export default class Entity {
 }
 
 export interface EntityOptions {
-    stage: Stage
+    game: Game
     tag: string
     label?: string
 }

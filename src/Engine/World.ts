@@ -2,7 +2,7 @@
 import Stage from "./Stage"
 import Entity, {EntityState} from "./Entity"
 import {TickInfo} from "./Ticker"
-import {GameState, Logger} from "./Game"
+import Game, {GameState, Logger} from "./Game"
 declare const require: (moduleIds: string[], callback?: (...modules:any[]) => void, errback?: (error: Error) => void) => void
 
 /**
@@ -16,16 +16,16 @@ export default class World {
     /**
      * Create a world instance with some world options.
      */
-    constructor({log, stage}: WorldOptions) {
+    constructor({log, game}: WorldOptions) {
         this.log = log
-        this.stage = stage
+        this.game = game
     }
 
     /** Collection of entity instances. */
     private entities: { [tag: string]: Entity } = {}
 
-    /** Babylon scene, provided to each entity instance upon creation. */
-    private stage: Stage
+    /** Game instance, provided to each entity instance upon creation. */
+    private game: Game
 
     /** Debug log function. */
     private log: Logger
@@ -75,7 +75,7 @@ export default class World {
             [state.type],
             entityModule => {
                 const entity = new entityModule.default({
-                    stage: this.stage,
+                    game: this.game,
                     tag,
                     label: state.label
                 })
@@ -101,5 +101,5 @@ export default class World {
 
 export interface WorldOptions {
     log: Logger
-    stage: Stage
+    game: Game
 }

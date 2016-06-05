@@ -12,6 +12,9 @@ export default class Ticker {
         this.relax = relax
     }
 
+    /** Total ticker time, which actually pauses when the ticker is paused. */
+    private timeline: number = 0
+
     /** Action to be called for every tick while the ticker is running. */
     private tick: TickAction
 
@@ -24,27 +27,34 @@ export default class Ticker {
     }
 
     // For starting and stopping.
-    stopTickingCallback: () => void
-    lastTickTime = performance.now()
+    private stopTickingCallback: () => void
+    private lastTickTime = performance.now()
 
     /**
-     * Start the recursive tick loop.
+     * Start the recursive ticking loop.
      */
     start() {
 
-        // Stop the recursive ticking process by returning.
+        // If stopTickingCallback is set, call it, clear it, and stop the recursive ticking process by returning.
         if (this.stopTickingCallback) {
             this.stopTickingCallback()
             this.stopTickingCallback = null
             return
         }
 
+        // Gather 'start' timings.
         let now = performance.now()
-        const since = now - this.lastTickTime
+        const timeSince = now - this.lastTickTime
+        this.timeline += timeSince
         const tickStartTime = now
 
-        this.tick({since})
+        // Call the TickAction.
+        this.tick({
+            timeSince,
+            timeline: this.timeline
+        })
 
+        // Gather 'after' timings.
         now = performance.now()
         this.lastTickTime = now
         const tickTime = now - tickStartTime
@@ -76,8 +86,14 @@ export interface TickerOptions {
 
 export type TickAction = (tickInfo: TickInfo) => void
 
+/**
+ * Package of information that is passed along to the TickAction for each tick.
+ */
 export interface TickInfo {
 
+    /** Total place along ticker's timeline, which effectively freezes on stop() and resumes on start(). */
+    timeline: number;
+
     /** Duration of time that has passed since the end of the last tick to the beginning of this tick, in milliseconds. */
-    since: number
+    timeSince: number
 }

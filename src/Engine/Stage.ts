@@ -1,26 +1,16 @@
 
 /**
- * Governs a 3D Babylon scene from a high level.
+ * Govern a 3D Babylon scene from a high level.
  */
 export default class Stage {
 
     constructor(options: StageOptions) {
         this.hostElement = options.hostElement
+        this.initialize()
     }
 
-    hostElement: HTMLElement
-
-    canvas: HTMLCanvasElement
-
-    engine: BABYLON.Engine
-
-    scene: BABYLON.Scene
-
-    totalFrames = 0
-
     /**
-     * Set the stage.
-     * Create a blank game world in Babylon.
+     * Create an empty Babylon scene.
      */
     initialize() {
         this.canvas = document.createElement("canvas")
@@ -29,6 +19,11 @@ export default class Stage {
         this.scene = new BABYLON.Scene(this.engine)
         window.addEventListener("resize", () => this.engine.resize())
     }
+
+    hostElement: HTMLElement
+    canvas: HTMLCanvasElement
+    engine: BABYLON.Engine
+    scene: BABYLON.Scene
 
     /**
      * Start the rendering loop.
@@ -49,12 +44,17 @@ export default class Stage {
         this.engine.stopRenderLoop()
     }
 
+    /** Nifty diagnostics. */
+    private stats = {
+        totalFrames: 0
+    }
+
     /**
      * Render a frame.
      */
     private render({since}: RenderInfo) {
         this.scene.render()
-        ++this.totalFrames
+        ++this.stats.totalFrames
     }
 }
 

@@ -1,30 +1,18 @@
 
 import Game from "./Game"
+import World from "./World"
 import Stage from "./Stage"
+import State from "./State"
 import {TickInfo} from "./Ticker"
 
 /**
- * Game world object which runs logic on every tick.
+ * Entity in the game world which responds to fresh entity state on logic ticks.
+ * An entity doesn't actually need to persist any state, fresh state can just pass through the logic method.
  */
 export default class Entity {
 
     /** Module ID for this entity class. Used to load entity classes on-the-fly. */
     static type: string = "Nanoshooter/Entities/Entity"
-
-    /**
-     * Create a new entity instance.
-     * You can optionally provide your own label for each instance.
-     */
-    constructor({game, tag, label = ""}: EntityOptions) {
-        this.game = game
-        this.tag = tag
-        this.label = label
-
-        this.initialize()
-    }
-
-    /** Parent game instance. */
-    game: Game
 
     /** Unique ID tag for this entity instance. */
     tag: string
@@ -32,27 +20,34 @@ export default class Entity {
     /** Human-friendly nickname for this entity instance. Doesn't have to be unique. Useful for entity queries. */
     label: string
 
-    /**
-     * Entity initialization.
-     */
-    initialize() {}
+    /** Parent game instance. */
+    protected game: Game
+
+    /** Parent world instance. */
+    protected stage: Stage
 
     /**
-     * Run game logic for this entity.
+     * Create a new entity instance.
+     * You can optionally provide your own label for each instance.
      */
-    logic(state: EntityState, tickInfo: TickInfo): { stateDelta: any } {
-        return undefined
+    constructor(options: EntityOptions) {
+        this.tag = options.tag
+        this.label = options.label || ""
+        this.game = options.game
+        this.stage = options.stage
+
+        this.initialize()
     }
 
     /**
-     * Send a message (reliably) to remote copies of this entity.
+     * Initialize this entity.
      */
-    send(message: EntityMessage) { this.receive(message) }
+    protected initialize() {}
 
     /**
-     * Handle a message received from a remote copy of this entity.
+     * Respond to fresh entity state on a logic tick.
      */
-    receive(message: EntityMessage) {}
+    logic(state: EntityState, tickInfo: TickInfo): { stateDelta: any } { return undefined }
 
     /**
      * Handle being removed from the game.
@@ -63,30 +58,31 @@ export default class Entity {
     /**
      * Entity's aesthetic appearance in debugging logs.
      */
-    toString() {
-        return `<${this.tag}${this.label?'-':''}${this.label}>`
-    }
+    toString() { return `<${this.tag}${this.label?'-':''}${this.label}>` }
 }
 
 export interface EntityOptions {
-    game: Game
     tag: string
     label?: string
+    game: Game
+    stage: Stage
 }
 
-export interface EntityState {
+export class EntityState extends State {
+    type: string
+    label: string
+
+    constructor(options: EntityStateOptions) {
+        super()
+        if (!options.type) throw "Entity state requires type."
+        this.type = options.type
+        this.label = options.label
+    }
+}
+
+export interface EntityStateOptions {
     type: string
     label?: string
-}
-
-export interface EntityLogicReturns {
-    stateDelta: { [key: string]: string }
-}
-
-export interface EntityMessage {
-
-    /** Message data body. */
-    payload: any
 }
 
 export {TickInfo}

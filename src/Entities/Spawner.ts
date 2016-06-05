@@ -1,5 +1,5 @@
 
-import Entity, {EntityOptions} from "../Engine/Entity"
+import Entity, {EntityState, EntityStateOptions} from "../Engine/Entity"
 
 /**
  * Spawns stuff.
@@ -12,13 +12,14 @@ export default class Spawner extends Entity {
 
     private keybindCallback
 
-    initialize() {
+    protected initialize() {
         this.keybindCallback = (event: KeyboardEvent) => {
-            if (event.keyCode === 32)
-                this.game.addEntity({
+            if (event.keyCode === 32) {
+                this.game.addEntity(new EntityState({
                     type: "Nanoshooter/Entities/Cube",
                     label: "SpawnedCube"
-                })
+                }))
+            }
         }
         window.addEventListener("keyup", this.keybindCallback)
     }

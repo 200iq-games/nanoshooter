@@ -1,39 +1,39 @@
 
 import Stage from "./Stage"
+import Game, {GameState} from "./Game"
 import Entity, {EntityState} from "./Entity"
 import {TickInfo} from "./Ticker"
-import Game, {GameState, Logger} from "./Game"
 declare const require: (moduleIds: string[], callback?: (...modules:any[]) => void, errback?: (error: Error) => void) => void
 
 /**
- * Contain the entities of the game world.
+ * Contain the entity instances of the game world.
  * Synchronizes with provided game state by adding or removing entities.
  * Responsible for dynamically loading and instancing entities.
  * Requires a stage reference, so it can be passed to each instanced entity.
  */
 export default class World {
 
-    /**
-     * Create a world instance with some world options.
-     */
-    constructor({log, game}: WorldOptions) {
-        this.log = log
-        this.game = game
-    }
+    /** Babylon stage. */
+    private stage: Stage
+
+    /** Parent game instance. */
+    private game: Game
 
     /** Collection of entity instances. */
     private entities: { [tag: string]: Entity } = {}
 
-    /** Game instance, provided to each entity instance upon creation. */
-    private game: Game
-
-    /** Debug log function. */
-    private log: Logger
+    /**
+     * Create a world instance with some world options.
+     */
+    constructor(options: WorldOptions) {
+        this.stage = options.stage
+        this.game = options.game
+    }
 
     /**
-     * Loop over every entity.
+     * Loop over each entity.
      */
-    loop(looper: (entity: Entity, tag: string) => void): void {
+    loopOverEntities(looper: (entity: Entity, tag: string) => void): void {
         for (const tag of Object.keys(this.entities))
             looper(this.entities[tag], tag)
     }
@@ -44,21 +44,25 @@ export default class World {
      *   - Remove extraneous state entities from the world.
      *   - Return a report of all added or removed entities.
      */
-    sync(gameState: GameState): Promise<{ added: Entity[]; removed: string[] }> {
+    conform(gameState: GameState): Promise<{ added: Entity[]; removed: string[] }> {
         const added: Promise<Entity>[] = []
         const removed: Promise<string>[] = []
 
-        // Add entities that are in the state, but not in the entities collection.
-        for (const tag of Object.keys(gameState.entities))
-            if (!this.entities.hasOwnProperty(tag)) added.push(
-                this.addEntity(tag, gameState.entities[tag]).then(() => undefined)
-            )
+        // Add entities that are present in the game state, but are missing from this world.
+        gameState.loopOverEntities((entityState, tag) => {
+            if (!this.entities.hasOwnProperty(tag))
+                added.push(
+                    this.addEntity(tag, entityState).then(() => undefined)
+                )
+        })
 
-        // Remove entities that are in the entities collection, but not in the state.
-        for (const tag of Object.keys(this.entities))
-            if (!gameState.entities.hasOwnProperty(tag)) removed.push(
-                this.removeEntity(tag).then(() => tag)
-            )
+        // Remove entities that are missing from the game state, but are present in this game world.
+        gameState.loopOverEntities((entityState, tag) => {
+            if (!gameState.getEntity(tag))
+                removed.push(
+                    this.removeEntity(tag).then(() => tag)
+                )
+        })
 
         // Return a report of all added or removed entities.
         return Promise.all([Promise.all(added), Promise.all(removed)]).then((results: any) => ({
@@ -68,23 +72,26 @@ export default class World {
     }
 
     /**
-     * Load an entity, instance it, and add it to the game world.
+     * Load, instance, and add an entity to the game world based on provided entity state.
      */
     private addEntity(tag: string, state: EntityState): Promise<Entity> {
-        return new Promise<Entity>((resolve, reject) => require(
-            [state.type],
-            entityModule => {
-                const entity = new entityModule.default({
-                    game: this.game,
-                    tag,
-                    label: state.label
-                })
-                this.entities[tag] = entity
-                this.log(`(+) Added entity ${entity}`)
-                resolve(entity)
-            },
-            error => { throw error }
-        ))
+        return new Promise<Entity>((resolve, reject) =>
+            require(
+                [state.type],
+                entityModule => {
+                    const entity = new (<typeof Entity>entityModule.default)({
+                        stage: this.stage,
+                        game: this.game,
+                        tag,
+                        label: state.label
+                    })
+                    this.entities[tag] = entity
+                    this.game.log(`(+) Added entity ${entity}`)
+                    resolve(entity)
+                },
+                error => { reject(error) }
+            )
+        )
     }
 
     /**
@@ -94,12 +101,12 @@ export default class World {
         const entity = this.entities[tag]
         entity.removal()
         delete this.entities[tag]
-        this.log(`(-) Removed entity ${entity}`)
+        this.game.log(`(-) Removed entity ${entity}`)
         return Promise.resolve()
     }
 }
 
 export interface WorldOptions {
-    log: Logger
+    stage: Stage
     game: Game
 }

@@ -13,17 +13,15 @@
 
   - Open the directory in [Visual Studio Code](https://code.visualstudio.com/).
     - `Ctrl-Shift-B` to build.
-  - Startup performance will be improved when module bundling via Almond is introduced.
+  - Loading performance will be optimized via Almond module bundling.
   - [Travis CI builds on each commit.](https://travis-ci.org/ChaseMoskal/Nanoshooter)
   - `npm run watch` – Start a compile-on-save process.
 
-# Engine architecture
+# Architectural engine concepts
 
-## Entities
+### Networking ideas
 
-### Roles
-
-For online multiplayer, entities run their game logic differently based on two mode booleans, which together form four possible 'Entity Roles':
+This table is an ancient conceptual development from the 'ol grunt-wars/fishduck/nanoshooter/fps-project days:
 
 | HOST | CONTROL | ROLE   |
 |:----:|:-------:|:------:|
@@ -32,6 +30,11 @@ For online multiplayer, entities run their game logic differently based on two m
 | –    | true    | Client |
 | –    | –       | Proxy  |
 
-The best pattern to provide this information to each entity is yet unsettled:
-  - The `World` could instantiate the entities with these two booleans as options, factoring in circumstances from `Game` or `Network`.
-  - The `Game` could provide each entity with the information during each logic tick.
+The idea is that each entity has these two booleans that are very relevant to the way entities should behave during a logic tick.
+
+**In a fully offline single-player game,**
+  - HOST and CONTROL are both ALWAYS **`true`**, which is to say that every entity needs only to behave in the "Master" role. This is straightforward and easy to code for, no special concepts need be abided to.
+
+**In an online multiplayer game,** coding entities is signficantly more complicated:
+  - HOST is whether or not your entity is currently responsible for relaying the state changes (like position) to all other remote copies of the entity via the Network. This is more relevant to the Network that handles the entity, than the entity itself.
+  - CONTROL is whether or not your local copy of the entity is "in the driver's seat", making logical decisions like responding to keypresses and the like, and also performing the physical simulation of the entity and relaying these changes to the HOST copy of the entity for distribution to the other clients.

@@ -10,10 +10,10 @@ export default class Spawner extends Entity {
 
     private mesh: BABYLON.Mesh
 
-    private keybindCallback
+    private keyupAction: (event: KeyboardEvent) => void
 
     protected initialize() {
-        this.keybindCallback = (event: KeyboardEvent) => {
+        this.keyupAction = (event: KeyboardEvent) => {
             if (event.keyCode === 32) {
                 this.game.addEntity(new EntityState({
                     type: "Nanoshooter/Entities/Cube",
@@ -21,10 +21,10 @@ export default class Spawner extends Entity {
                 }))
             }
         }
-        window.addEventListener("keyup", this.keybindCallback)
+        window.addEventListener("keyup", this.keyupAction)
     }
 
     removal() {
-        window.removeEventListener("keyup", this.keybindCallback)
+        window.removeEventListener("keyup", this.keyupAction)
     }
 }

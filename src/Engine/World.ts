@@ -34,8 +34,12 @@ export default class World {
      * Loop over each entity.
      */
     loopOverEntities(looper: (entity: Entity, tag: string) => void): void {
-        for (const tag of Object.keys(this.entities))
-            looper(this.entities[tag], tag)
+        for (const tag of Object.keys(this.entities)) {
+            const entity = this.entities[tag]
+
+            // Don't loop over null entities (which are currently loading).
+            if (entity) looper(entity, tag)
+        }
     }
 
     /**
@@ -75,23 +79,39 @@ export default class World {
      * Load, instance, and add an entity to the game world based on provided entity state.
      */
     private addEntity(tag: string, state: EntityState): Promise<Entity> {
-        return new Promise<Entity>((resolve, reject) =>
+        return new Promise<Entity>((resolve, reject) => {
+
+            // Entity is set to null in the collection while the entity is loading.
+            // If we didn't do this, the world might perform another sync during
+            this.entities[tag] = null
+
+            // Load the entity.
             require(
                 [state.type],
                 entityModule => {
+
+                    // Instance the entity.
                     const entity = new (<typeof Entity>entityModule.default)({
                         stage: this.stage,
                         game: this.game,
                         tag,
                         label: state.label
                     })
+
+                    // Add the entity to the entities collection.
                     this.entities[tag] = entity
+
+                    // Log about it.
                     this.game.log(`(+) Added entity ${entity}`)
+
+                    // Resolve the promise with the added entity.
                     resolve(entity)
                 },
+
+                // Handle loading error by rejecting the promise.
                 error => { reject(error) }
             )
-        )
+        })
     }
 
     /**

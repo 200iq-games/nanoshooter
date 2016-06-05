@@ -4,6 +4,17 @@
  */
 export default class Stage {
 
+    // Access to the Babylon scene is public for anyone with access to the stage.
+    hostElement: HTMLElement
+    canvas: HTMLCanvasElement
+    engine: BABYLON.Engine
+    scene: BABYLON.Scene
+
+    /** Nifty diagnostics. */
+    private stats = {
+        totalFrames: 0
+    }
+
     constructor(options: StageOptions) {
         this.hostElement = options.hostElement
         this.initialize()
@@ -19,11 +30,6 @@ export default class Stage {
         this.scene = new BABYLON.Scene(this.engine)
         window.addEventListener("resize", () => this.engine.resize())
     }
-
-    hostElement: HTMLElement
-    canvas: HTMLCanvasElement
-    engine: BABYLON.Engine
-    scene: BABYLON.Scene
 
     /**
      * Start the rendering loop.
@@ -42,11 +48,6 @@ export default class Stage {
      */
     stop() {
         this.engine.stopRenderLoop()
-    }
-
-    /** Nifty diagnostics. */
-    private stats = {
-        totalFrames: 0
     }
 
     /**

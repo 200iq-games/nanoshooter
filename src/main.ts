@@ -9,7 +9,7 @@ import Nanoshooter from "./Nanoshooter"
 //   - Log some timing/profiling information.
 //   - Start running the game.
 
-const timeBeforeInitialize = performance.now()
+const timeBeforeInitialize = (+new Date)
 
 // Initialize the Nanoshooter game.
 const nanoshooter = window["nanoshooter"] = new Nanoshooter({
@@ -28,7 +28,7 @@ const nanoshooter = window["nanoshooter"] = new Nanoshooter({
 nanoshooter.start()
 
 // Log the profiling results.
-const timeAfterInitialize = performance.now()
+const timeAfterInitialize = (+new Date)
 const loadTime = (timeBeforeInitialize - performance.timing.navigationStart).toFixed(0)
 const initializeTime = (timeAfterInitialize - timeBeforeInitialize).toFixed(0)
-console.debug(`→ Page load ${loadTime} ms / Game initialization ${initializeTime} ms`)
+console.debug(`(→) Page load ${loadTime} ms / Game initialization ${initializeTime} ms`)

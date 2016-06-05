@@ -92,7 +92,7 @@ export type TickAction = (tickInfo: TickInfo) => void
 export interface TickInfo {
 
     /** Total place along ticker's timeline, which effectively freezes on stop() and resumes on start(). */
-    timeline: number;
+    timeline: number
 
     /** Duration of time that has passed since the end of the last tick to the beginning of this tick, in milliseconds. */
     timeSince: number

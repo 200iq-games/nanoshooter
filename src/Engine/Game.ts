@@ -14,7 +14,7 @@ export default class Game {
     log: Logger
 
     /** Stage which manages the Babylon scene. */
-    protected stage: Stage
+    private stage: Stage
 
     /** Game state, source of truth that the world is based on. */
     private state: GameState
@@ -58,11 +58,11 @@ export default class Game {
         })
 
         // Initialize this game.
-        this.initialize()
+        this.initialize(this.stage)
     }
 
     /** Overridable game initialization step. */
-    protected initialize() {}
+    protected initialize(stage: Stage) {}
 
     /**
      * Add an entity to the game based on the provided entity state.
@@ -104,9 +104,6 @@ export default class Game {
     }
 }
 
-/**
- * Simple log function, outputs to the console.
- */
 export type Logger = (...messages: any[]) => void
 
 export interface GameOptions {

@@ -8,9 +8,9 @@ import {EntityState} from "./Engine/Entity"
  */
 export default class Nanoshooter extends Game {
 
-    initialize() {
-        super.initialize()
-        const {canvas, scene} = this.stage
+    initialize(stage: Stage) {
+        super.initialize(stage)
+        const {canvas, scene} = stage
 
         // Physics.
         const gravity = new BABYLON.Vector3(0, -9.81, 0)

@@ -8,8 +8,6 @@ export default class Spawner extends Entity {
 
     static type = "Nanoshooter/Entities/Spawner"
 
-    private mesh: BABYLON.Mesh
-
     private keyupAction: (event: KeyboardEvent) => void
 
     protected initialize() {

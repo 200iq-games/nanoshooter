@@ -40,7 +40,7 @@ export default class Robot extends Entity {
         // OBJ loading.
         {
             const assetsManager = new BABYLON.AssetsManager(this.stage.scene)
-            const meshTask = assetsManager.addMeshTask("mesh", "", "./art/", "Robot.obj")
+            const meshTask = assetsManager.addMeshTask("mesh", "", "./art/", "robot.obj")
             meshTask.onSuccess = task => {
                 this.mesh = <BABYLON.Mesh>(<any>task).loadedMeshes[0]
                 this.loaded()

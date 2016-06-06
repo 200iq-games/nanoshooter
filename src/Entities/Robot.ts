@@ -58,6 +58,10 @@ export default class Robot extends Entity {
         // Move up a little, so it spawns above the floor.
         this.mesh.position.y += 2
 
+        const material = new BABYLON.StandardMaterial("robot", this.stage.scene)
+        material.diffuseColor = new BABYLON.Color3(1, 0.2, 0)
+        this.mesh.material = material
+
         // Physics imposter is just a box.
         this.mesh.physicsImpostor = new BABYLON.PhysicsImpostor(
             this.mesh,

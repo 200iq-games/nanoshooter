@@ -1,9 +1,7 @@
 
-# Nanoshooter – [![Build Status](https://travis-ci.org/ChaseMoskal/Nanoshooter.svg?branch=master)](https://travis-ci.org/ChaseMoskal/Nanoshooter)
+# Nanoshooter – [![Build Status](https://travis-ci.org/ChaseMoskal/Nanoshooter.svg?branch=master)](https://travis-ci.org/ChaseMoskal/Nanoshooter) – [***PLAY NOW!***](http://chasemoskal.github.io/Nanoshooter/)
 
-## [***» PLAY NOW! «***](http://chasemoskal.github.io/Nanoshooter/)
-
-### Start tinkering
+## Start tinkering
 
   1. Clone this repo.
   2. Open command line to project directory. Enter: 
@@ -11,7 +9,7 @@
     2. `npm run build` – Build the project's TypeScript source.
   3. Browse to `index.html`.
 
-### Notes
+## Notes
 
   - Open the directory in [Visual Studio Code](https://code.visualstudio.com/).
     - `Ctrl-Shift-B` to build.
@@ -19,7 +17,7 @@
   - [Travis CI builds on each commit.](https://travis-ci.org/ChaseMoskal/Nanoshooter)
   - `npm run watch` – Start a compile-on-save process.
 
-### Networking concepts
+## Networking concepts
 
 This table is an ancient conceptual development from the 'ol grunt-wars/fishduck/nanoshooter/fps-project days:
 

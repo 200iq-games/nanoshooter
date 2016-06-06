@@ -9,9 +9,10 @@
         "declaration": true
     },
     "exclude": [
-        "build",
         "node_modules",
         "bower_components",
+        "build",
+        "deps",
         "typings"
     ]
 }

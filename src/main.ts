@@ -1,5 +1,5 @@
 
-///<reference path="../bower_components/babylonjs/dist/preview release/babylon.d.ts"/>
+///<reference path="../deps/babylon/babylon.d.ts"/>
 ///<reference path="../typings/browser.d.ts"/>
 
 import Nanoshooter from "./Nanoshooter"

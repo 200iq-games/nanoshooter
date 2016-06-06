@@ -17,14 +17,14 @@ export default class Nanoshooter extends Game {
         scene.enablePhysics(gravity, new BABYLON.CannonJSPlugin())
 
         // Background color.
-        scene.clearColor = new BABYLON.Color3(0, 0.1, 0)
+        scene.clearColor = new BABYLON.Color3(0.8, 0.8, 0.8)
 
         // Lights.
-        const light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene)
-        light.intensity = 0.5
+        const light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 20, 0), scene)
+        light.intensity = 0.8
 
         // Camera.
-        const camera = new BABYLON.UniversalCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene)
+        const camera = new BABYLON.UniversalCamera("camera1", new BABYLON.Vector3(0, 40, -2), scene)
         camera.setTarget(BABYLON.Vector3.Zero())
         camera.attachControl(canvas, false)
 
@@ -40,16 +40,22 @@ export default class Nanoshooter extends Game {
             label: "FancyFloor"
         }))
 
-        // Cube.
-        this.addEntity(new EntityState({
-            type: "Nanoshooter/Entities/Cube",
-            label: "FancyCube"
-        }))
-
         // Spawner.
         this.addEntity(new EntityState({
             type: "Nanoshooter/Entities/Spawner",
             label: "Spawnlord"
         }))
+
+        // Robot.
+        this.addEntity(new EntityState({
+            type: "Nanoshooter/Entities/Robot",
+            label: "Robot"
+        }))
+
+        // // Cube.
+        // this.addEntity(new EntityState({
+        //     type: "Nanoshooter/Entities/Cube",
+        //     label: "FancyCube"
+        // }))
     }
 }

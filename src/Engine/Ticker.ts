@@ -7,7 +7,7 @@ export default class Ticker {
     /**
      * Create a ticker with an action function which will be called repeatedly.
      */
-    constructor({tick, relax = 16}: TickerOptions) {
+    constructor({tick, relax = 10}: TickerOptions) {
         this.tick = tick
         this.relax = relax
     }

@@ -10,9 +10,21 @@ export default class Stage {
     engine: BABYLON.Engine
     scene: BABYLON.Scene
 
+    pick: BABYLON.PickingInfo = new BABYLON.PickingInfo()
+
     /** Nifty diagnostics. */
     private stats = {
         totalFrames: 0
+    }
+
+    /** Event listeners that start and stop with the stage. */
+    private listeners = {
+        resize: () => {
+            this.engine.resize()
+        },
+        mousemove: () => {
+            this.pick = this.scene.pick(this.scene.pointerX, this.scene.pointerY)
+        }
     }
 
     constructor(options: StageOptions) {
@@ -28,13 +40,15 @@ export default class Stage {
         this.hostElement.appendChild(this.canvas)
         this.engine = new BABYLON.Engine(this.canvas, true)
         this.scene = new BABYLON.Scene(this.engine)
-        window.addEventListener("resize", () => this.engine.resize())
     }
 
     /**
      * Start the rendering loop.
      */
     start() {
+        window.addEventListener("resize", this.listeners.resize)
+        window.addEventListener("mousemove", this.listeners.mousemove)
+
         this.engine.runRenderLoop(() => {
             const since = performance.now() - this.lastRenderTime
             this.render({since})
@@ -48,6 +62,9 @@ export default class Stage {
      */
     stop() {
         this.engine.stopRenderLoop()
+
+        window.removeEventListener("resize", this.listeners.resize)
+        window.removeEventListener("mousemove", this.listeners.mousemove)
     }
 
     /**

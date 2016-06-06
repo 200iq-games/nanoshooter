@@ -46,7 +46,7 @@ define(["require", "exports", "../Engine/Entity"], function (require, exports, E
             // OBJ loading.
             {
                 var assetsManager = new BABYLON.AssetsManager(this.stage.scene);
-                var meshTask = assetsManager.addMeshTask("mesh", "", "./art/", "Robot.obj");
+                var meshTask = assetsManager.addMeshTask("mesh", "", "./art/", "robot.obj");
                 meshTask.onSuccess = function (task) {
                     _this.mesh = task.loadedMeshes[0];
                     _this.loaded();

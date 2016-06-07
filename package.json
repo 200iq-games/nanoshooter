@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm install && tsc && echo Build complete.",
     "watch": "tsc -w",
-    "deploy-live": "npm run build --silent && git fetch && git checkout gh-pages && git rebase master && git add build && git commit -m 'Manual deployment.' && git push",
+    "deploy-to-gh-pages": "npm run build --silent && git fetch && git checkout gh-pages && git rebase master && git add build && git commit -m 'Manual deployment.' && git push",
     "test": "echo No tests yet, lol && exit 0"
   },
   "repository": {

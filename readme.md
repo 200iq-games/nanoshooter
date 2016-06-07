@@ -1,7 +1,7 @@
 
 # Nanoshooter – [![Build Status](https://travis-ci.org/ChaseMoskal/Nanoshooter.svg?branch=master)](https://travis-ci.org/ChaseMoskal/Nanoshooter) – [***PLAY NOW!***](http://chasemoskal.github.io/Nanoshooter/)
 
-## Start tinkering
+## Start tinkering!
 
   1. Clone this repo.
   2. Open command line to project directory. Enter: 

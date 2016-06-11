@@ -3,6 +3,7 @@
 git fetch
 git checkout gh-pages
 git rebase master
+npm run build
 git add -f build
 git commit -m "Deploy to gh-pages."
 git push

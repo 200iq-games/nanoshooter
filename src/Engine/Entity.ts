@@ -23,7 +23,7 @@ export default class Entity {
   /** Parent game instance. */
   protected game: Game
 
-  /** Parent world instance. */
+  /** Stage instance. */
   protected stage: Stage
 
   /**

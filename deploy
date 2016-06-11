@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+git fetch
+git checkout gh-pages
+git rebase master
+git add -f build
+git commit -m "Deploy to gh-pages."
+git push

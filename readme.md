@@ -16,6 +16,7 @@
   - Loading performance will be optimized via Almond module bundling.
   - [Travis CI builds on each commit.](https://travis-ci.org/ChaseMoskal/Nanoshooter)
   - `npm run watch` – Start a compile-on-save process.
+  - All 3D asset filenames must be lowercase – files such as `*.blend`, `*.obj`, `*.mtl` – at least for now, as it seems to be some weird bug or limitation with the Babylon loaders.
 
 ## Networking concepts
 
@@ -36,12 +37,3 @@ The idea is that each entity has these two booleans that are very relevant to th
 **In an online multiplayer game,** coding entities is signficantly more complicated:
   - HOST is whether or not your entity is currently responsible for relaying the state changes (like position) to all other remote copies of the entity via the Network. This is more relevant to the Network that handles the entity, than the entity itself.
   - CONTROL is whether or not your local copy of the entity is "in the driver's seat", making logical decisions like responding to keypresses and the like, and also performing the physical simulation of the entity and relaying these changes to the HOST copy of the entity for distribution to the other clients.
-
-## Deploy to gh-pages
-
-  1. `git fetch`
-  2. `git checkout gh-pages`
-  3. `git rebase master`
-  4. `git add -f build`
-  5. `git commit -m "Deploy."`
-  6. `git push`

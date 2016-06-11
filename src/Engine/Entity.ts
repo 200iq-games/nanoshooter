@@ -11,78 +11,78 @@ import {TickInfo} from "./Ticker"
  */
 export default class Entity {
 
-    /** Module ID for this entity class. Used to load entity classes on-the-fly. */
-    static type: string = "Nanoshooter/Entities/Entity"
+  /** Module ID for this entity class. Used to load entity classes on-the-fly. */
+  static type: string = "Nanoshooter/Entities/Entity"
 
-    /** Unique ID tag for this entity instance. */
-    tag: string
+  /** Unique ID tag for this entity instance. */
+  tag: string
 
-    /** Human-friendly nickname for this entity instance. Doesn't have to be unique. Useful for entity queries. */
-    label: string
+  /** Human-friendly nickname for this entity instance. Doesn't have to be unique. Useful for entity queries. */
+  label: string
 
-    /** Parent game instance. */
-    protected game: Game
+  /** Parent game instance. */
+  protected game: Game
 
-    /** Parent world instance. */
-    protected stage: Stage
+  /** Parent world instance. */
+  protected stage: Stage
 
-    /**
-     * Create a new entity instance.
-     * You can optionally provide your own label for each instance.
-     */
-    constructor(options: EntityOptions) {
-        this.tag = options.tag
-        this.label = options.label || ""
-        this.game = options.game
-        this.stage = options.stage
+  /**
+   * Create a new entity instance.
+   * You can optionally provide your own label for each instance.
+   */
+  constructor(options: EntityOptions) {
+    this.tag = options.tag
+    this.label = options.label || ""
+    this.game = options.game
+    this.stage = options.stage
 
-        this.initialize()
-    }
+    this.initialize()
+  }
 
-    /**
-     * Initialize this entity.
-     */
-    protected initialize() {}
+  /**
+   * Initialize this entity.
+   */
+  protected initialize() {}
 
-    /**
-     * Respond to fresh entity state on a logic tick.
-     */
-    logic(state: EntityState, tickInfo: TickInfo): { stateDelta: any } { return undefined }
+  /**
+   * Respond to fresh entity state on a logic tick.
+   */
+  logic(state: EntityState, tickInfo: TickInfo): { stateDelta: any } { return undefined }
 
-    /**
-     * Handle being removed from the game.
-     * Tear down any event subscriptions.
-     */
-    removal() {}
+  /**
+   * Handle being removed from the game.
+   * Tear down any event subscriptions.
+   */
+  removal() {}
 
-    /**
-     * Entity's aesthetic appearance in debugging logs.
-     */
-    toString() { return `<${this.tag}${this.label?'-':''}${this.label}>` }
+  /**
+   * Entity's aesthetic appearance in debugging logs.
+   */
+  toString() { return `<${this.tag}${this.label?'-':''}${this.label}>` }
 }
 
 export interface EntityOptions {
-    tag: string
-    label?: string
-    game: Game
-    stage: Stage
+  tag: string
+  label?: string
+  game: Game
+  stage: Stage
 }
 
 export class EntityState extends State {
-    type: string
-    label: string
+  type: string
+  label: string
 
-    constructor(options: EntityStateOptions) {
-        super()
-        if (!options.type) throw "Entity state requires type."
-        this.type = options.type
-        this.label = options.label
-    }
+  constructor(options: EntityStateOptions) {
+    super()
+    if (!options.type) throw "Entity state requires type."
+    this.type = options.type
+    this.label = options.label
+  }
 }
 
 export interface EntityStateOptions {
-    type: string
-    label?: string
+  type: string
+  label?: string
 }
 
 export {TickInfo}

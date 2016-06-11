@@ -1,13 +1,13 @@
 {
-    "version": "0.1.0",
-    "command": "npm",
-    "args": ["run", "--silent"],
-    "isShellCommand": true,
-    "tasks": [
-        {
-            "taskName": "build",
-            "problemMatcher": "$tsc",
-            "isBuildCommand": true
-        }
-    ]
+  "version": "0.1.0",
+  "command": "npm",
+  "args": ["run", "--silent"],
+  "isShellCommand": true,
+  "tasks": [
+    {
+      "taskName": "build",
+      "problemMatcher": "$tsc",
+      "isBuildCommand": true
+    }
+  ]
 }

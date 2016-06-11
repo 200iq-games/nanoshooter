@@ -13,15 +13,15 @@ const timeBeforeInitialize = (+new Date)
 
 // Initialize the Nanoshooter game.
 const nanoshooter = window["nanoshooter"] = new Nanoshooter({
-    log: (...messages: any[]) => console.log.apply(console, messages),
-    hostElement: <HTMLElement>document.querySelector(".game")
+  log: (...messages: any[]) => console.log.apply(console, messages),
+  hostElement: <HTMLElement>document.querySelector(".game")
 })
 
 { // Establish a framerate display.
-    const fps = <HTMLElement>document.querySelector(".fps")
-    setInterval(() => {
-        fps.textContent = nanoshooter.getFramerate().toFixed(0)
-    }, 100)
+  const fps = <HTMLElement>document.querySelector(".fps")
+  setInterval(() => {
+    fps.textContent = nanoshooter.getFramerate().toFixed(0)
+  }, 100)
 }
 
 // Start running the game engine.

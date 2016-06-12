@@ -4,9 +4,22 @@ import World from "./World"
 import Ticker, {TickInfo} from "./Ticker"
 import Entity, {EntityState} from "./Entity"
 import State from "./State"
+import Loader from "./Loader"
 
 /**
- * 3D web game infrastructure.
+ * Options for creating a Game.
+ */
+export interface GameOptions {
+  artRootUrl: string
+  hostElement: HTMLElement
+  log: Logger
+}
+
+/** Logging function to be used freely by entities and the like. */
+export type Logger = (...messages: any[]) => void
+
+/**
+ * 3D web game.
  */
 export default class Game {
 
@@ -14,7 +27,7 @@ export default class Game {
   log: Logger
 
   /** Stage which manages the Babylon scene. */
-  private stage: Stage
+  protected stage: Stage
 
   /** Game state, source of truth that the world is based on. */
   private state: GameState
@@ -26,12 +39,9 @@ export default class Game {
   private logicTicker: Ticker
 
   /**
-   * Initialize a game.
    * Create and wire up the engine components that the game is comprised of.
    */
-  constructor({log, hostElement}: GameOptions = {}) {
-
-    // Attach the public logging function.
+  constructor({artRootUrl, hostElement, log}: GameOptions) {
     this.log = log
 
     // Create the Babylon stage.
@@ -41,7 +51,14 @@ export default class Game {
     this.state = new GameState()
 
     // Create the game world, which contains entity instances and conforms to the game state.
-    this.world = new World({game: this, stage: this.stage})
+    this.world = new World({
+      game: this,
+      stage: this.stage,
+      loader: new Loader({
+        scene: this.stage.scene,
+        rootUrl: artRootUrl
+      })
+    })
 
     // Create the ticker which runs game logic.
     this.logicTicker = new Ticker({
@@ -58,11 +75,11 @@ export default class Game {
     })
 
     // Initialize this game.
-    this.initialize(this.stage)
+    this.initialize()
   }
 
   /** Overridable game initialization step. */
-  protected initialize(stage: Stage) {}
+  protected initialize() {}
 
   /**
    * Add an entity to the game based on the provided entity state.
@@ -104,13 +121,9 @@ export default class Game {
   }
 }
 
-export type Logger = (...messages: any[]) => void
-
-export interface GameOptions {
-  log?: Logger
-  hostElement?: HTMLElement
-}
-
+/**
+ * Serializable source-of-truth which describes everything (all entities) of the game at the current moment.
+ */
 export class GameState extends State {
 
   /** Collection of entity state. */
@@ -129,21 +142,21 @@ export class GameState extends State {
   }
 
   /**
-   * Obtain a particular entity's state.
+   * Obtain a particular entity state.
    */
   getEntity(tag: string) {
     return this.entities[tag]
   }
 
   /**
-   * Add entity state data.
+   * Add entity state.
    */
   addEntity(entityState: EntityState) {
     this.entities[this.pullTag()] = entityState
   }
 
   /**
-   * Remove an entity by state.
+   * Remove entity state.
    */
   removeEntity(tag: string) {
     delete this.entities[tag]

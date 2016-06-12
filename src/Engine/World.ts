@@ -1,9 +1,19 @@
 
-import Stage from "./Stage"
 import Game, {GameState} from "./Game"
+import Stage from "./Stage"
+import Loader from "./Loader"
 import Entity, {EntityState} from "./Entity"
 import {TickInfo} from "./Ticker"
 declare const require: (moduleIds: string[], callback?: (...modules:any[]) => void, errback?: (error: Error) => void) => void
+
+/**
+ * Inputs for a new world instance.
+ */
+export interface WorldOptions {
+  game: Game
+  stage: Stage
+  loader: Loader
+}
 
 /**
  * Contain the entity instances of the game world.
@@ -13,11 +23,14 @@ declare const require: (moduleIds: string[], callback?: (...modules:any[]) => vo
  */
 export default class World {
 
+  /** Parent game instance. */
+  private game: Game
+
   /** Babylon stage. */
   private stage: Stage
 
-  /** Parent game instance. */
-  private game: Game
+  /** Loads object files and images. */
+  private loader: Loader
 
   /** Collection of entity instances. */
   private entities: { [tag: string]: Entity } = {}
@@ -26,8 +39,9 @@ export default class World {
    * Create a world instance with some world options.
    */
   constructor(options: WorldOptions) {
-    this.stage = options.stage
     this.game = options.game
+    this.stage = options.stage
+    this.loader = options.loader
   }
 
   /**
@@ -92,8 +106,9 @@ export default class World {
 
           // Instance the entity.
           const entity = new (<typeof Entity>entityModule.default)({
-            stage: this.stage,
             game: this.game,
+            stage: this.stage,
+            loader: this.loader,
             tag,
             label: state.label
           })
@@ -124,9 +139,4 @@ export default class World {
     this.game.log(`(-) Removed entity ${entity}`)
     return Promise.resolve()
   }
-}
-
-export interface WorldOptions {
-  stage: Stage
-  game: Game
 }

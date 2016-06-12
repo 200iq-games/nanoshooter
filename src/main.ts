@@ -13,8 +13,9 @@ const timeBeforeInitialize = (+new Date)
 
 // Initialize the Nanoshooter game.
 const nanoshooter = window["nanoshooter"] = new Nanoshooter({
-  log: (...messages: any[]) => console.log.apply(console, messages),
-  hostElement: <HTMLElement>document.querySelector(".game")
+  artRootUrl: "./art/",
+  hostElement: <HTMLElement>document.querySelector(".game"),
+  log: (...messages: any[]) => console.log.apply(console, messages)
 })
 
 { // Establish a framerate display.

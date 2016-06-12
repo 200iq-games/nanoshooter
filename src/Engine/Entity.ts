@@ -2,8 +2,20 @@
 import Game from "./Game"
 import World from "./World"
 import Stage from "./Stage"
+import Loader from "./Loader"
 import State from "./State"
 import {TickInfo} from "./Ticker"
+
+/**
+ * Options for creating an Entity instance.
+ */
+export interface EntityOptions {
+  tag: string
+  game: Game
+  stage: Stage
+  loader: Loader
+  label?: string
+}
 
 /**
  * Entity in the game world which responds to fresh entity state on logic ticks.
@@ -14,17 +26,20 @@ export default class Entity {
   /** Module ID for this entity class. Used to load entity classes on-the-fly. */
   static type: string = "Nanoshooter/Entities/Entity"
 
-  /** Unique ID tag for this entity instance. */
+  /** Unique ID tag. */
   tag: string
 
   /** Human-friendly nickname for this entity instance. Doesn't have to be unique. Useful for entity queries. */
   label: string
 
-  /** Parent game instance. */
+  /** Parent game instance. Entities have the right to manipulate the game on a high level (start/stop, etc). */
   protected game: Game
 
-  /** Stage instance. */
+  /** Stage instance. Entities have full access to the Babylon API that the stage exposes. */
   protected stage: Stage
+
+  /** Art loader instance. Allows the entity to load art asset files, like .obj's, sounds, or images. */
+  protected loader: Loader
 
   /**
    * Create a new entity instance.
@@ -35,6 +50,7 @@ export default class Entity {
     this.label = options.label || ""
     this.game = options.game
     this.stage = options.stage
+    this.loader = options.loader
 
     this.initialize()
   }
@@ -59,13 +75,6 @@ export default class Entity {
    * Entity's aesthetic appearance in debugging logs.
    */
   toString() { return `<${this.tag}${this.label?'-':''}${this.label}>` }
-}
-
-export interface EntityOptions {
-  tag: string
-  label?: string
-  game: Game
-  stage: Stage
 }
 
 export class EntityState extends State {

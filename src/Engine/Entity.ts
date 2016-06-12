@@ -63,7 +63,7 @@ export default class Entity {
   /**
    * Respond to fresh entity state on a logic tick.
    */
-  logic(state: EntityState, tickInfo: TickInfo): { stateDelta: any } { return undefined }
+  logic(input: LogicInput): LogicReturns { return undefined }
 
   /**
    * Handle being removed from the game.
@@ -75,6 +75,15 @@ export default class Entity {
    * Entity's aesthetic appearance in debugging logs.
    */
   toString() { return `<${this.tag}${this.label?'-':''}${this.label}>` }
+}
+
+export interface LogicInput {
+  entityState: EntityState,
+  tickInfo: TickInfo
+}
+
+export interface LogicReturns {
+  stateDelta: any
 }
 
 export class EntityState extends State {

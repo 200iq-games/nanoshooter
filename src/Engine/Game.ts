@@ -70,7 +70,10 @@ export default class Game {
         this.world.conform(this.state)
 
         // Run all entity logic.
-        this.world.loopOverEntities((entity, tag) => entity.logic(this.state.getEntity(tag), tickInfo))
+        this.world.loopOverEntities((entity, tag) => entity.logic({
+          entityState: this.state.getEntity(tag),
+          tickInfo
+        }))
       }
     })
 

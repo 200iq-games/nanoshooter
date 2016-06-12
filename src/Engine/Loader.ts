@@ -27,7 +27,7 @@ export default class Loader {
       )
       meshTask.onSuccess = task => {
         resolve({
-          meshes: <BABYLON.Mesh>(<any>task).loadedMeshes
+          meshes: <BABYLON.Mesh[]>(<any>task).loadedMeshes
         })
       }
       meshTask.onError = reject
@@ -49,7 +49,7 @@ export interface LoadObjectOptions {
  * Report returned when an object finishes loading.
  */
 export interface LoadedObjectReport {
-  meshes: any
+  meshes: BABYLON.Mesh[]
 }
 
 /**

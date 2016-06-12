@@ -21,11 +21,14 @@ export default class Nanoshooter extends Game {
     scene.clearColor = new BABYLON.Color3(0.8, 0.8, 0.8)
 
     // Lights.
-    const light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 20, 0), scene)
-    light.intensity = 0.8
+    const toplight = new BABYLON.DirectionalLight("sunlight", new BABYLON.Vector3(0.2, -1, 0.3), scene)
+    const forelight = new BABYLON.DirectionalLight("forelight", new BABYLON.Vector3(0.8, -0.8, 0.5), scene)
+    const backlight = new BABYLON.DirectionalLight("backlight", new BABYLON.Vector3(-0.76, -0.8, -0.44), scene)
+    const underlight = new BABYLON.DirectionalLight("underlight", new BABYLON.Vector3(-0.28, 1, -0.22), scene)
+    underlight.intensity = 0.3
 
     // Camera.
-    const camera = new BABYLON.UniversalCamera("camera1", new BABYLON.Vector3(0, 40, -2), scene)
+    const camera = new BABYLON.UniversalCamera("camera1", new BABYLON.Vector3(-5, 15, -15), scene)
     camera.setTarget(BABYLON.Vector3.Zero())
     camera.attachControl(canvas, false)
 
@@ -41,17 +44,23 @@ export default class Nanoshooter extends Game {
       label: "FancyFloor"
     }))
 
-    // Spawner.
+    // Tank.
     this.addEntity(new EntityState({
-      type: "Nanoshooter/Entities/Spawner",
-      label: "Spawnlord"
+      type: "Nanoshooter/Entities/Tank",
+      label: "Tank"
     }))
 
-    // Robot.
-    this.addEntity(new EntityState({
-      type: "Nanoshooter/Entities/Robot",
-      label: "Robot"
-    }))
+    // // Spawner.
+    // this.addEntity(new EntityState({
+    //   type: "Nanoshooter/Entities/Spawner",
+    //   label: "Spawnlord"
+    // }))
+
+    // // Robot.
+    // this.addEntity(new EntityState({
+    //   type: "Nanoshooter/Entities/Robot",
+    //   label: "Robot"
+    // }))
 
     // // Cube.
     // this.addEntity(new EntityState({

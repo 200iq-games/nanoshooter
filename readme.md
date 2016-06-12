@@ -13,10 +13,10 @@
 
   - Open the directory in [Visual Studio Code](https://code.visualstudio.com/).
     - `Ctrl-Shift-B` to build.
-  - Loading performance will be optimized via Almond module bundling.
-  - [Travis CI builds on each commit.](https://travis-ci.org/ChaseMoskal/Nanoshooter)
   - `npm run watch` – Start a compile-on-save process.
+  - [Travis CI builds on each commit.](https://travis-ci.org/ChaseMoskal/Nanoshooter)
   - All 3D asset filenames must be lowercase – files such as `*.blend`, `*.obj`, `*.mtl` – at least for now, as it seems to be some weird bug or limitation with the Babylon loaders.
+  - Later on, loading performance will be optimized via Almond module bundling.
 
 ## Networking architecture
 

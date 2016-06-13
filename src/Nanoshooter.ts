@@ -25,7 +25,8 @@ export default class Nanoshooter extends Game {
     const forelight = new BABYLON.DirectionalLight("forelight", new BABYLON.Vector3(0.8, -0.8, 0.5), scene)
     const backlight = new BABYLON.DirectionalLight("backlight", new BABYLON.Vector3(-0.76, -0.8, -0.44), scene)
     const underlight = new BABYLON.DirectionalLight("underlight", new BABYLON.Vector3(-0.28, 1, -0.22), scene)
-    underlight.intensity = 0.3
+    toplight.intensity = forelight.intensity = backlight.intensity = 0.3
+    underlight.intensity = 0.1
 
     // Camera.
     const camera = new BABYLON.UniversalCamera("camera1", new BABYLON.Vector3(-5, 15, -15), scene)
@@ -44,10 +45,16 @@ export default class Nanoshooter extends Game {
       label: "FancyFloor"
     }))
 
-    // Tank.
+    // Tank alpha.
     this.addEntity(new EntityState({
-      type: "Nanoshooter/Entities/Tank",
-      label: "Tank"
+      type: "Nanoshooter/Entities/Tanks/TankAlpha",
+      label: "TankAlpha"
+    }))
+
+    // Tank bravo.
+    this.addEntity(new EntityState({
+      type: "Nanoshooter/Entities/Tanks/TankBravo",
+      label: "TankBravo"
     }))
 
     // // Spawner.

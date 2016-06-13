@@ -4,53 +4,48 @@ import Entity, {EntityLogicInput, EntityLogicOutput} from "../Engine/Entity"
  * It's a full blown tank!
  */
 export default class Tank extends Entity {
-
   static type = "Nanoshooter/Entities/Tank"
 
-  private meshes: BABYLON.Mesh[]
-
-  private bodyMeshes: BABYLON.Mesh[]
-  private turretMeshes: BABYLON.Mesh[]
-
-  private tankCore: BABYLON.Mesh
-  private tankPivot: BABYLON.Mesh
+  protected meshes: BABYLON.Mesh[]
+  protected chassis: BABYLON.Mesh
+  protected turret: BABYLON.Mesh
 
   initialize() {
-    this.loader.loadObject({ path: "tank.obj" }).then(loaded => {
+    this.loadTank("tank-bravo.obj")
+  }
+
+  loadTank(path: string): Promise<void> {
+    return this.loader.loadObject({path}).then(loaded => {
       this.meshes = loaded.meshes
-      this.loaded()
+
+      this.chassis = this.meshes.find(mesh => /Chassis/i.test(mesh.name))
+      this.turret = this.meshes.find(mesh => /Turret/i.test(mesh.name))
+
+      this.turret.parent = this.chassis;
     })
   }
 
-  loaded() {
-    // TODO: Figure out parenting.
-    this.bodyMeshes = this.meshes.filter(mesh => /tank-body/i.test(mesh.name))
-    this.turretMeshes = this.meshes.filter(mesh => /tank-turret/i.test(mesh.name))
-    this.tankCore = this.meshes.find(mesh => /tank-core/i.test(mesh.name))
-    this.tankPivot = this.meshes.find(mesh => /tank-pivot/i.test(mesh.name))
-
-    // Moving all meshes.. together..
-    for (const mesh of this.meshes) {
-      mesh.position.y += 2.5
-    }
-  }
-
-  /**
-   * Game logic run every tick.
-   */
-  logic({entityState, tickInfo}: EntityLogicInput): EntityLogicOutput {
+  logic(input: EntityLogicInput): EntityLogicOutput {
 
     // Aim the tank's gun turret toward the user's cursor.
-    if (this.meshes && this.stage.pick.hit) {
-      const pickedPoint = this.stage.pick.pickedPoint
-      const aim = BABYLON.Vector3.Zero()
-      aim.copyFrom(pickedPoint)
-      for (const mesh of this.turretMeshes) {
-        aim.y = mesh.position.y
-        mesh.lookAt(aim, 0, 0, 0)
-      }
-    }
+    if (this.meshes && this.stage.pick.hit)
+      this.aimTurret(this.stage.pick.pickedPoint)
 
-    return {entityStateDelta: {}}
+    return
+  }
+
+  aimTurret(point: BABYLON.Vector3) {
+    const aim = BABYLON.Vector3.Zero()
+    aim.copyFrom(point)
+    aim.subtractInPlace(this.turret.absolutePosition)
+    aim.y = this.turret.position.y
+    this.turret.lookAt(aim, 0, 0, 0)
+  }
+
+  removal() {
+    // Remove all meshes from the scene.
+    for (const mesh of this.meshes) {
+      this.stage.scene.removeMesh(mesh)
+    }
   }
 }

@@ -11,7 +11,7 @@ export default class Cube extends Entity {
   private mesh: BABYLON.Mesh
 
   protected initialize() {
-    const mesh = this.mesh = BABYLON.Mesh.CreateBox(this.tag, 1.5, this.stage.scene)
+    const mesh = this.mesh = BABYLON.Mesh.CreateBox(this.id, 1.5, this.stage.scene)
     mesh["cube"] = true
 
     const material = new BABYLON.StandardMaterial("floor", this.stage.scene)

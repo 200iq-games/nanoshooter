@@ -1,6 +1,6 @@
 
 
-import Entity, {EntityOptions, EntityState, TickInfo} from "../Engine/Entity"
+import Entity, {EntityOptions, EntityState, TickInfo, EntityLogicInput, EntityLogicOutput} from "../Engine/Entity"
 
 /**
  * A simple cube object in the game world.
@@ -11,43 +11,54 @@ export default class Robot extends Entity {
 
   private mesh: BABYLON.Mesh
 
-  private listeners: { keydown: (event: KeyboardEvent) => void; keyup: (event: KeyboardEvent) => void }
-  
+  private listeners: {
+    keydown: (event: KeyboardEvent) => void
+    keyup: (event: KeyboardEvent) => void
+  }
+
   private movement: BABYLON.Vector3 = BABYLON.Vector3.Zero()
 
   protected initialize() {
 
     // Keyboard listeners.
-    {
-      this.listeners = {
-        keydown: event => {
-          if (event.keyCode === 87) this.movement.z = 1
-          else if (event.keyCode === 83) this.movement.z = -1
-          else if (event.keyCode === 65) this.movement.x = -1
-          else if (event.keyCode === 68) this.movement.x = 1
-        },
-        keyup: event => {
-          if (event.keyCode === 87) this.movement.z = 0
-          else if (event.keyCode === 83) this.movement.z = 0
-          else if (event.keyCode === 65) this.movement.x = 0
-          else if (event.keyCode === 68) this.movement.x = 0
+
+    this.listeners = {
+      keydown: event => {
+        switch (event.keyCode) {
+          case 87: this.movement.z = 1
+            break
+          case 83: this.movement.z = -1
+            break
+          case 65: this.movement.x = -1
+            break
+          case 68: this.movement.x = 1
+        }
+      },
+      keyup: event => {
+        switch (event.keyCode) {
+          case 87: this.movement.z = 0
+            break
+          case 83: this.movement.z = 0
+            break
+          case 65: this.movement.x = 0
+            break
+          case 68: this.movement.x = 0
         }
       }
-      window.addEventListener("keydown", this.listeners.keydown)
-      window.addEventListener("keyup", this.listeners.keyup)
     }
 
+    window.addEventListener("keydown", this.listeners.keydown)
+    window.addEventListener("keyup", this.listeners.keyup)
+
     // OBJ loading.
-    {
-      const assetsManager = new BABYLON.AssetsManager(this.stage.scene)
-      const meshTask = assetsManager.addMeshTask("mesh", "", "./art/", "robot.obj")
-      meshTask.onSuccess = task => {
-        this.mesh = <BABYLON.Mesh>(<any>task).loadedMeshes[0]
-        this.loaded()
-      }
-      assetsManager.useDefaultLoadingScreen = false
-      assetsManager.load()
+    const assetsManager = new BABYLON.AssetsManager(this.stage.scene)
+    const meshTask = assetsManager.addMeshTask("mesh", "", "./art/", "robot.obj")
+    meshTask.onSuccess = task => {
+      this.mesh = <BABYLON.Mesh>(<any>task).loadedMeshes[0]
+      this.loaded()
     }
+    assetsManager.useDefaultLoadingScreen = false
+    assetsManager.load()
   }
 
   /**
@@ -70,7 +81,7 @@ export default class Robot extends Entity {
   /**
    * Game logic run every tick.
    */
-  logic(state: EntityState, tickInfo: TickInfo): { stateDelta: any } {
+  logic({entityState, tickInfo}: EntityLogicInput): EntityLogicOutput {
 
     // Wait for the mesh to be loaded.
     if (this.mesh) {
@@ -88,7 +99,7 @@ export default class Robot extends Entity {
       this.mesh.applyImpulse(impulse, this.mesh.position)
     }
 
-    return {stateDelta: {}}
+    return {entityStateDelta: {}}
   }
 
   removal() {

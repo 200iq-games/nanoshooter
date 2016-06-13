@@ -1,6 +1,7 @@
 
 import Game, {GameState} from "./Game"
 import Stage from "./Stage"
+import State from "./State"
 import Loader from "./Loader"
 import Entity, {EntityState} from "./Entity"
 import {TickInfo} from "./Ticker"
@@ -16,6 +17,7 @@ export interface WorldOptions {
 }
 
 /**
+ * Game world, which contains entity instances which imitate the game state.
  * Contain the entity instances of the game world.
  * Synchronizes with provided game state by adding or removing entities.
  * Responsible for dynamically loading and instancing entities.
@@ -24,16 +26,16 @@ export interface WorldOptions {
 export default class World {
 
   /** Parent game instance. */
-  private game: Game
+  protected game: Game
 
   /** Babylon stage. */
-  private stage: Stage
+  protected stage: Stage
 
   /** Loads object files and images. */
-  private loader: Loader
+  protected loader: Loader
 
   /** Collection of entity instances. */
-  private entities: { [tag: string]: Entity } = {}
+  protected entities: { [id: string]: Entity } = {}
 
   /**
    * Create a world instance with some world options.
@@ -45,41 +47,63 @@ export default class World {
   }
 
   /**
-   * Loop over each entity.
+   * Query entities by label with a regular expression.
    */
-  loopOverEntities(looper: (entity: Entity, tag: string) => void): void {
-    for (const tag of Object.keys(this.entities)) {
-      const entity = this.entities[tag]
-
-      // Don't loop over null entities (which are currently loading).
-      if (entity) looper(entity, tag)
-    }
+  query(regularExpression: RegExp): Entity[] {
+    const matches: Entity[] = []
+    this.loopOverEntities(entity => {
+      if (regularExpression.test(entity.label)) matches.push(entity)
+    })
+    return matches
   }
 
   /**
-   * Synchronize the world with the provided game state data.
-   *   - Add new state entities to the world (load them dynamically).
-   *   - Remove extraneous state entities from the world.
-   *   - Return a report of all added or removed entities.
+   * Loop over each entity.
    */
-  conform(gameState: GameState): Promise<{ added: Entity[]; removed: string[] }> {
+  loopOverEntities(looper: (entity: Entity) => void): void {
+
+    // Take the array of object keys, which are entity IDs.
+    Object.keys(this.entities)
+
+      // Map the IDs to the entity instances themselves.
+      .map(id => this.entities[id])
+
+      // Filter out null entities (which indicates that they are still loading).
+      .filter(entity => !!entity)
+
+      // Run each entity through the looper.
+      .forEach(looper)
+  }
+
+  /**
+   * Run all game logic routines.
+   *  - Add new entities to the world (load them dynamically).
+   *  - Remove extraneous entities from the world.
+   *  - Run all entity logic.
+   *  - Return a final logic report, which includes all added or removed entities.
+   */
+  logic({gameState, tickInfo}: WorldLogicInput): Promise<WorldLogicOutput> {
     const added: Promise<Entity>[] = []
     const removed: Promise<string>[] = []
 
     // Add entities that are present in the game state, but are missing from this world.
-    gameState.loopOverEntities((entityState, tag) => {
-      if (!this.entities.hasOwnProperty(tag))
-        added.push(
-          this.addEntity(tag, entityState).then(() => undefined)
-        )
+    gameState.loopOverEntities((entityState, id) => {
+      if (!this.entities.hasOwnProperty(id))
+        added.push(this.conjureEntity(id, entityState).then(() => undefined))
     })
 
     // Remove entities that are missing from the game state, but are present in this game world.
-    gameState.loopOverEntities((entityState, tag) => {
-      if (!gameState.getEntity(tag))
-        removed.push(
-          this.removeEntity(tag).then(() => tag)
-        )
+    gameState.loopOverEntities((entityState, id) => {
+      if (!gameState.getEntityState(id))
+        removed.push(this.removeEntity(id).then(() => id))
+    })
+
+    // Run all entity logic.
+    this.loopOverEntities(entity => {
+      entity.logic({
+        entityState: gameState.getEntityState(entity.id),
+        tickInfo
+      })
     })
 
     // Return a report of all added or removed entities.
@@ -90,14 +114,14 @@ export default class World {
   }
 
   /**
-   * Load, instance, and add an entity to the game world based on provided entity state.
+   * Dynamically load up, and instance an entity provided entity state.
    */
-  private addEntity(tag: string, state: EntityState): Promise<Entity> {
+  private conjureEntity(id: string, state: EntityState): Promise<Entity> {
     return new Promise<Entity>((resolve, reject) => {
 
       // Entity is set to null in the collection while the entity is loading.
       // If we didn't do this, the world might perform another sync during
-      this.entities[tag] = null
+      this.entities[id] = null
 
       // Load the entity.
       require(
@@ -109,12 +133,12 @@ export default class World {
             game: this.game,
             stage: this.stage,
             loader: this.loader,
-            tag,
+            id,
             label: state.label
           })
 
           // Add the entity to the entities collection.
-          this.entities[tag] = entity
+          this.entities[id] = entity
 
           // Log about it.
           this.game.log(`(+) Added entity ${entity}`)
@@ -132,11 +156,31 @@ export default class World {
   /**
    * Remove an entity from the game world.
    */
-  private removeEntity(tag: string): Promise<void> {
-    const entity = this.entities[tag]
+  private removeEntity(id: string): Promise<void> {
+    const entity = this.entities[id]
     entity.removal()
-    delete this.entities[tag]
+    delete this.entities[id]
     this.game.log(`(-) Removed entity ${entity}`)
     return Promise.resolve()
   }
+}
+
+export interface WorldLogicInput {
+  gameState: GameState
+  tickInfo: TickInfo
+}
+
+export interface WorldLogicOutput {
+
+  /** Entity instances which were added. */
+  added: Entity[]
+
+  /** The IDs of entity instances which were removed. */
+  removed: string[]
+}
+
+/** Returns from a reflection. */
+export interface ReflectionReport {
+
+  
 }

@@ -1,4 +1,4 @@
-import Entity, {EntityOptions, EntityState, TickInfo} from "../Engine/Entity"
+import Entity, {EntityLogicInput, EntityLogicOutput} from "../Engine/Entity"
 
 /**
  * It's a full blown tank!
@@ -38,7 +38,7 @@ export default class Tank extends Entity {
   /**
    * Game logic run every tick.
    */
-  logic(state: EntityState, tickInfo: TickInfo): { stateDelta: any } {
+  logic({entityState, tickInfo}: EntityLogicInput): EntityLogicOutput {
 
     // Aim the tank's gun turret toward the user's cursor.
     if (this.meshes && this.stage.pick.hit) {
@@ -51,6 +51,6 @@ export default class Tank extends Entity {
       }
     }
 
-    return {stateDelta: {}}
+    return {entityStateDelta: {}}
   }
 }

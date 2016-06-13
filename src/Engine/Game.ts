@@ -30,13 +30,13 @@ export default class Game {
   protected stage: Stage
 
   /** Game state, source of truth that the world is based on. */
-  private state: GameState
+  protected state: GameState
 
   /** Maintains entity instances, synchronizes with game state. */
-  private world: World
+  protected world: World
 
   /** Game logic loop utility. */
-  private logicTicker: Ticker
+  protected logicTicker: Ticker
 
   /**
    * Create and wire up the engine components that the game is comprised of.
@@ -60,20 +60,10 @@ export default class Game {
       })
     })
 
-    // Create the ticker which runs game logic.
+    // Create game logic ticker, and define the game logic routine.
     this.logicTicker = new Ticker({
-
-      // Function for each logic tick.
       tick: tickInfo => {
-
-        // Sync the game world to match the game state.
-        this.world.conform(this.state)
-
-        // Run all entity logic.
-        this.world.loopOverEntities((entity, tag) => entity.logic({
-          entityState: this.state.getEntity(tag),
-          tickInfo
-        }))
+        this.world.logic({tickInfo, gameState: this.state})
       }
     })
 
@@ -93,11 +83,11 @@ export default class Game {
   }
 
   /**
-   * Remove an entity from the state based on the provided entity tag string.
+   * Remove an entity from the state based on the provided entity id.
    * TODO: Make this return a promise that is resolved when the entity instance is actually removed from the world.
    */
-  removeEntity(tag: string) {
-    this.state.removeEntity(tag)
+  removeEntity(id: string) {
+    this.state.removeEntity(id)
   }
 
   /**
@@ -130,40 +120,38 @@ export default class Game {
 export class GameState extends State {
 
   /** Collection of entity state. */
-  private entities: { [tag: string]: EntityState } = {}
+  private entities: { [id: string]: EntityState } = {}
 
-  /** Entity tag pulling station. */
-  private pullTag = () => (++this.nextTag).toString()
-  private nextTag = 0
+  /** Entity id pulling station. */
+  private pullId = () => (++this.nextId).toString()
+  private nextId = 0
 
   /**
    * Loop over each entity state.
    */
-  loopOverEntities(looper: (entityState: EntityState, tag: string) => void): void {
-    for (const tag of Object.keys(this.entities))
-      looper(this.entities[tag], tag)
+  loopOverEntities(looper: (entityState: EntityState, id: string) => void): void {
+    for (const id of Object.keys(this.entities))
+      looper(this.entities[id], id)
   }
 
   /**
    * Obtain a particular entity state.
    */
-  getEntity(tag: string) {
-    return this.entities[tag]
+  getEntityState(id: string) {
+    return this.entities[id]
   }
 
   /**
    * Add entity state.
    */
   addEntity(entityState: EntityState) {
-    this.entities[this.pullTag()] = entityState
+    this.entities[this.pullId()] = entityState
   }
 
   /**
    * Remove entity state.
    */
-  removeEntity(tag: string) {
-    delete this.entities[tag]
+  removeEntity(id: string) {
+    delete this.entities[id]
   }
 }
-
-export {TickInfo}

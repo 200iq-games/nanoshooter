@@ -3,8 +3,8 @@
  * Loads art assets.
  */
 export default class Loader {
-  private scene: BABYLON.Scene
-  private rootUrl: string
+  protected scene: BABYLON.Scene
+  protected rootUrl: string
 
   constructor(options: ObjectLoaderOptions) {
     this.scene = options.scene

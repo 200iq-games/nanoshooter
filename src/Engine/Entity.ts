@@ -10,7 +10,7 @@ import {TickInfo} from "./Ticker"
  * Options for creating an Entity instance.
  */
 export interface EntityOptions {
-  tag: string
+  id: string
   game: Game
   stage: Stage
   loader: Loader
@@ -27,7 +27,7 @@ export default class Entity {
   static type: string = "Nanoshooter/Entities/Entity"
 
   /** Unique ID tag. */
-  tag: string
+  id: string
 
   /** Human-friendly nickname for this entity instance. Doesn't have to be unique. Useful for entity queries. */
   label: string
@@ -46,7 +46,7 @@ export default class Entity {
    * You can optionally provide your own label for each instance.
    */
   constructor(options: EntityOptions) {
-    this.tag = options.tag
+    this.id = options.id
     this.label = options.label || ""
     this.game = options.game
     this.stage = options.stage
@@ -63,7 +63,7 @@ export default class Entity {
   /**
    * Respond to fresh entity state on a logic tick.
    */
-  logic(input: LogicInput): LogicReturns { return undefined }
+  logic(input: EntityLogicInput): EntityLogicOutput { return undefined }
 
   /**
    * Handle being removed from the game.
@@ -74,16 +74,16 @@ export default class Entity {
   /**
    * Entity's aesthetic appearance in debugging logs.
    */
-  toString() { return `<${this.tag}${this.label?'-':''}${this.label}>` }
+  toString() { return `<${this.id}${this.label?'-':''}${this.label}>` }
 }
 
-export interface LogicInput {
+export interface EntityLogicInput {
   entityState: EntityState,
   tickInfo: TickInfo
 }
 
-export interface LogicReturns {
-  stateDelta: any
+export interface EntityLogicOutput {
+  entityStateDelta: any
 }
 
 export class EntityState extends State {

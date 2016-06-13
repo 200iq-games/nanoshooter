@@ -73,7 +73,7 @@ Here are some old comments that explain a little about each method:
 I want to evolve these concepts a little bit, so the names are up in the air for me at the moment.
   - I think I want to rename "Host" to "Server".
   - I think I want to rename "Controller" to "Master".
-  - I might want to leave "Proxy" the way it is, or maybe consider "Slave" or "Replicant".
+  - I might want to leave "Proxy" the way it is, or maybe consider "Slave" or "Replicant". "Imitation"?
 
 I want to distinguish the names of the boolean that deduce the roles, from the names of the roles themselves.
 

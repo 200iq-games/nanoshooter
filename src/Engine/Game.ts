@@ -10,7 +10,6 @@ import Loader from "./Loader"
  * Options for creating a Game.
  */
 export interface GameOptions {
-  artRootUrl: string
   hostElement: HTMLElement
   log: Logger
 }
@@ -41,7 +40,7 @@ export default class Game {
   /**
    * Create and wire up the engine components that the game is comprised of.
    */
-  constructor({artRootUrl, hostElement, log}: GameOptions) {
+  constructor({hostElement, log}: GameOptions) {
     this.log = log
 
     // Create the Babylon stage.
@@ -54,10 +53,7 @@ export default class Game {
     this.world = new World({
       game: this,
       stage: this.stage,
-      loader: new Loader({
-        scene: this.stage.scene,
-        rootUrl: artRootUrl
-      })
+      loader: new Loader({scene: this.stage.scene})
     })
 
     // Create game logic ticker, and define the game logic routine.

@@ -4,11 +4,9 @@
  */
 export default class Loader {
   protected scene: BABYLON.Scene
-  protected rootUrl: string
 
   constructor(options: ObjectLoaderOptions) {
     this.scene = options.scene
-    this.rootUrl = options.rootUrl
   }
 
   /**
@@ -17,20 +15,36 @@ export default class Loader {
    */
   loadObject({path}: LoadObjectOptions): Promise<LoadedObjectReport> {
     return new Promise<LoadedObjectReport>((resolve, reject) => {
+
+      // Work a little magic to distinguish the directory path from the filename, which Babylon wants.
+      const {dir, objFileName} = (() => {
+        let dir = ''
+        let objFileName = ''
+        if (path.includes('/')) {
+          const parts = path.split('/')
+          objFileName = parts.pop()
+          dir = parts.join('/') + '/'
+        } else {
+          objFileName = path
+        }
+        return {dir, objFileName}
+      })()
+
+      // Create a Babylon assets manager.
       const assetsManager = new BABYLON.AssetsManager(this.scene)
       assetsManager.useDefaultLoadingScreen = false
-      const meshTask = assetsManager.addMeshTask(
-        performance.now().toString(),
-        null,
-        this.rootUrl,
-        path
-      )
+
+      // Create a mesh task to load.
+      const meshName = performance.now().toString() // like totally w/e
+      const meshTask = assetsManager.addMeshTask(meshName, null, dir, objFileName)
       meshTask.onSuccess = task => {
         resolve({
           meshes: <BABYLON.Mesh[]>(<any>task).loadedMeshes
         })
       }
       meshTask.onError = reject
+
+      // Start loading.
       assetsManager.load()
     })
   }
@@ -59,7 +73,4 @@ export interface ObjectLoaderOptions {
 
   /** Current babylon scene to load things into. */
   scene: BABYLON.Scene
-
-  /** Load object files relative to this root directory URL. */
-  rootUrl: string
 }

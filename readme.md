@@ -4,18 +4,20 @@
 ## Start tinkering!
 
   1. Clone this repo.
-  2. Open command line to project directory. Enter: 
+  2. Open command line to project directory. Enter:
     1. `npm install` – Install all project dependencies (locally).
     2. `npm run build` – Build the project's TypeScript source.
   3. Browse to `index.html`.
 
 ## Notes
 
-  - Open the directory in [Visual Studio Code](https://code.visualstudio.com/).
+  - For editing code, open the project directory in [Visual Studio Code](https://code.visualstudio.com/).
     - `Ctrl-Shift-B` to build.
+  - If you're on Windows, you'll probably want to use [Cmder](http://cmder.net/) as your command-line interface.
+    - Also, follow [these cryptic instructions](https://github.com/cmderdev/cmder/wiki/%5BWindows%5D-%22Open-Cmder-Here%22-in-context-menu) to gain the lovely ability to *Open Cmder Here* into any folder from the right-click context menu.
   - `npm run watch` – Start a compile-on-save process.
-  - [Travis CI builds on each commit.](https://travis-ci.org/ChaseMoskal/Nanoshooter)
   - All 3D asset filenames must be lowercase – files such as `*.blend`, `*.obj`, `*.mtl` – at least for now, as it seems to be some weird bug or limitation with the Babylon loaders.
+  - [Travis CI will build each commit.](https://travis-ci.org/ChaseMoskal/Nanoshooter)
   - Later on, loading performance will be optimized via Almond module bundling.
 
 ## Networking architecture
@@ -27,7 +29,7 @@ The crusade to improve our ancient networking architectural concepts since the '
 ```python
 def run(self, gamestate):
   self.memoOutbox = [] # list of outgoing memos.
-  self.deltaOutbox = [] # list of outgoing deltas. 
+  self.deltaOutbox = [] # list of outgoing deltas.
 
   ### host/client ###
   if self.engine.host:
@@ -51,22 +53,10 @@ As you can see, our entities had four methods for running behavior, and two of t
   - We run the `controller` or `proxy` method, depending on whether we have control over the entity or not.
 
 Here are some old comments that explain a little about each method:
-
-    #================#
-    #===== HOST =====# Server-side behaviour for this entity.
-    #================# Updates server-data
-
-    #==================#
-    #===== CLIENT =====# Client-side behaviour for this entity.
-    #==================# Replicates server-data.
-
-    #======================#
-    #===== CONTROLLER =====# Controller behaviour for this entity.
-    #======================# Updates controller-data; creates memos.
-
-    #=================#
-    #===== PROXY =====# Proxy behaviour for this entity.
-    #=================# Replicates controller-data.
+  - HOST: Server-side behaviour for this entity. Updates server-data
+  - CLIENT: Client-side behaviour for this entity. Replicates server-data.
+  - CONTROLLER: Controller behaviour for this entity. Updates controller-data; creates memos.
+  - PROXY: Proxy behaviour for this entity. Replicates controller-data.
 
 ### Evolved networking
 

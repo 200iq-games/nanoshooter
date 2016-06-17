@@ -81,7 +81,7 @@ export default class Robot extends Entity {
   /**
    * Game logic run every tick.
    */
-  logic({entityState, tickInfo}: EntityLogicInput): EntityLogicOutput {
+  logic({entityState, tickReport}: EntityLogicInput): EntityLogicOutput {
 
     // Wait for the mesh to be loaded.
     if (this.mesh) {
@@ -94,7 +94,7 @@ export default class Robot extends Entity {
       }
 
       // Apply movement impulses.
-      const t = tickInfo.timeSinceLastTick / 20
+      const t = tickReport.timeSinceLastTick / 20
       const impulse = this.movement.multiply(new BABYLON.Vector3(t, t, t))
       this.mesh.applyImpulse(impulse, this.mesh.position)
     }

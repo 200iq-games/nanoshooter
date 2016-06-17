@@ -87,7 +87,7 @@ export default class World {
    *  - Run all entity logic.
    *  - Return a final logic report, which includes all added or removed entities.
    */
-  logic({gameState, tickInfo}: WorldLogicInput): Promise<WorldLogicOutput> {
+  logic({gameState, tickReport}: WorldLogicInput): Promise<WorldLogicOutput> {
     const added: Promise<Entity>[] = []
     const removed: Promise<string>[] = []
 
@@ -173,7 +173,7 @@ export default class World {
 
 export interface WorldLogicInput {
   gameState: GameState
-  tickInfo: TickReport
+  tickReport: TickReport
 }
 
 export interface WorldLogicOutput {

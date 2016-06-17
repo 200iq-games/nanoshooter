@@ -26,9 +26,12 @@ export default class Tank extends Entity {
   }
 
   logic(input: EntityLogicInput): EntityLogicOutput {
+
     // Aim the tank's gun turret toward the user's cursor.
     if (this.meshes && this.stage.pick.hit)
       this.aimTurret(this.stage.pick.pickedPoint)
+
+    return
   }
 
   aimTurret(point: BABYLON.Vector3) {

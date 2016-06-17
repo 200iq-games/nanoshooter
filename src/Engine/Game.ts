@@ -1,7 +1,7 @@
 
 import Stage from "./Stage"
 import World from "./World"
-import Ticker, {TickInfo} from "./Ticker"
+import Ticker, {TickReport} from "./Ticker"
 import Entity, {EntityState} from "./Entity"
 import State from "./State"
 import Loader from "./Loader"

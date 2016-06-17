@@ -4,7 +4,8 @@ import World from "./World"
 import Stage from "./Stage"
 import Loader from "./Loader"
 import State from "./State"
-import {TickInfo} from "./Ticker"
+import {TickReport} from "./Ticker"
+export {TickReport}
 
 /**
  * Options for creating an Entity instance.
@@ -67,19 +68,19 @@ export default class Entity {
 
   /**
    * Handle being removed from the game.
-   * Tear down any event subscriptions.
+   * Tear down any event subscriptions, etc.
    */
   removal() {}
 
   /**
-   * Entity's aesthetic appearance in debugging logs.
+   * Make it look pretty in the console logs.
    */
   toString() { return `<${this.id}${this.label?'-':''}${this.label}>` }
 }
 
 export interface EntityLogicInput {
   entityState: EntityState,
-  tickInfo: TickInfo
+  tickReport: TickReport
 }
 
 export interface EntityLogicOutput {
@@ -102,5 +103,3 @@ export interface EntityStateOptions {
   type: string
   label?: string
 }
-
-export {TickInfo}

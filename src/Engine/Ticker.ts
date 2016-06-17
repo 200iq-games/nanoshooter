@@ -1,11 +1,12 @@
 
 /**
- * Stop/start controls for generic ticking loops.
+ * Generic ticking loop, with start/stop controls.
+ * Keeps a consistent timeline.
  */
 export default class Ticker {
 
   /**
-   * Create a ticker with an action function which will be called repeatedly.
+   * Instantiate a ticker with an action function which will be called repeatedly.
    */
   constructor({tick, relax = 10}: TickerOptions) {
     this.tick = tick
@@ -35,7 +36,7 @@ export default class Ticker {
    */
   start() {
 
-    // If stopTickingCallback is set, call it, clear it, and stop the recursive ticking process by returning.
+    // If the stop callback is set, call it, clear it, and stop the recursive ticking process by returning.
     if (this.stopTickingCallback) {
       this.stopTickingCallback()
       this.stopTickingCallback = null
@@ -44,13 +45,13 @@ export default class Ticker {
 
     // Gather 'start' timings.
     let now = performance.now()
-    const timeSince = now - this.lastTickTime
-    this.timeline += timeSince
+    const timeSinceLastTick = now - this.lastTickTime
+    this.timeline += timeSinceLastTick
     const tickStartTime = now
 
-    // Call the TickAction.
+    // Call the tick action.
     this.tick({
-      timeSince,
+      timeSinceLastTick,
       timeline: this.timeline
     })
 
@@ -79,21 +80,28 @@ export default class Ticker {
   }
 }
 
+/**
+ * Options for instantiating a new ticker.
+ */
 export interface TickerOptions {
   tick: TickAction
   relax?: number
 }
 
-export type TickAction = (tickInfo: TickInfo) => void
+/**
+ * Action to take when a tick occurs.
+ * A function that is called repeatedly, for each tick.
+ */
+export type TickAction = (tickInfo: TickReport) => void
 
 /**
- * Package of information that is passed along to the TickAction for each tick.
+ * Package of information that is passed along with each tick action.
  */
-export interface TickInfo {
+export interface TickReport {
 
   /** Total place along ticker's timeline, which effectively freezes on stop() and resumes on start(). */
   timeline: number
 
   /** Duration of time that has passed since the end of the last tick to the beginning of this tick, in milliseconds. */
-  timeSince: number
+  timeSinceLastTick: number
 }

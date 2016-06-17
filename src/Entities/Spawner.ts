@@ -13,8 +13,8 @@ export default class Spawner extends Entity {
   protected initialize() {
     window.addEventListener("keyup", this.keyupAction = (event: KeyboardEvent) => {
 
-      //                  Spacebar.
-      //                     ↓
+      //                Spacebar.
+      //                    ↓
       if (event.keyCode === 32) {
 
         this.game.addEntity(new EntityState({

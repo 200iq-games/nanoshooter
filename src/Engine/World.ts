@@ -1,10 +1,10 @@
 
-import Game, {GameState} from "./Game"
+import Game, {GameState, Logger} from "./Game"
 import Stage from "./Stage"
 import State from "./State"
 import Loader from "./Loader"
 import Entity, {EntityState} from "./Entity"
-import {TickInfo} from "./Ticker"
+import {TickReport} from "./Ticker"
 declare const require: (moduleIds: string[], callback?: (...modules:any[]) => void, errback?: (error: Error) => void) => void
 
 /**
@@ -14,6 +14,7 @@ export interface WorldOptions {
   game: Game
   stage: Stage
   loader: Loader
+  log?: Logger
 }
 
 /**
@@ -34,6 +35,9 @@ export default class World {
   /** Loads object files and images. */
   protected loader: Loader
 
+  /** Logger for world events. */
+  protected log: Logger
+
   /** Collection of entity instances. */
   protected entities: { [id: string]: Entity } = {}
 
@@ -44,6 +48,7 @@ export default class World {
     this.game = options.game
     this.stage = options.stage
     this.loader = options.loader
+    this.log = options.log || this.game.log
   }
 
   /**
@@ -89,7 +94,7 @@ export default class World {
     // Add entities that are present in the game state, but are missing from this world.
     gameState.loopOverEntities((entityState, id) => {
       if (!this.entities.hasOwnProperty(id))
-        added.push(this.conjureEntity(id, entityState).then(() => undefined))
+        added.push(this.summonEntity(id, entityState).then(() => undefined))
     })
 
     // Remove entities that are missing from the game state, but are present in this game world.
@@ -102,21 +107,22 @@ export default class World {
     this.loopOverEntities(entity => {
       entity.logic({
         entityState: gameState.getEntityState(entity.id),
-        tickInfo
+        tickReport
       })
     })
 
     // Return a report of all added or removed entities.
-    return Promise.all([Promise.all(added), Promise.all(removed)]).then((results: any) => ({
-      added: results[0],
-      removed: results[1]
-    }))
+    return Promise.all([Promise.all(added), Promise.all(removed)])
+      .then((results: any) => ({
+        added: results[0],
+        removed: results[1]
+      }))
   }
 
   /**
-   * Dynamically load up, and instance an entity provided entity state.
+   * Dynamically load up and instantiate an entity provided entity state.
    */
-  private conjureEntity(id: string, state: EntityState): Promise<Entity> {
+  private summonEntity(id: string, state: EntityState): Promise<Entity> {
     return new Promise<Entity>((resolve, reject) => {
 
       // Entity is set to null in the collection while the entity is loading.
@@ -128,20 +134,20 @@ export default class World {
         [state.type],
         entityModule => {
 
-          // Instance the entity.
+          // Instantiate the entity.
           const entity = new (<typeof Entity>entityModule.default)({
+            id,
+            label: state.label,
             game: this.game,
             stage: this.stage,
-            loader: this.loader,
-            id,
-            label: state.label
+            loader: this.loader
           })
 
           // Add the entity to the entities collection.
           this.entities[id] = entity
 
           // Log about it.
-          this.game.log(`(+) Added entity ${entity}`)
+          this.log(`(+) Added entity ${entity}`)
 
           // Resolve the promise with the added entity.
           resolve(entity)
@@ -160,14 +166,14 @@ export default class World {
     const entity = this.entities[id]
     entity.removal()
     delete this.entities[id]
-    this.game.log(`(-) Removed entity ${entity}`)
+    this.log(`(-) Removed entity ${entity}`)
     return Promise.resolve()
   }
 }
 
 export interface WorldLogicInput {
   gameState: GameState
-  tickInfo: TickInfo
+  tickInfo: TickReport
 }
 
 export interface WorldLogicOutput {
@@ -177,10 +183,4 @@ export interface WorldLogicOutput {
 
   /** The IDs of entity instances which were removed. */
   removed: string[]
-}
-
-/** Returns from a reflection. */
-export interface ReflectionReport {
-
-  
 }

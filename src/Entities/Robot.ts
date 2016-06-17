@@ -1,6 +1,6 @@
 
 
-import Entity, {EntityOptions, EntityState, TickInfo, EntityLogicInput, EntityLogicOutput} from "../Engine/Entity"
+import Entity, {EntityOptions, EntityState, TickReport, EntityLogicInput, EntityLogicOutput} from "../Engine/Entity"
 
 /**
  * A simple cube object in the game world.
@@ -94,7 +94,7 @@ export default class Robot extends Entity {
       }
 
       // Apply movement impulses.
-      const t = tickInfo.timeSince / 20
+      const t = tickInfo.timeSinceLastTick / 20
       const impulse = this.movement.multiply(new BABYLON.Vector3(t, t, t))
       this.mesh.applyImpulse(impulse, this.mesh.position)
     }
@@ -103,14 +103,10 @@ export default class Robot extends Entity {
   }
 
   removal() {
-    {
       if (this.mesh) this.mesh.dispose
       this.mesh = null
-    }
-    {
+
       window.removeEventListener("keydown", this.listeners.keydown)
       window.removeEventListener("keyup", this.listeners.keyup)
-    }
   }
 }
-

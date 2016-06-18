@@ -4,10 +4,10 @@
 ## Start tinkering!
 
   1. Clone this repo.
-  2. Open command line to project directory. Enter:
+  2. Command line. Enter:
     1. `npm install` – Install all project dependencies (locally).
     2. `npm run build` – Build the project's TypeScript source.
-  3. Browse to `index.html`.
+  3. Run a little web server, browse to `index.html`.
 
 ## Notes
 
@@ -20,7 +20,24 @@
   - [Travis CI will build each commit.](https://travis-ci.org/ChaseMoskal/Nanoshooter)
   - Later on, loading performance will be optimized via Almond module bundling.
 
-## Networking architecture
+## Art viewer: preview art assets
+
+You can preview individual art assets in the game engine, by simply adding their path to the URL after a question mark. This feature, the "Art Viewer" allows you to view an `.obj` file in-game without the need to code up a new corresponding Entity in TypeScript.
+
+So, if the game's link is normally this:
+  - http://chasemoskal.github.io/Nanoshooter/
+
+Activate the Art Viewer by adding a question mark followed by the `.obj` file path:
+  - http://chasemoskal.github.io/Nanoshooter/?art/tanks/alpha/tank-alpha.obj
+  - http://chasemoskal.github.io/Nanoshooter/?art/tanks/bravo/tank-bravo.obj
+
+For now at least, only `.obj` files will be loaded. If the file isn't found, or there's an error loading the file, nothing will appear, and the error will be reported to the javascript developer console (F12).
+
+The art viewer might be really handy while working on art assets in Blender. You can point the game at an `.obj` file to preview it, then tweak it in Blender, re-export the `.obj`, and then hit refresh in the browser to see results instantly. You can do this over and over again, no build step required.
+
+----
+
+# Networking architecture
 
 ### Rediscovering old developments
 

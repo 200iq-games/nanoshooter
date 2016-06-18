@@ -6,7 +6,8 @@
   "scripts": {
     "build": "npm install && tsc && echo Build complete.",
     "watch": "tsc -w",
-    "test": "echo No tests yet, lol && exit 0"
+    "test": "echo No tests yet, lol && exit 0",
+    "server": "http-server -p 80"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   },
   "homepage": "https://github.com/ChaseMoskal/Nanoshooter#readme",
   "devDependencies": {
+    "http-server": "^0.9.0",
     "typescript": "^1.8.10"
   },
   "dependencies": {}

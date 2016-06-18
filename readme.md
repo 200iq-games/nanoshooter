@@ -7,7 +7,8 @@
   2. Command line. Enter:
     1. `npm install` – Install all project dependencies (locally).
     2. `npm run build` – Build the project's TypeScript source.
-  3. Run a little web server, browse to `index.html`.
+    3. `npm run server` – Start running the project's internal web server.
+  3. Run the game by browsing to [http://localhost/](http://localhost/).
 
 ## Notes
 

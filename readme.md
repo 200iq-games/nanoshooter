@@ -15,7 +15,7 @@
 
     1. `npm run server` – Start running the project's internal web server. Hit `CTRL-C` when you want to stop the server process.
 
-    2. Visit http://localhost:8080/ to launch the game. I put this dev server on port 8080 because port 80 was giving Lonnie issues (probably firewall related). You can change this port in the `package.json` *(try not to commit it though).*
+    2. Visit [http://localhost:8080/](http://localhost:8080/) to launch the game. I put this dev server on port 8080 because port 80 was giving Lonnie issues (probably firewall related). You can change this port in the `package.json` *(try not to commit it though).*
 
 ## Dev notes
 

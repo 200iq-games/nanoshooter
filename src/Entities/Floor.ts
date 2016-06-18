@@ -14,6 +14,8 @@ export default class Floor extends Entity {
     const mesh = this.mesh = BABYLON.Mesh.CreateGround(this.id, 128, 128, 2, this.stage.scene)
 
     const material = new BABYLON.StandardMaterial("floor", this.stage.scene)
+    material.specularColor = new BABYLON.Color3(0, 0, 0)
+    material.diffuseColor = new BABYLON.Color3(0.4, 0.4, 0.4)
     material.specularPower = 0
     mesh.material = material
 

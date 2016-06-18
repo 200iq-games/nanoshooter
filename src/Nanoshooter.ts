@@ -18,15 +18,12 @@ export default class Nanoshooter extends Game {
     scene.enablePhysics(gravity, new BABYLON.CannonJSPlugin())
 
     // Background color.
-    scene.clearColor = new BABYLON.Color3(0.8, 0.8, 0.8)
+    scene.clearColor = new BABYLON.Color3(0.8, 0.9, 1)
 
     // Lights.
     const toplight = new BABYLON.DirectionalLight("sunlight", new BABYLON.Vector3(0.2, -1, 0.3), scene)
-    const forelight = new BABYLON.DirectionalLight("forelight", new BABYLON.Vector3(0.8, -0.8, 0.5), scene)
     const backlight = new BABYLON.DirectionalLight("backlight", new BABYLON.Vector3(-0.76, -0.8, -0.44), scene)
-    const underlight = new BABYLON.DirectionalLight("underlight", new BABYLON.Vector3(-0.28, 1, -0.22), scene)
-    toplight.intensity = forelight.intensity = backlight.intensity = 0.3
-    underlight.intensity = 0.1
+    toplight.intensity = backlight.intensity = 0.4
 
     // Camera.
     const camera = new BABYLON.UniversalCamera("camera1", new BABYLON.Vector3(-5, 15, -15), scene)
@@ -45,23 +42,37 @@ export default class Nanoshooter extends Game {
       label: "FancyFloor"
     }))
 
-    // Tank alpha.
-    this.addEntity(new EntityState({
-      type: "Nanoshooter/Entities/Tanks/TankAlpha",
-      label: "TankAlpha"
-    }))
+    // If the page has a querystring, display an empty scene with the art viewer.
+    if (location.search) {
 
-    // Tank bravo.
-    this.addEntity(new EntityState({
-      type: "Nanoshooter/Entities/Tanks/TankBravo",
-      label: "TankBravo"
-    }))
+      // Art viewer.
+      this.addEntity(new EntityState({
+        type: "Nanoshooter/Entities/ArtViewer",
+        label: "ArtViewer"
+      }))
 
-    // // Spawner.
-    // this.addEntity(new EntityState({
-    //   type: "Nanoshooter/Entities/Spawner",
-    //   label: "Spawnlord"
-    // }))
+    // Load up some kind of demo scene.
+    } else {
+
+      // Tank alpha.
+      this.addEntity(new EntityState({
+        type: "Nanoshooter/Entities/Tanks/TankAlpha",
+        label: "TankAlpha"
+      }))
+
+      // Tank bravo.
+      this.addEntity(new EntityState({
+        type: "Nanoshooter/Entities/Tanks/TankBravo",
+        label: "TankBravo"
+      }))
+
+      // Spawner.
+      this.addEntity(new EntityState({
+        type: "Nanoshooter/Entities/Spawner",
+        label: "Spawnlord"
+      }))
+
+    }
 
     // // Robot.
     // this.addEntity(new EntityState({

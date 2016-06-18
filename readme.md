@@ -39,9 +39,9 @@
 
   - Later on, loading performance will be optimized via Almond module bundling.
 
-## Art viewer: preview art assets
+## Art viewer mode for previewing any OBJ file
 
-You can preview individual art assets in the game engine, by simply adding their path to the URL after a question mark. This feature, the "Art Viewer" allows you to view an `.obj` file in-game without the need to code up a new corresponding Entity in TypeScript.
+You can preview individual art assets in the game engine, by simply adding their path to the URL after a question mark. This feature, the "Art Viewer" allows you to view any `.obj` file in-game without the need to code up a new corresponding Entity in TypeScript.
 
 So, if the game's link is normally this *(it'll be 'localhost' if you're working locally):*
   - http://chasemoskal.github.io/Nanoshooter/
@@ -50,7 +50,7 @@ Activate the Art Viewer by adding a question mark followed by the `.obj` file pa
   - [http://chasemoskal.github.io/Nanoshooter/**?art/tanks/alpha/tank-alpha.obj**](http://chasemoskal.github.io/Nanoshooter/?art/tanks/alpha/tank-alpha.obj)
   - [http://chasemoskal.github.io/Nanoshooter/**?art/tanks/bravo/tank-bravo.obj**](http://chasemoskal.github.io/Nanoshooter/?art/tanks/bravo/tank-bravo.obj)
 
-For now at least, only `.obj` files will be loaded. If the file isn't found, or there's an error loading the file, nothing will appear, and the error will be reported to the javascript developer console (F12).
+For now at least, only `.obj` files will be loaded. If the file isn't found, or there's an error loading the file, nothing will appear, and the error will be reported to the javascript developer console (F12). Interestingly, we've discovered that any full URL to a remotely hosted OBJ on the internet will load up fine.
 
 The art viewer might be really handy while working on art assets in Blender. You can point the game at an `.obj` file to preview it, then tweak it in Blender, re-export the `.obj`, and then hit refresh in the browser to see results instantly. You can do this over and over again, no build step required.
 

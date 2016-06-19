@@ -74,8 +74,8 @@ export default class Game {
    * Add an entity to the game based on the provided entity state.
    * TODO: Make this return a promise of the true Entity instance within the World.
    */
-  addEntity(entityState: EntityState) {
-    this.state.addEntity(entityState)
+  addEntity<T extends EntityState>(entityState: T) {
+    this.state.addEntity<T>(entityState)
   }
 
   /**
@@ -140,7 +140,7 @@ export class GameState extends State {
   /**
    * Add entity state.
    */
-  addEntity(entityState: EntityState) {
+  addEntity<T extends EntityState>(entityState: T) {
     this.entities[this.pullId()] = entityState
   }
 

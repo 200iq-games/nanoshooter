@@ -3,6 +3,8 @@ import Game, {GameOptions} from "./Engine/Game"
 import Stage from "./Engine/Stage"
 import {EntityState} from "./Engine/Entity"
 
+import {TankState} from "./Entities/Tank"
+
 /**
  * Nanoshooter game.
  * Subclass of Game, which has start/stop methods, etc.
@@ -37,40 +39,46 @@ export default class Nanoshooter extends Game {
   createInitialEntities() {
 
     // Floor.
-    this.addEntity(new EntityState({
+    this.addEntity({
       type: "Nanoshooter/Entities/Floor",
       label: "FancyFloor"
-    }))
+    })
 
     // If the page has a querystring, display an empty scene with the art viewer.
     if (location.search) {
 
       // Art viewer.
-      this.addEntity(new EntityState({
+      this.addEntity({
         type: "Nanoshooter/Entities/ArtViewer",
         label: "ArtViewer"
-      }))
+      })
 
     // Load up some kind of demo scene.
     } else {
 
       // Tank alpha.
-      this.addEntity(new EntityState({
-        type: "Nanoshooter/Entities/Tanks/TankAlpha",
-        label: "TankAlpha"
-      }))
+      this.addEntity<TankState>({
+        type: "Nanoshooter/Entities/Tank",
+        label: "TankAlpha",
+        playerControlled: true,
+        artPath: "art/tanks/alpha/tank-alpha.obj",
+        position: [-4, 0, 0]
+      })
 
       // Tank bravo.
-      this.addEntity(new EntityState({
-        type: "Nanoshooter/Entities/Tanks/TankBravo",
-        label: "TankBravo"
-      }))
+      this.addEntity<TankState>({
+        type: "Nanoshooter/Entities/Tank",
+        label: "TankBravo",
+        playerControlled: true,
+        artPath: "art/tanks/bravo/tank-bravo.obj",
+        position: [4, 0, 0]
+      })
 
       // Spawner.
-      this.addEntity(new EntityState({
+      this.addEntity({
         type: "Nanoshooter/Entities/Spawner",
         label: "Spawnlord"
-      }))
+      })
 
     }
 

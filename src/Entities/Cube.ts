@@ -1,5 +1,5 @@
 
-import Entity, {EntityOptions, EntityState, EntityStateOptions} from "../Engine/Entity"
+import Entity, {EntityOptions, EntityState} from "../Engine/Entity"
 
 /**
  * A simple cube object in the game world.
@@ -10,7 +10,7 @@ export default class Cube extends Entity {
 
   private mesh: BABYLON.Mesh
 
-  protected initialize() {
+  protected initialize(entityState: EntityState) {
     const mesh = this.mesh = BABYLON.Mesh.CreateBox(this.id, 1.5, this.stage.scene)
     mesh["cube"] = true
 

@@ -122,7 +122,7 @@ export default class World {
   /**
    * Dynamically load up and instantiate an entity provided entity state.
    */
-  private summonEntity(id: string, state: EntityState): Promise<Entity> {
+  private summonEntity(id: string, entityState: EntityState): Promise<Entity> {
     return new Promise<Entity>((resolve, reject) => {
 
       // Entity is set to null in the collection while the entity is loading.
@@ -131,13 +131,14 @@ export default class World {
 
       // Load the entity.
       require(
-        [state.type],
+        [entityState.type],
         entityModule => {
 
           // Instantiate the entity.
           const entity = new (<typeof Entity>entityModule.default)({
             id,
-            label: state.label,
+            entityState,
+            label: entityState.label,
             game: this.game,
             stage: this.stage,
             loader: this.loader

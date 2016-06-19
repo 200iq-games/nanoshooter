@@ -1,4 +1,4 @@
-import Entity, {EntityLogicInput, EntityLogicOutput} from '../Engine/Entity'
+import Entity, {EntityLogicInput, EntityLogicOutput, EntityState} from '../Engine/Entity'
 
 /**
  * Preview by providing the art path as a query string.
@@ -9,13 +9,13 @@ export default class ArtViewer extends Entity {
 
   protected meshes: BABYLON.Mesh[]
 
-  initialize() {
+  protected initialize(entityState: EntityState) {
     const viewPath = location.search.substr(1)
     if (viewPath)
       this.loadProp(viewPath)
   }
 
-  loadProp(path: string) {
+  protected loadProp(path: string) {
     return this.loader.loadObject({path})
       .then(loaded => {
         this.meshes = loaded.meshes

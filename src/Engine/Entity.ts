@@ -12,6 +12,7 @@ export {TickReport}
  */
 export interface EntityOptions {
   id: string
+  entityState: EntityState
   game: Game
   stage: Stage
   loader: Loader
@@ -53,13 +54,13 @@ export default class Entity {
     this.stage = options.stage
     this.loader = options.loader
 
-    this.initialize()
+    this.initialize(options.entityState)
   }
 
   /**
    * Initialize this entity.
    */
-  protected initialize() {}
+  protected initialize(state: EntityState) {}
 
   /**
    * Respond to fresh entity state on a logic tick.
@@ -87,19 +88,7 @@ export interface EntityLogicOutput {
   entityStateDelta: any
 }
 
-export class EntityState extends State {
-  type: string
-  label: string
-
-  constructor(options: EntityStateOptions) {
-    super()
-    if (!options.type) throw "Entity state requires type."
-    this.type = options.type
-    this.label = options.label
-  }
-}
-
-export interface EntityStateOptions {
+export interface EntityState {
   type: string
   label?: string
 }

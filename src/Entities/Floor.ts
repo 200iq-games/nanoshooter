@@ -1,5 +1,5 @@
 
-import Entity, {EntityOptions, EntityState, EntityStateOptions} from "../Engine/Entity"
+import Entity, {EntityOptions, EntityState} from "../Engine/Entity"
 
 /**
  * A floor object for the game world.
@@ -10,7 +10,7 @@ export default class Floor extends Entity {
 
   private mesh: BABYLON.Mesh
 
-  protected initialize() {
+  protected initialize(entityState: EntityState) {
     const mesh = this.mesh = BABYLON.Mesh.CreateGround(this.id, 128, 128, 2, this.stage.scene)
 
     const material = new BABYLON.StandardMaterial("floor", this.stage.scene)

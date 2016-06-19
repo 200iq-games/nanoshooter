@@ -8,6 +8,11 @@
       "taskName": "build",
       "problemMatcher": "$tsc",
       "isBuildCommand": true
+    },
+    {
+      "taskName": "watch",
+      "problemMatcher": "$tsc-watch",
+      "isWatching": true
     }
   ]
 }

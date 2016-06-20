@@ -41,6 +41,9 @@ export default class World {
   /** Collection of entity instances. */
   protected entities: { [id: string]: Entity } = {}
 
+  /** Getter which provides an array version of entities. */
+  get entityArray() { return Object.keys(this.entities).map(id => this.entities[id]) }
+
   /**
    * Create a world instance with some world options.
    */

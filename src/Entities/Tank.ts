@@ -1,6 +1,11 @@
 
-import Entity, {EntityLogicInput, EntityLogicOutput, EntityState} from '../Engine/Entity'
+import Entity, {EntityOptions, EntityLogicInput, EntityLogicOutput, EntityState} from '../Engine/Entity'
 import KeyboardWatcher from '../Engine/KeyboardWatcher'
+
+/** Options for creating a tank. */
+export interface TankOptions extends EntityOptions {
+  entityState: TankState
+}
 
 /**
  * It's a full blown tank!
@@ -29,10 +34,15 @@ export default class Tank extends Entity {
   /** Position the tank will start at. */
   protected startingPosition: BABYLON.Vector3
 
+  /** Camera for this tank. */
+  protected camera: BABYLON.TargetCamera
+
   /**
-   * Initialize the tank, by loading it.
+   * Construct a tank.
    */
-  initialize(entityState: TankState) {
+  constructor(options: TankOptions) {
+    super(options)
+    const {entityState} = options
 
     // Starting position.
     if (entityState.position) {
@@ -57,6 +67,22 @@ export default class Tank extends Entity {
 
     // Load the tank obj from the art path specified in entity state, or use the default.
     this.loadTank(entityState.artPath || this.artPath)
+
+      // When the tank is done loading.
+      .then(() => {
+
+        // Create the tank's camera – all tanks have a camera, it just might not be active.
+        this.camera = new BABYLON.TargetCamera(`tank-camera-${this.id}`, BABYLON.Vector3.Zero(), this.stage.scene)
+        this.camera.lockedTarget = this.chassis
+        this.camera.position = this.chassis.position.add(new BABYLON.Vector3(0, 80, -40))
+
+        // If the tank is player controlled.
+        if (this.playerControlled) {
+
+          // Create, position, and activate its camera.
+          this.stage.scene.swithActiveCamera(this.camera)
+        }
+      })
   }
 
   /**
@@ -86,7 +112,15 @@ export default class Tank extends Entity {
       this.turret.parent = this.chassis;
 
       if (this.startingPosition)
-        this.chassis.setAbsolutePosition(this.startingPosition)
+        this.chassis.setAbsolutePosition(this.startingPosition.add(new BABYLON.Vector3(0, 10, 0)))
+
+      // Apply physics.
+      this.chassis.physicsImpostor = new BABYLON.PhysicsImpostor(
+        this.chassis,
+        BABYLON.PhysicsImpostor.BoxImpostor,
+        {mass: 10, restitution: 0.1},
+        this.stage.scene
+      )
     })
   }
 
@@ -95,14 +129,24 @@ export default class Tank extends Entity {
    */
   logic(input: EntityLogicInput): EntityLogicOutput {
 
-    // Stuff that we only do when the meshes are loaded, and the keyboard watcher is active.
-    if (this.meshes && this.keyboardWatcher) {
-
-      // Aim the tank chassis toward the desired movement vector.
-      this.turnChassis(this.ascertainDesiredMovementVector())
+    // If meshes are loaded.
+    if (this.meshes) {
 
       // Aim the tank's gun turret toward the user's cursor.
       if (this.stage.pick.hit) this.aimTurret(this.stage.pick.pickedPoint)
+
+      // If the keyboard watcher is active.
+      if (this.keyboardWatcher) {
+
+        // Get the direction that the user wishes to move in.
+        const desiredMovement = this.ascertainDesiredMovementVector()
+
+        // Turn the tank chassis toward the desired movement vector.
+        this.turnChassis(desiredMovement || this.lastDesiredMovementVector)
+
+        // Gas the tank when movement keys are pressed.
+        this.accelerateWhenMoving(desiredMovement)
+      }
     }
 
     return
@@ -114,19 +158,33 @@ export default class Tank extends Entity {
   /**
    * Get the direction in which the player wishes to move.
    */
-  protected ascertainDesiredMovementVector() {
+  protected ascertainDesiredMovementVector(): (BABYLON.Vector3) {
     const vector = BABYLON.Vector3.Zero()
     const status = (label: string) => this.keyboardWatcher.status[label]
 
     if (!status('north') && !status('east') && !status('south') && !status('west'))
-      return this.lastDesiredMovementVector
+      return null
 
     if (status('north')) vector.z += 1
     if (status('east'))  vector.x += 1
     if (status('south')) vector.z -= 1
     if (status('west'))  vector.x -= 1
 
-    return this.lastDesiredMovementVector = vector
+    this.lastDesiredMovementVector = vector
+    return vector
+  }
+
+  protected speed = 5
+  protected speedVector = new BABYLON.Vector3(this.speed, this.speed, this.speed)
+
+  /**
+   * Accelerate the tank when movement keys are pressed.
+   */
+  protected accelerateWhenMoving(desiredMovement: BABYLON.Vector3) {
+    if (!desiredMovement) return
+    this.chassis.physicsImpostor.setLinearVelocity(
+      desiredMovement.multiply(this.speedVector)
+    )
   }
 
   /**

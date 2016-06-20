@@ -1,25 +1,24 @@
 
 /**
  * Govern a 3D Babylon scene from a high level.
+ * The stage is an access point to some key Babylon API components.
  */
 export default class Stage {
 
-  // The stage is an access point to these Babylon API components.
+  /** HTML element which contains the game's rendering canvas. */
   hostElement: HTMLElement
+
+  /** Canvas HTML element which the game renders to. */
   canvas: HTMLCanvasElement
+
+  /** Babylon engine instance. */
   engine: BABYLON.Engine
+
+  /** Babylon scene instance. */
   scene: BABYLON.Scene
 
   /** Information about where the user's mouse cursor is hovering in the 3D scene. Updated on mousemove by the stage. */
   pick: BABYLON.PickingInfo = new BABYLON.PickingInfo()
-
-  /**
-   * Accept stage options and initialize the stage's babylon components.
-   */
-  constructor(options: StageOptions) {
-    this.hostElement = options.hostElement
-    this.initialize()
-  }
 
   /** Nifty diagnostics. */
   private stats = {
@@ -32,15 +31,16 @@ export default class Stage {
       this.engine.resize()
     },
     mousemove: () => {
-      // Update the picking information about the user's mouse cursor in the 3D scene.
+      // Update the picking info about the user's mouse cursor in the 3D scene.
       this.pick = this.scene.pick(this.scene.pointerX, this.scene.pointerY)
     }
   }
 
   /**
-   * Establish an empty Babylon scene.
+   * Accept stage options and initialize the stage's babylon components.
    */
-  initialize() {
+  constructor(options: StageOptions) {
+    this.hostElement = options.hostElement
     this.canvas = document.createElement("canvas")
     this.hostElement.appendChild(this.canvas)
     this.engine = new BABYLON.Engine(this.canvas, true)

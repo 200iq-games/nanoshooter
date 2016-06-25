@@ -48,6 +48,9 @@ export default class Stage {
     this.hostElement.appendChild(this.canvas)
     this.engine = new BABYLON.Engine(this.canvas, true)
     this.scene = new BABYLON.Scene(this.engine)
+
+    // Apparently this makes BabylonJS care about UV mapping ¯\_(ツ)_/¯
+    ;(<any>BABYLON).OBJFileLoader.OPTIMIZE_WITH_UV = true;
   }
 
   /**

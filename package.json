@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc && echo Build complete.",
+    "clean": "rimraf build",
+    "build": "npm run clean --silent && tsc && echo Build complete.",
     "watch": "tsc -w",
     "test": "echo No tests yet, lol && exit 0",
     "server": "http-server -p 8080"
@@ -22,6 +23,7 @@
   "homepage": "https://github.com/ChaseMoskal/Nanoshooter#readme",
   "devDependencies": {
     "http-server": "^0.9.0",
+    "rimraf": "^2.5.2",
     "typescript": "^1.8.10"
   },
   "dependencies": {}

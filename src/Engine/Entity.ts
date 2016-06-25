@@ -1,10 +1,10 @@
 
-import Game from "./Game"
-import World from "./World"
-import Stage from "./Stage"
-import Loader from "./Loader"
-import State from "./State"
-import {TickReport} from "./Ticker"
+import Game from './Game'
+import World from './World'
+import Stage from './Stage'
+import Loader from './Loader'
+import State from './State'
+import {TickReport} from './Ticker'
 export {TickReport}
 
 /**
@@ -26,7 +26,7 @@ export interface EntityOptions {
 export default class Entity {
 
   /** Module ID for this entity class. Used to load entity classes on-the-fly. */
-  static type: string = "Nanoshooter/Entities/Entity"
+  static type: string = 'Nanoshooter/Entities/Entity'
 
   /** Unique ID tag. */
   id: string

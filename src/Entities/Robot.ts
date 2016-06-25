@@ -1,5 +1,4 @@
 
-
 import Entity, {EntityOptions, EntityState, TickReport, EntityLogicInput, EntityLogicOutput} from "../Engine/Entity"
 
 /**

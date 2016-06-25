@@ -27,11 +27,14 @@ export default class Stage {
 
   /** Event listeners that start and stop with the stage. */
   private listeners = {
+
+    // Prompt the BabylonJS engine to resize.
     resize: () => {
       this.engine.resize()
     },
+
+    // Update the picking info about the user's mouse cursor in the 3D scene.
     mousemove: () => {
-      // Update the picking info about the user's mouse cursor in the 3D scene.
       this.pick = this.scene.pick(this.scene.pointerX, this.scene.pointerY)
     }
   }
@@ -41,7 +44,7 @@ export default class Stage {
    */
   constructor(options: StageOptions) {
     this.hostElement = options.hostElement
-    this.canvas = document.createElement("canvas")
+    this.canvas = document.createElement('canvas')
     this.hostElement.appendChild(this.canvas)
     this.engine = new BABYLON.Engine(this.canvas, true)
     this.scene = new BABYLON.Scene(this.engine)
@@ -51,8 +54,8 @@ export default class Stage {
    * Start the rendering loop.
    */
   start() {
-    window.addEventListener("resize", this.listeners.resize)
-    window.addEventListener("mousemove", this.listeners.mousemove)
+    window.addEventListener('resize', this.listeners.resize)
+    window.addEventListener('mousemove', this.listeners.mousemove)
 
     this.engine.runRenderLoop(() => {
       const since = performance.now() - this.lastRenderTime
@@ -68,8 +71,8 @@ export default class Stage {
   stop() {
     this.engine.stopRenderLoop()
 
-    window.removeEventListener("resize", this.listeners.resize)
-    window.removeEventListener("mousemove", this.listeners.mousemove)
+    window.removeEventListener('resize', this.listeners.resize)
+    window.removeEventListener('mousemove', this.listeners.mousemove)
   }
 
   /**
@@ -81,12 +84,18 @@ export default class Stage {
   }
 }
 
+/**
+ * Options for creating a new stage.
+ */
 export interface StageOptions {
 
   /** HTML element to inject the canvas within. */
   hostElement: HTMLElement
 }
 
+/**
+ * Information passed for each rendered frame.
+ */
 export interface RenderInfo {
 
   /** Time since the last frame finished rendering. */

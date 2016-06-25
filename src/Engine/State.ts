@@ -18,10 +18,14 @@ export default class State {
   [key: string]: any
 
   /** Apply a delta onto this state. */
-  applyDelta(delta: any): any { return State.applyDelta(this, delta) }
+  applyDelta(delta: any): any {
+    return State.applyDelta(this, delta)
+  }
 
   /** Generate a diff from this state to a provided one. */
-  diff(beta: any): any { return State.diff(this, beta) }
+  diff(beta: any): any {
+    return State.diff(this, beta)
+  }
 }
 
 /**

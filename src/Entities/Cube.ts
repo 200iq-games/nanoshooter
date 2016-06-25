@@ -28,7 +28,10 @@ export default class Cube extends Entity {
     )
   }
 
-  removal() {
+  /**
+   * Cleanup for removal from the game.
+   */
+  destructor() {
     this.mesh.dispose()
   }
 }

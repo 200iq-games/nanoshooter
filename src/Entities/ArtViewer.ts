@@ -28,8 +28,10 @@ export default class ArtViewer extends Entity {
       })
   }
 
-  removal() {
-    // Remove all meshes from the scene.
+  /**
+   * Cleanup for removal from the game.
+   */
+  destructor() {
     for (const mesh of this.meshes) {
       this.stage.scene.removeMesh(mesh)
     }

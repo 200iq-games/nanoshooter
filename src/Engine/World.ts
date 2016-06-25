@@ -55,9 +55,15 @@ export default class World {
   }
 
   /**
+   * Destruct all entities and shut down.
+   * This allows all event bindings and such to be cleaned up.
+   */
+  destructor() {}
+
+  /**
    * Query entities by label with a regular expression.
    */
-  query(regularExpression: RegExp): Entity[] {
+  queryEntities(regularExpression: RegExp): Entity[] {
     const matches: Entity[] = []
     this.loopOverEntities(entity => {
       if (regularExpression.test(entity.label)) matches.push(entity)
@@ -142,6 +148,7 @@ export default class World {
             id,
             entityState,
             label: entityState.label,
+            world: this,
             game: this.game,
             stage: this.stage,
             loader: this.loader
@@ -168,7 +175,7 @@ export default class World {
    */
   private removeEntity(id: string): Promise<void> {
     const entity = this.entities[id]
-    entity.removal()
+    entity.destructor()
     delete this.entities[id]
     this.log(`(-) Removed entity ${entity}`)
     return Promise.resolve()

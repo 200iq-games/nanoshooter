@@ -67,6 +67,12 @@ export default class Game {
     this.initialize()
   }
 
+  /**
+   * Tear down and de-initialize all of the game's components.
+   * This allows all entities to destruct, thus removing their event bindings which might otherwise cause errors if not removed.
+   */
+  destructor() {}
+
   /** Overridable game initialization step. */
   protected initialize() {}
 

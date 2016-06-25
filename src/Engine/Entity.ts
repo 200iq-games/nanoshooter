@@ -13,6 +13,7 @@ export {TickReport}
 export interface EntityOptions {
   id: string
   entityState: EntityState
+  world: World
   game: Game
   stage: Stage
   loader: Loader
@@ -31,8 +32,11 @@ export default class Entity {
   /** Unique ID tag. */
   id: string
 
-  /** Human-friendly nickname for this entity instance. Doesn't have to be unique. Useful for entity queries. */
+  /** Human-friendly nickname for this entity instance. Doesn't have to be unique. Useful for entity queries. Think of these like CSS class names. */
   label: string
+
+  /** World instance. Entities can query for and access other entity instances. */
+  protected world: World
 
   /** Parent game instance. Entities have the right to manipulate the game on a high level (start/stop, etc). */
   protected game: Game
@@ -63,15 +67,15 @@ export default class Entity {
   protected initialize(state: EntityState) {}
 
   /**
+   * Clean up this entity for removal from the game.
+   * Tear down any event subscriptions, etc.
+   */
+  destructor() {}
+
+  /**
    * Respond to fresh entity state on a logic tick.
    */
   logic(input: EntityLogicInput): EntityLogicOutput { return undefined }
-
-  /**
-   * Handle being removed from the game.
-   * Tear down any event subscriptions, etc.
-   */
-  removal() {}
 
   /**
    * Make it look pretty in the console logs.

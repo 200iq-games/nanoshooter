@@ -22,7 +22,10 @@ export default class Floor extends Entity {
     mesh.physicsImpostor = new BABYLON.PhysicsImpostor(mesh, BABYLON.PhysicsImpostor.BoxImpostor, {mass: 0, restitution: 0.1}, this.stage.scene)
   }
 
-  removal() {
+  /**
+   * Cleanup for removal from the game.
+   */
+  destructor() {
     this.mesh.dispose()
   }
 }

@@ -42,16 +42,16 @@ export default class Tank extends Entity {
    */
   constructor(options: TankOptions) {
     super(options)
-    const {entityState} = options
+    const {entityState: tankState} = options
 
     // Starting position.
-    if (entityState.position) {
-      const p = entityState.position
+    if (tankState.position) {
+      const p = tankState.position
       this.startingPosition = new BABYLON.Vector3(p[0], p[1], p[2])
     }
 
     // Determine player controlled state.
-    this.playerControlled = !!entityState.playerControlled
+    this.playerControlled = !!tankState.playerControlled
 
     // If this tank is player controlled, establish a keyboard watcher.
     if (this.playerControlled) {
@@ -66,7 +66,7 @@ export default class Tank extends Entity {
     }
 
     // Load the tank obj from the art path specified in entity state, or use the default.
-    this.loadTank(entityState.artPath || this.artPath)
+    this.loadTank(tankState.artPath || this.artPath)
 
       // When the tank is done loading.
       .then(() => {
@@ -86,31 +86,20 @@ export default class Tank extends Entity {
   }
 
   /**
-   * Cleanup this tank entity.
-   */
-  removal() {
-
-    // Remove all meshes from the scene.
-    for (const mesh of this.meshes) {
-      this.stage.scene.removeMesh(mesh)
-    }
-
-    // Cleanup the keyboard watcher.
-    this.keyboardWatcher.unbind()
-  }
-
-  /**
-   * Load tank art into the scene.
+   * Load tank art (.obj file) into the scene.
    */
   loadTank(path: string): Promise<void> {
     return this.loader.loadObject({path}).then(loaded => {
       this.meshes = loaded.meshes
 
+      // Find the right meshes.
       this.chassis = this.meshes.find(mesh => /Chassis/i.test(mesh.name))
       this.turret = this.meshes.find(mesh => /Turret/i.test(mesh.name))
 
+      // Attach the turret to the chassis.
       this.turret.parent = this.chassis;
 
+      // Assume the starting position.
       if (this.startingPosition)
         this.chassis.setAbsolutePosition(this.startingPosition.add(new BABYLON.Vector3(0, 10, 0)))
 
@@ -208,6 +197,20 @@ export default class Tank extends Entity {
     const localPoint = BABYLON.Vector3.TransformCoordinates(aimPoint, matrix)
 
     this.turret.lookAt(localPoint, 0, 0, 0)
+  }
+
+  /**
+   * Cleanup for removal from the game.
+   */
+  destructor() {
+
+    // Remove all meshes from the scene.
+    for (const mesh of this.meshes) {
+      this.stage.scene.removeMesh(mesh)
+    }
+
+    // Cleanup the keyboard watcher.
+    this.keyboardWatcher.unbind()
   }
 }
 

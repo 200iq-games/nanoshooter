@@ -2,7 +2,7 @@
 import Entity, {EntityState} from "../Engine/Entity"
 
 /**
- * Spawns stuff.
+ * Just spawns cubes when spacebar is pressed.
  */
 export default class Spawner extends Entity {
 
@@ -25,7 +25,10 @@ export default class Spawner extends Entity {
     })
   }
 
-  removal() {
+  /**
+   * Cleanup for removal from the game.
+   */
+  destructor() {
     window.removeEventListener("keyup", this.keyupAction)
   }
 }

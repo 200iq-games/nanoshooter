@@ -41,7 +41,7 @@ Say hi in the [***Gitter chat.***](https://gitter.im/ChaseMoskal/Nanoshooter)
 
   2. Run these commands in the project directory, and run them again every time you pull down new changes *(after every `git pull`):*
 
-    1. `npm install` — install all project dependencies locally (in the project folder, in `node_modules).
+    1. `npm install` — install all project dependencies locally (in the project folder, in `node_modules`).
 
     2. `npm run build` — build all of the project's TypeScript source code.
 

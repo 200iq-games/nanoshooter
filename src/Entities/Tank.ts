@@ -13,6 +13,11 @@ export interface TankOptions extends EntityOptions {
 export default class Tank extends Entity {
   static type = 'Nanoshooter/Entities/Tank'
 
+  public static get TURN_RIGHT(): number { return 1; }
+  public static get TURN_LEFT(): number { return -1; }
+  public static get MOVE_FORWARD(): number { return 1; }
+  public static get MOVE_BACKWARD(): number { return -1; }
+
   /** Default tank art asset. */
   protected artPath: string = 'art/tanks/alpha/tank-alpha.obj'
 
@@ -37,6 +42,12 @@ export default class Tank extends Entity {
   /** Camera for this tank. */
   protected camera: BABYLON.TargetCamera
 
+  /** Movement attributes */
+  protected speedMax = 5
+  protected speedTurn = 3
+  protected chassisFacing = 0
+  protected turnSpeed = Math.PI / 180
+
   /**
    * Construct a tank.
    */
@@ -57,10 +68,10 @@ export default class Tank extends Entity {
     if (this.playerControlled) {
       this.keyboardWatcher = new KeyboardWatcher({
         keyNames: {
-          'north': 'w',
-          'east': 'd',
-          'south': 's',
-          'west': 'a',
+          'accel': 'w',
+          'right': 'd',
+          'brake': 's',
+          'left': 'a',
         }
       })
     }
@@ -126,62 +137,88 @@ export default class Tank extends Entity {
 
       // If the keyboard watcher is active.
       if (this.keyboardWatcher) {
-
-        // Get the direction that the user wishes to move in.
-        const desiredMovement = this.ascertainDesiredMovementVector()
-
-        // Turn the tank chassis toward the desired movement vector.
-        this.turnChassis(desiredMovement || this.lastDesiredMovementVector)
-
-        // Gas the tank when movement keys are pressed.
-        this.accelerateWhenMoving(desiredMovement)
+        
+        
+        this.handleKeyboardInput()
+        
       }
     }
 
     return
   }
 
-  /** Remember our last movement direction so we face the same way when we stop. Intialized facing south. */
-  protected lastDesiredMovementVector = new BABYLON.Vector3(0, 0, -1)
 
   /**
-   * Get the direction in which the player wishes to move.
+   * Determine what direction the tank should move and turn based on keyboard input
+   *  
    */
-  protected ascertainDesiredMovementVector(): (BABYLON.Vector3) {
-    const vector = BABYLON.Vector3.Zero()
+  protected handleKeyboardInput() {
     const status = (label: string) => this.keyboardWatcher.status[label]
+        
+    var moveDir = 0
+    var turnDir = 0
+        
+    if (status('accel') && status('brake')) {
+      moveDir = 0
+    } else {
+      if (status('accel')) {
+        moveDir = Tank.MOVE_FORWARD
+      } else if (status('brake')) {
+        moveDir = Tank.MOVE_BACKWARD
+      }
+    }
 
-    if (!status('north') && !status('east') && !status('south') && !status('west'))
-      return null
-
-    if (status('north')) vector.z += 1
-    if (status('east'))  vector.x += 1
-    if (status('south')) vector.z -= 1
-    if (status('west'))  vector.x -= 1
-
-    this.lastDesiredMovementVector = vector
-    return vector
+    if (status('right') && status('left')) {
+      turnDir = 0
+    } else {
+      if (status('right')) {
+        turnDir = Tank.TURN_RIGHT
+      } else if (status('left')) {
+        turnDir = Tank.TURN_LEFT
+      }
+    }
+    this.moveTank(moveDir, turnDir)
   }
 
-  protected speed = 5
-  protected speedVector = new BABYLON.Vector3(this.speed, this.speed, this.speed)
-
   /**
-   * Accelerate the tank when movement keys are pressed.
+   * Moves the tank
+   *  -Currently applies basic movement (lookAt and setLinearVelocity) 
+   *   -To be replaced with calls to physics methods (turn wheels)
    */
-  protected accelerateWhenMoving(desiredMovement: BABYLON.Vector3) {
-    if (!desiredMovement) return
-    this.chassis.physicsImpostor.setLinearVelocity(
-      desiredMovement.multiply(this.speedVector)
-    )
-  }
+  protected moveTank(moveDir: number, turnDir: number) {
+    var speed = 0
+    
+    if (turnDir == 0 && moveDir == 0) {
+      return
+    } else if (moveDir != 0) {
+      if (turnDir == 0) { 
+        /** Full power to both treads */
 
-  /**
-   * Orient the chassis in a given direction.
-   */
-  protected turnChassis(direction: BABYLON.Vector3) {
-    const point = this.chassis.position.add(direction)
-    this.chassis.lookAt(point, 0, 0, 0)
+        //Basic movement
+        speed = moveDir * this.speedMax
+      } else {
+        /** Full power to ONE tread, Slightly less to other */
+
+        //Basic Movement
+        speed = moveDir * this.speedMax
+        this.chassisFacing += turnDir * moveDir * this.turnSpeed
+      }
+    } else {
+      /** Full power to ONE tread, Minimum power to other */
+
+      //Basic Movement
+      speed = this.speedTurn
+      this.chassisFacing += turnDir * this.turnSpeed
+    }
+
+    //Applies Basic Movement
+    const directionVector = new BABYLON.Vector3(Math.sin(this.chassisFacing),0,Math.cos(this.chassisFacing))
+    this.chassis.lookAt(this.chassis.position.add(directionVector),0,0,0)
+
+    if (speed != 0) {
+      const speedVector = new BABYLON.Vector3(speed,0,speed)
+      this.chassis.physicsImpostor.setLinearVelocity(directionVector.multiply(speedVector))
+    }
   }
 
   /**

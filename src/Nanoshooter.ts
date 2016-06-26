@@ -1,8 +1,7 @@
 
-import Game, {GameOptions} from "./Engine/Game"
-import Stage from "./Engine/Stage"
-import {EntityState} from "./Engine/Entity"
-
+import Game, {GameOptions} from "./Framework/Game"
+import Stage from "./Framework/Stage"
+import {EntityState} from "./Framework/Entity"
 import {TankState} from "./Entities/Tank"
 
 /**

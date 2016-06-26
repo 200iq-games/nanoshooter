@@ -1,5 +1,5 @@
 
-import Entity, {EntityLogicInput, EntityLogicOutput, EntityState} from '../Engine/Entity'
+import Entity, {EntityLogicInput, EntityLogicOutput, EntityState} from '../Framework/Entity'
 
 /**
  * Preview by providing the art path as a query string.

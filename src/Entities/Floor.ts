@@ -1,5 +1,5 @@
 
-import Entity, {EntityOptions, EntityState} from "../Engine/Entity"
+import Entity, {EntityOptions, EntityState} from "../Framework/Entity"
 
 /**
  * A floor object for the game world.

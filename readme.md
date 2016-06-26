@@ -1,33 +1,21 @@
 
-# Nanoshooter – [![Build Status](https://travis-ci.org/ChaseMoskal/Nanoshooter.svg?branch=master)](https://travis-ci.org/ChaseMoskal/Nanoshooter) – [***PLAY NOW!***](http://chasemoskal.github.io/Nanoshooter/)
+# Nanoshooter — [![Build Status](https://travis-ci.org/ChaseMoskal/Nanoshooter.svg?branch=master)](https://travis-ci.org/ChaseMoskal/Nanoshooter) — [***PLAY NOW***](http://chasemoskal.github.io/Nanoshooter/) — [![Join the chat at https://gitter.im/ChaseMoskal/Nanoshooter](https://badges.gitter.im/ChaseMoskal/Nanoshooter.svg)](https://gitter.im/ChaseMoskal/Nanoshooter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-[![Join the chat at https://gitter.im/ChaseMoskal/Nanoshooter](https://badges.gitter.im/ChaseMoskal/Nanoshooter.svg)](https://gitter.im/ChaseMoskal/Nanoshooter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-*Open source game and framework, built on top of [BabylonJS](http://www.babylonjs.com/).*
-
-## Hey, you there!
-
-Are you an aspiring young programmer, eager to contribute to something open source *and* fun?
-
-Or maybe you're an ambitious and fully-bearded artist, inspired to unleash your full creativity which the world has been waiting for?
-
-Perhaps you have no skills whatsoever, and just want to feel like you're a part of something.
-
-### *You've definitely come to the right place!*
-
-**Nanoshooter is an open source project to create a free 3D online multiplayer action web game and framework – and we need volunteers like you!**
+***Nanoshooter is a free 3D open source online multiplayer action web game and framework, built on [BabylonJS](http://www.babylonjs.com/).***
 
 The primary goals of the Nanoshooter project are to:
   - Create a robust framework for building 3D online multiplayer action web games on [BabylonJS](https://github.com/BabylonJS/Babylon.js).
-  - Make a neat tank game.
+  - Make an awesome tank game.
 
 Eventually, the framework that is underneath the Nanoshooter game will move out into its own open source repository, and be given a legendary name. The primary goal of this releasing this framework, would be to contribute it as a platform for the BabylonJS community to build their own online multiplayer games with.
 
-Nanoshooter is a revival of our old highschool project. This is familiar territory for us, as we're basically recreating the framework and gameplay functionality that we once had back in the Blender Game Engine — we want to bring this game to the same level of accomplishment, including collaborative online map editing — but this time we're doing it all right, at a professional caliber, and on the web.
+Nanoshooter is a revival of our old highschool project. This is familiar territory for us, as we're basically recreating the framework and gameplay functionality that we once had running back in the Blender Game Engine. We want to bring this game to the same level of accomplishment, including a collaborative online map edtior. This time around, years later, we're doing Nanoshooter the right way, at a professional caliber, and running smoothly on the web.
 
-**Interested to help out?** Well, apparently GitHub removed their private messaging feature, so shoot me a friendly email to the address that you'll find [on this page](https://chasemoskal.github.io/) *(anti-spam)*, and we'll chat about it.
+### Help us out!
 
-As a team, we tend to chat via Skype or Mumble, but we ought to start using Gitter soon enough.
+Are you an aspiring young programmer, eager to contribute to something open source *and* fun? Or maybe you're an ambitious and fully-bearded artist, inspired to unleash your full creativity which the world has been waiting for? Perhaps you have no skills whatsoever, and just want to feel like you're a part of something. *You've definitely come to the right place!*
+
+Say hi in the [***Gitter chat.***](https://gitter.im/ChaseMoskal/Nanoshooter)
 
 ## Software you need
 
@@ -35,7 +23,7 @@ As a team, we tend to chat via Skype or Mumble, but we ought to start using Gitt
 
   - [**Node.js**](https://nodejs.org/en/) — development environment runtime.
 
-  - **Code editor** — [Visual Studio Code](https://code.visualstudio.com/) is the editor of choice for this project. It's an open-source cross-platform full TypeScript IDE, and project is preconfigured for it.
+  - **Code editor** — [**Visual Studio Code**](https://code.visualstudio.com/) is the editor of choice for this project. It's an open-source cross-platform full TypeScript IDE, and project is preconfigured for it.
 
       - When you install VSCode, you'll definitely want to enable that *Open Code from Right-click Context Menu* option that the installer has. Handy.
 
@@ -43,7 +31,7 @@ As a team, we tend to chat via Skype or Mumble, but we ought to start using Gitt
 
     - *On Linux/Mac* — just use the Terminal that came with your system.
 
-    - *On Windows* — install [Cmder](http://cmder.net/).
+    - *On Windows* — install [**Cmder**](http://cmder.net/).
 
       - Also with Cmder, follow [these lame instructions](https://github.com/cmderdev/cmder/wiki/%5BWindows%5D-%22Open-Cmder-Here%22-in-context-menu) to gain the lovely ability to *Open Cmder Here* into any folder from the right-click context menu.
 

@@ -25,6 +25,9 @@ export default class Stage {
     totalFrames: 0
   }
 
+  /** For measuring the time between frames. */
+  private lastRenderTime = performance.now()
+
   /** Event listeners that start and stop with the stage. */
   private listeners = {
 
@@ -36,6 +39,15 @@ export default class Stage {
     // Update the picking info about the user's mouse cursor in the 3D scene.
     mousemove: () => {
       this.pick = this.scene.pick(this.scene.pointerX, this.scene.pointerY)
+    },
+
+    // Start and stop pointer lock input.
+    pointerlockchange: () => {
+      const locked = (document.pointerLockElement === this.canvas)
+      if (locked)
+        this.scene.activeCamera.attachControl(this.canvas)
+      else
+        this.scene.activeCamera.detachControl(this.canvas)
     }
   }
 
@@ -49,6 +61,9 @@ export default class Stage {
     this.engine = new BABYLON.Engine(this.canvas, true)
     this.scene = new BABYLON.Scene(this.engine)
 
+    this.canvas.onclick = () => this.canvas.requestPointerLock()
+    this.engine.isPointerLock = true
+
     // Apparently this makes BabylonJS care about UV mapping ¯\_(ツ)_/¯
     ; (<any>BABYLON).OBJFileLoader.OPTIMIZE_WITH_UV = true
   }
@@ -57,8 +72,10 @@ export default class Stage {
    * Start the rendering loop.
    */
   start() {
-    window.addEventListener('resize', this.listeners.resize)
-    window.addEventListener('mousemove', this.listeners.mousemove)
+
+    // Add all listeners.
+    for (const eventName of Object.keys(this.listeners))
+      document.addEventListener(eventName, this.listeners[eventName])
 
     this.engine.runRenderLoop(() => {
       const since = performance.now() - this.lastRenderTime
@@ -66,7 +83,6 @@ export default class Stage {
       this.lastRenderTime = performance.now()
     })
   }
-  private lastRenderTime = performance.now()
 
   /**
    * Stop the rendering loop.
@@ -74,8 +90,9 @@ export default class Stage {
   stop() {
     this.engine.stopRenderLoop()
 
-    window.removeEventListener('resize', this.listeners.resize)
-    window.removeEventListener('mousemove', this.listeners.mousemove)
+    // Remove all listeners.
+    for (const eventName of Object.keys(this.listeners))
+      document.removeEventListener(eventName, this.listeners[eventName])
   }
 
   /**

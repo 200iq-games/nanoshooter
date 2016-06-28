@@ -60,7 +60,7 @@ export default class Nanoshooter extends Game {
       this.addEntity<TankState>({
         type: 'Nanoshooter/Entities/Tank',
         label: 'TankAlpha',
-        playerControlled: true,
+        playerControlled: false,
         artPath: 'art/tanks/alpha/tank-alpha.obj',
         position: [-4, 0, 0]
       })
@@ -77,6 +77,12 @@ export default class Nanoshooter extends Game {
       this.addEntity({
         type: 'Nanoshooter/Entities/Spawner',
         label: 'Spawnlord'
+      })
+
+      // Spectator.
+      this.addEntity({
+        type: 'Nanoshooter/Entities/Spectator',
+        label: 'Spectator'
       })
 
     }

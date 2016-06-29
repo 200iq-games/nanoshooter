@@ -7,9 +7,15 @@ The primary goals of the Nanoshooter project are to:
   - Create a robust framework for building 3D online multiplayer action web games on [BabylonJS](https://github.com/BabylonJS/Babylon.js).
   - Make an awesome tank game.
 
-Eventually, the framework that is underneath the Nanoshooter game will move out into its own open source repository, and be given a legendary name. The primary goal of this releasing this framework, would be to contribute it as a platform for the BabylonJS community to build their own online multiplayer games with.
+Eventually, the framework that is underneath the Nanoshooter game will move out into its own open source repository, and be given a legendary name that is worthy of a platform on which members the BabylonJS community build their own online multiplayer games with.
 
 Nanoshooter is a revival of our old highschool project. This is familiar territory for us, as we're basically recreating the framework and gameplay functionality that we once had running back in the Blender Game Engine. We want to bring this game to the same level of accomplishment, including a collaborative online map edtior. This time around, years later, we're doing Nanoshooter the right way, at a professional caliber, and running smoothly on the web.
+
+Reading around the web, it looks like most people are trying to use WebSockets and node servers to power their online games. I knew that would never be viable for the level of realtime action we'd need to achieve for a game like this, so I didn't even consider it — until WebRTC came along, and more specifically —
+
+  - [***RTCDataChannel***](https://www.w3.org/TR/webrtc/#rtcdatachannel) — *The Holy Grail of Web Multiplayer*
+
+It's what I've been waiting for all this time, and it's still in the process of descending from the heavens (it's only supported by Chrome and Firefox at the moment). I won't gush about the details for why `RTCDataChannel` is such a beautiful gem *(the `unreliable` transfer functionality is necessary)*, but it really is the key for smooth responsive fast-paced realtime action.
 
 ### Help us out!
 
@@ -21,9 +27,9 @@ Say hi in the [***Gitter chat.***](https://gitter.im/ChaseMoskal/Nanoshooter)
 
   - [**Git**](https://git-scm.com/) — version control, teamwork.
 
-  - [**Node.js**](https://nodejs.org/en/) — development environment runtime.
+  - [**Node.js**](https://nodejs.org/en/) — development environment runtime (runs build scripts and stuff).
 
-  - **Code editor** — [**Visual Studio Code**](https://code.visualstudio.com/) is the editor of choice for this project. It's an open-source cross-platform full TypeScript IDE, and project is preconfigured for it.
+  - **Code editor** — [**Visual Studio Code**](https://code.visualstudio.com/) is the editor of choice for this project. It's an open-source cross-platform full TypeScript IDE, and this project is preconfigured for it.
 
       - When you install VSCode, you'll definitely want to enable that *Open Code from Right-click Context Menu* option that the installer has. Handy.
 
@@ -80,11 +86,11 @@ The art viewer might be really handy while working on art assets in Blender. You
 
 ## Licensing
 
-**The entire Nanoshooter project – the framework, the game, the artwork, etc – is open source, MIT Licensed.**
+**Nanoshooter is an open source project under the MIT License.**
 
-This means you're free to:
-  - Reuse Nanoshooter's art assets for your own purposes (commercial or otherwise).
-  - Reuse Nanoshooter's source code components for your own purposes (commercial or otherwise).
-  - Fork the Nanoshooter project, and totally make your own game based on it (commercial or otherwise).
+This means:
+  - All Nanoshooter collaborator contributions — source code, art assets, and otherwise — are free open source contributions.
+  - You are free to reuse any of Nanoshooter's components (any art assets, source code) for your own purposes (commercial or otherwise).
+  - You are free to fork the Nanoshooter project, and totally make your own game based on it (commercial or otherwise).
 
-The [BabylonJS](https://github.com/BabylonJS/Babylon.js) engine *(which the Nanoshooter framework rides on top of and leverages)* is itself Apache 2.0 licensed.
+*Note:* Third party libraries are included in the this repository with their own license files.

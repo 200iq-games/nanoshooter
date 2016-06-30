@@ -84,6 +84,12 @@ For now at least, only `.obj` files will be loaded. If the file isn't found, or 
 
 The art viewer might be really handy while working on art assets in Blender. You can point the game at an `.obj` file to preview it, then tweak it in Blender, re-export the `.obj`, and then hit refresh in the browser to see results instantly. You can do this over and over again, no build step required.
 
+## Roadmap
+
+  - [Nanoshooter Roadmap on Trello](https://trello.com/b/Tr656Gke/nanoshooter-roadmap).
+
+Issues are created and assigned to milestones based on this roadmap.
+
 ## Licensing
 
 **Nanoshooter is an open source project under the MIT License.**

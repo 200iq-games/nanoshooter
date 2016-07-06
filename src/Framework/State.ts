@@ -7,12 +7,12 @@ export default class State {
   /**
    * Apply a delta onto a state, and return the diff.
    */
-  static applyDelta(state: any, delta: any): any { throw "Coming soon" }
+  static applyDelta(state: any, delta: any): any { throw 'Coming soon' }
 
   /**
    * Return the delta diff between two states.
    */
-  static diff(alpha: any, beta: any): any { throw "Coming soon" }
+  static diff(alpha: any, beta: any): any { throw 'Coming soon' }
 
   /** Any serializable key-string property is allowed on a state instance. */
   [key: string]: any

@@ -1,20 +1,20 @@
 
-import Entity, {EntityOptions, EntityState} from "../Framework/Entity"
+import Entity, {EntityOptions, EntityState} from '../Framework/Entity'
 
 /**
  * A simple cube object in the game world.
  */
 export default class Cube extends Entity {
 
-  static type = "Nanoshooter/Entities/Cube"
+  static type = 'Nanoshooter/Entities/Cube'
 
   private mesh: BABYLON.Mesh
 
   protected initialize(entityState: EntityState) {
     const mesh = this.mesh = BABYLON.Mesh.CreateBox(this.id, 1.5, this.stage.scene)
-    mesh["cube"] = true
+    mesh['cube'] = true
 
-    const material = new BABYLON.StandardMaterial("floor", this.stage.scene)
+    const material = new BABYLON.StandardMaterial('floor', this.stage.scene)
     material.diffuseColor = new BABYLON.Color3(0, 1, 0.0)
     material.specularPower = 0
     mesh.material = material

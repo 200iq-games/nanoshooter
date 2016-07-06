@@ -63,7 +63,7 @@ export default class Ticker {
     ++this.stats.totalTicks
 
     // Recurse, but give the browser some time to relax.
-    setTimeout(()=>{
+    setTimeout(() => {
       window.requestAnimationFrame(() => {
         this.start()
       })

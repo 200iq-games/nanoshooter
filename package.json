@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "clean": "rimraf build",
-    "build": "npm run clean --silent && tsc && echo Build complete.",
+    "build": "npm run clean --silent && tsc && tslint *.ts src/**/*.ts && echo Build complete.",
     "watch": "tsc -w",
     "test": "echo No tests yet, lol && exit 0",
     "server": "http-server -p 8080"
@@ -24,6 +24,7 @@
   "devDependencies": {
     "http-server": "^0.9.0",
     "rimraf": "^2.5.2",
+    "tslint": "^3.13.0",
     "typescript": "^1.8.10"
   },
   "dependencies": {}

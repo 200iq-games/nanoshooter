@@ -13,10 +13,10 @@ export interface TankOptions extends EntityOptions {
 export default class Tank extends Entity {
   static type = 'Nanoshooter/Entities/Tank'
 
-  public static get TURN_RIGHT(): number { return 1; }
-  public static get TURN_LEFT(): number { return -1; }
-  public static get MOVE_FORWARD(): number { return 1; }
-  public static get MOVE_BACKWARD(): number { return -1; }
+  public static get TURN_RIGHT(): number { return 1 }
+  public static get TURN_LEFT(): number { return -1 }
+  public static get MOVE_FORWARD(): number { return 1 }
+  public static get MOVE_BACKWARD(): number { return -1 }
 
   /** Default tank art asset. */
   protected artPath: string = 'art/tanks/alpha/tank-alpha.obj'
@@ -108,7 +108,7 @@ export default class Tank extends Entity {
       this.turret = this.meshes.find(mesh => /Turret/i.test(mesh.name))
 
       // Attach the turret to the chassis.
-      this.turret.parent = this.chassis;
+      this.turret.parent = this.chassis
 
       // Assume the starting position.
       if (this.startingPosition)
@@ -137,10 +137,7 @@ export default class Tank extends Entity {
 
       // If the keyboard watcher is active.
       if (this.keyboardWatcher) {
-        
-        
         this.handleKeyboardInput()
-        
       }
     }
 
@@ -154,10 +151,10 @@ export default class Tank extends Entity {
    */
   protected handleKeyboardInput() {
     const status = (label: string) => this.keyboardWatcher.status[label]
-        
-    var moveDir = 0
-    var turnDir = 0
-        
+
+    let moveDir = 0
+    let turnDir = 0
+
     if (status('accel') && status('brake')) {
       moveDir = 0
     } else {
@@ -182,41 +179,38 @@ export default class Tank extends Entity {
 
   /**
    * Moves the tank
-   *  -Currently applies basic movement (lookAt and setLinearVelocity) 
-   *   -To be replaced with calls to physics methods (turn wheels)
+   *  - Currently applies basic movement (lookAt and setLinearVelocity) 
+   *  - To be replaced with calls to physics methods (turn wheels)
    */
   protected moveTank(moveDir: number, turnDir: number) {
-    var speed = 0
-    
-    if (turnDir == 0 && moveDir == 0) {
-      return
-    } else if (moveDir != 0) {
-      if (turnDir == 0) { 
-        /** Full power to both treads */
+    let speed = 0
 
-        //Basic movement
+    if (turnDir === 0 && moveDir === 0) {
+      return
+    } else if (moveDir !== 0) {
+      if (turnDir === 0) {
+
+        // Full power to both treads
         speed = moveDir * this.speedMax
       } else {
-        /** Full power to ONE tread, Slightly less to other */
 
-        //Basic Movement
+        // Full power to ONE tread, Slightly less to other
         speed = moveDir * this.speedMax
         this.chassisFacing += turnDir * moveDir * this.turnSpeed
       }
     } else {
-      /** Full power to ONE tread, Minimum power to other */
 
-      //Basic Movement
+      // Full power to ONE tread, Minimum power to other
       speed = this.speedTurn
       this.chassisFacing += turnDir * this.turnSpeed
     }
 
-    //Applies Basic Movement
-    const directionVector = new BABYLON.Vector3(Math.sin(this.chassisFacing),0,Math.cos(this.chassisFacing))
-    this.chassis.lookAt(this.chassis.position.add(directionVector),0,0,0)
+    // Applies Basic Movement
+    const directionVector = new BABYLON.Vector3(Math.sin(this.chassisFacing), 0, Math.cos(this.chassisFacing))
+    this.chassis.lookAt(this.chassis.position.add(directionVector), 0, 0, 0)
 
-    if (speed != 0) {
-      const speedVector = new BABYLON.Vector3(speed,0,speed)
+    if (speed !== 0) {
+      const speedVector = new BABYLON.Vector3(speed, 0, speed)
       this.chassis.physicsImpostor.setLinearVelocity(directionVector.multiply(speedVector))
     }
   }

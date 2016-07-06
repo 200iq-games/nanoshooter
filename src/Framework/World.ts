@@ -1,11 +1,11 @@
 
-import Game, {GameState, Logger} from "./Game"
-import Stage from "./Stage"
-import State from "./State"
-import Loader from "./Loader"
-import Entity, {EntityState} from "./Entity"
-import {TickReport} from "./Ticker"
-declare const require: (moduleIds: string[], callback?: (...modules:any[]) => void, errback?: (error: Error) => void) => void
+import Game, {GameState, Logger} from './Game'
+import Stage from './Stage'
+import State from './State'
+import Loader from './Loader'
+import Entity, {EntityState} from './Entity'
+import {TickReport} from './Ticker'
+declare const require: (moduleIds: string[], callback?: (...modules: any[]) => void, errback?: (error: Error) => void) => void
 
 /**
  * Inputs for a new world instance.

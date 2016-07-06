@@ -50,7 +50,7 @@ export default class Stage {
     this.scene = new BABYLON.Scene(this.engine)
 
     // Apparently this makes BabylonJS care about UV mapping ¯\_(ツ)_/¯
-    ;(<any>BABYLON).OBJFileLoader.OPTIMIZE_WITH_UV = true;
+    ; (<any>BABYLON).OBJFileLoader.OPTIMIZE_WITH_UV = true
   }
 
   /**

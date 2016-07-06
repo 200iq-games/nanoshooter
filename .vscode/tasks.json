@@ -6,7 +6,7 @@
   "tasks": [
     {
       "taskName": "build",
-      "problemMatcher": "$tsc",
+      "problemMatcher": ["$tsc"],
       "isBuildCommand": true
     },
     {

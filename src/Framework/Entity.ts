@@ -53,7 +53,7 @@ export default class Entity {
    */
   constructor(options: EntityOptions) {
     this.id = options.id
-    this.label = options.label || ""
+    this.label = options.label || ''
     this.game = options.game
     this.stage = options.stage
     this.loader = options.loader
@@ -80,7 +80,7 @@ export default class Entity {
   /**
    * Make it look pretty in the console logs.
    */
-  toString() { return `<${this.id}${this.label?'-':''}${this.label}>` }
+  toString() { return `<${this.id}${this.label ? '-' : ''}${this.label}>` }
 }
 
 export interface EntityLogicInput {

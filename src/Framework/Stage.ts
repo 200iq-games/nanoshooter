@@ -1,7 +1,7 @@
 
 /**
  * Govern a 3D Babylon scene from a high level.
- * The stage is an access point to some key Babylon API components.
+ * An access point to key Babylon API components for controlling the 3D scene.
  */
 export default class Stage {
 

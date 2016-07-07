@@ -2,11 +2,15 @@
 import Game, {GameOptions} from './Framework/Game'
 import Stage from './Framework/Stage'
 import {EntityState} from './Framework/Entity'
+import KeyboardWatcher from './Toolbox/KeyboardWatcher'
 import {TankState} from './Entities/Tank'
 
 /**
  * Nanoshooter game.
- * Subclass of Game, which has start/stop methods, etc.
+ * Establishes the scene's fundamentals (like floor).
+ * Adds entities.
+ * Responds to user input (respawning and such).
+ * Manages which camera is active.
  */
 export default class Nanoshooter extends Game {
 
@@ -28,15 +32,9 @@ export default class Nanoshooter extends Game {
     backlight.intensity = 0.4
 
     // Camera.
-    const camera = new BABYLON.UniversalCamera('camera1', new BABYLON.Vector3(-5, 15, -15), scene)
+    const camera = new BABYLON.UniversalCamera('fallback-camera', new BABYLON.Vector3(-5, 15, -15), scene)
     camera.setTarget(BABYLON.Vector3.Zero())
     camera.attachControl(canvas, false)
-
-    // Action!
-    this.createInitialEntities()
-  }
-
-  createInitialEntities() {
 
     // Floor.
     this.addEntity({
@@ -52,9 +50,10 @@ export default class Nanoshooter extends Game {
         type: 'Nanoshooter/Entities/ArtViewer',
         label: 'ArtViewer'
       })
+    }
 
     // Load up some kind of demo scene.
-    } else {
+    else {
 
       // Tank alpha.
       this.addEntity<TankState>({
@@ -84,19 +83,6 @@ export default class Nanoshooter extends Game {
         type: 'Nanoshooter/Entities/Spectator',
         label: 'Spectator'
       })
-
     }
-
-    // // Robot.
-    // this.addEntity(new EntityState({
-    //   type: 'Nanoshooter/Entities/Robot',
-    //   label: 'Robot'
-    // }))
-
-    // // Cube.
-    // this.addEntity(new EntityState({
-    //     type: 'Nanoshooter/Entities/Cube',
-    //     label: 'FancyCube'
-    // }))
   }
 }

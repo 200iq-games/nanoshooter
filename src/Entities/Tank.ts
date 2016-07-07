@@ -2,7 +2,9 @@
 import Entity, {EntityOptions, EntityLogicInput, EntityLogicOutput, EntityState} from '../Framework/Entity'
 import KeyboardWatcher from '../Toolbox/KeyboardWatcher'
 
-/** Options for creating a tank. */
+/**
+ * Options for creating a tank.
+ */
 export interface TankOptions extends EntityOptions {
   entityState: TankState
 }
@@ -87,12 +89,12 @@ export default class Tank extends Entity {
         this.camera.lockedTarget = this.chassis
         this.camera.position = this.chassis.position.add(new BABYLON.Vector3(0, 80, -40))
 
-        // If the tank is player controlled.
-        if (this.playerControlled) {
+        // // If the tank is player controlled.
+        // if (this.playerControlled) {
 
-          // Create, position, and activate its camera.
-          this.stage.scene.swithActiveCamera(this.camera)
-        }
+        //   // Create, position, and activate its camera.
+        //   this.stage.scene.swithActiveCamera(this.camera)
+        // }
       })
   }
 

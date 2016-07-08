@@ -2,7 +2,7 @@
 import Game, {GameOptions} from './Framework/Game'
 import Stage from './Framework/Stage'
 import {EntityState} from './Framework/Entity'
-import KeyboardWatcher from './Toolbox/KeyboardWatcher'
+import Watcher, { Input } from './Toolbox/Watcher'
 import {TankState} from './Entities/Tank'
 
 /**
@@ -14,8 +14,20 @@ import {TankState} from './Entities/Tank'
  */
 export default class Nanoshooter extends Game {
 
-  initialize() {
-    super.initialize()
+  /**
+   * Watch for spawn button press.
+   */
+  watcher: Watcher = new Watcher({
+    bindings: {
+      'spawn': Input.Space
+    }
+  })
+
+  /**
+   * Initialize the Nanoshooter game.
+   */
+  constructor(options: GameOptions) {
+    super(options)
     const {canvas, scene} = this.stage
 
     // Physics.
@@ -39,7 +51,7 @@ export default class Nanoshooter extends Game {
     // Floor.
     this.addEntity({
       type: 'Nanoshooter/Entities/Floor',
-      label: 'FancyFloor'
+      tags: ['FancyFloor']
     })
 
     // If the page has a querystring, display an empty scene with the art viewer.
@@ -48,26 +60,29 @@ export default class Nanoshooter extends Game {
       // Art viewer.
       this.addEntity({
         type: 'Nanoshooter/Entities/ArtViewer',
-        label: 'ArtViewer'
+        tags: ['ArtViewer']
       })
     }
 
     // Load up some kind of demo scene.
     else {
 
-      // Tank alpha.
-      this.addEntity<TankState>({
-        type: 'Nanoshooter/Entities/Tank',
-        label: 'TankAlpha',
-        playerControlled: true,
-        artPath: 'art/tanks/alpha/tank-alpha.obj',
-        position: [-4, 0, 0]
+      // Spawn tank alpha whenever the spawn key is pressed.
+      this.watcher.on('spawn', report => {
+        if (!!report.status)
+          this.addEntity<TankState>({
+            type: 'Nanoshooter/Entities/Tank',
+            tags: ['tank', 'alpha'],
+            playerControlled: true,
+            artPath: 'art/tanks/alpha/tank-alpha.obj',
+            position: [-4, 0, 0]
+          })
       })
 
       // Tank bravo.
       this.addEntity<TankState>({
         type: 'Nanoshooter/Entities/Tank',
-        label: 'TankBravo',
+        tags: ['tank', 'bravo'],
         artPath: 'art/tanks/bravo/tank-bravo.obj',
         position: [4, 0, 0]
       })
@@ -75,14 +90,21 @@ export default class Nanoshooter extends Game {
       // Spawner.
       this.addEntity({
         type: 'Nanoshooter/Entities/Spawner',
-        label: 'Spawnlord'
+        tags: ['spawnlord']
       })
 
       // Spectator.
       this.addEntity({
         type: 'Nanoshooter/Entities/Spectator',
-        label: 'Spectator'
+        tags: ['spectator']
       })
     }
+  }
+
+  /**
+   * Shutdown the game.
+   */
+  destructor() {
+    this.watcher.destructor()
   }
 }

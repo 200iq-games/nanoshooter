@@ -42,7 +42,7 @@ export default class World {
   protected entities: { [id: string]: Entity } = {}
 
   /** Getter which provides an array version of entities. */
-  get entityArray() { return Object.keys(this.entities).map(id => this.entities[id]) }
+  get entityArray(): Entity[] { return Object.keys(this.entities).map(id => this.entities[id]) }
 
   /**
    * Create a world instance with some world options.
@@ -55,20 +55,21 @@ export default class World {
   }
 
   /**
-   * Destruct all entities and shut down.
-   * This allows all event bindings and such to be cleaned up.
+   * Query for entities by searching through their tags.
+   *  - Search through tags with a string (looking for exact match), or use a regular expression.
    */
-  destructor() {}
+  query(terms: (string | RegExp)[] = []): Entity[] {
 
-  /**
-   * Query entities by label with a regular expression.
-   */
-  queryEntities(regularExpression: RegExp): Entity[] {
-    const matches: Entity[] = []
-    this.loopOverEntities(entity => {
-      if (regularExpression.test(entity.label)) matches.push(entity)
+    return this.entityArray.filter(entity => {
+      const matchingTerms = terms.filter(term =>
+        entity.tags.filter(tag =>
+          typeof term === 'string' ? tag === term : term.test(tag)
+        ).length > 0
+      )
+
+      // Entity matches when all terms match.
+      return matchingTerms.length === terms.length
     })
-    return matches
   }
 
   /**
@@ -147,7 +148,7 @@ export default class World {
           const entity = new (<typeof Entity>entityModule.default)({
             id,
             entityState,
-            label: entityState.label,
+            tags: entityState.tags,
             world: this,
             game: this.game,
             stage: this.stage,
@@ -180,6 +181,12 @@ export default class World {
     this.log(`(-) Removed entity ${entity}`)
     return Promise.resolve()
   }
+
+  /**
+   * Destruct all entities and shut down.
+   * This allows all event bindings and such to be cleaned up.
+   */
+  destructor() {}
 }
 
 export interface WorldLogicInput {

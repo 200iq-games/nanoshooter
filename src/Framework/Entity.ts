@@ -17,7 +17,7 @@ export interface EntityOptions {
   game: Game
   stage: Stage
   loader: Loader
-  label?: string
+  tags?: string[]
 }
 
 /**
@@ -29,11 +29,14 @@ export default class Entity {
   /** Module ID for this entity class. Used to load entity classes on-the-fly. */
   static type: string = 'Nanoshooter/Entities/Entity'
 
+  /** Module ID for this entity class. Cleverly copied from the static variable. */
+  type: string = (<typeof Entity>this.constructor).type
+
   /** Unique ID tag. */
   id: string
 
-  /** Human-friendly nickname for this entity instance. Doesn't have to be unique. Useful for entity queries. Think of these like CSS class names. */
-  label: string
+  /** Searchable tag strings related to this entity. Optional. */
+  tags: string[]
 
   /** World instance. Entities can query for and access other entity instances. */
   protected world: World
@@ -53,7 +56,7 @@ export default class Entity {
    */
   constructor(options: EntityOptions) {
     this.id = options.id
-    this.label = options.label || ''
+    this.tags = options.tags || []
     this.game = options.game
     this.stage = options.stage
     this.loader = options.loader
@@ -62,15 +65,9 @@ export default class Entity {
   }
 
   /**
-   * Initialize this entity.
+   * Initialize this entity with the provided state.
    */
   protected initialize(state: EntityState) {}
-
-  /**
-   * Clean up this entity for removal from the game.
-   * Tear down any event subscriptions, etc.
-   */
-  destructor() {}
 
   /**
    * Respond to fresh entity state on a logic tick.
@@ -80,11 +77,17 @@ export default class Entity {
   /**
    * Make it look pretty in the console logs.
    */
-  toString() { return `<${this.id}${this.label ? '-' : ''}${this.label}>` }
+  toString() { return `<${this.type}-${this.id}>` }
+
+  /**
+   * Clean up this entity for removal from the game.
+   * Tear down any event subscriptions, etc.
+   */
+  destructor() {}
 }
 
 export interface EntityLogicInput {
-  entityState: EntityState,
+  entityState: EntityState
   tickReport: TickReport
 }
 
@@ -94,5 +97,5 @@ export interface EntityLogicOutput {
 
 export interface EntityState {
   type: string
-  label?: string
+  tags?: string[]
 }

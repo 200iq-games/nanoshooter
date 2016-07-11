@@ -1,6 +1,6 @@
 
 import Entity, {EntityOptions, EntityLogicInput, EntityLogicOutput, EntityState} from '../Framework/Entity'
-import KeyboardWatcher from '../Toolbox/KeyboardWatcher'
+import Watcher, { Input } from '../Toolbox/Watcher'
 
 /**
  * Options for creating a tank.
@@ -32,10 +32,10 @@ export default class Tank extends Entity {
   /** Top-mounted gun on a swivel. */
   protected turret: BABYLON.Mesh
 
-  /** Monitor keyboard activity for tank controls. */
-  protected keyboardWatcher: KeyboardWatcher
+  /** Monitor user input activity for tank controls. */
+  protected watcher: Watcher
 
-  /** Whether or not this tank will respond to keyboard input and the like. */
+  /** Whether or not this tank will respond to user input. */
   protected playerControlled = false
 
   /** Position the tank will start at. */
@@ -68,12 +68,12 @@ export default class Tank extends Entity {
 
     // If this tank is player controlled, establish a keyboard watcher.
     if (this.playerControlled) {
-      this.keyboardWatcher = new KeyboardWatcher({
-        keyNames: {
-          'accel': 'w',
-          'right': 'd',
-          'brake': 's',
-          'left': 'a',
+      this.watcher = new Watcher({
+        bindings: {
+          accel: Input.W,
+          right: Input.D,
+          brake: Input.S,
+          left: Input.A,
         }
       })
     }
@@ -138,7 +138,7 @@ export default class Tank extends Entity {
       if (this.stage.pick.hit) this.aimTurret(this.stage.pick.pickedPoint)
 
       // If the keyboard watcher is active.
-      if (this.keyboardWatcher) {
+      if (this.watcher) {
         this.handleKeyboardInput()
       }
     }
@@ -152,7 +152,7 @@ export default class Tank extends Entity {
    *  
    */
   protected handleKeyboardInput() {
-    const status = (label: string) => this.keyboardWatcher.status[label]
+    const status = (label: string) => this.watcher.status[label]
 
     let moveDir = 0
     let turnDir = 0
@@ -242,8 +242,8 @@ export default class Tank extends Entity {
       this.stage.scene.removeMesh(mesh)
     }
 
-    // Cleanup the keyboard watcher.
-    this.keyboardWatcher.unbind()
+    // Cleanup the watcher.
+    this.watcher.destructor()
   }
 }
 

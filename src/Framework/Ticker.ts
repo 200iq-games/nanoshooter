@@ -92,7 +92,7 @@ export interface TickerOptions {
  * Action to take when a tick occurs.
  * A function that is called repeatedly, for each tick.
  */
-export type TickAction = (tickInfo: TickReport) => void
+export type TickAction = (tickReport: TickReport) => void
 
 /**
  * Package of information that is passed along with each tick action.

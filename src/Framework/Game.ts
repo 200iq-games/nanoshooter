@@ -73,7 +73,10 @@ export default class Game {
    */
   destructor() {}
 
-  /** Overridable game initialization step. */
+  /**
+   * Overridable game initialization step.
+   * Initialize methods are handy, because you don't have to worry about all options that the constructor must accept.
+   */
   protected initialize() {}
 
   /**

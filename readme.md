@@ -1,27 +1,52 @@
 
-# Nanoshooter — [![Build Status](https://travis-ci.org/ChaseMoskal/Nanoshooter.svg?branch=master)](https://travis-ci.org/ChaseMoskal/Nanoshooter) — [***PLAY NOW***](http://chasemoskal.github.io/Nanoshooter/) — [![Join the chat at https://gitter.im/ChaseMoskal/Nanoshooter](https://badges.gitter.im/ChaseMoskal/Nanoshooter.svg)](https://gitter.im/ChaseMoskal/Nanoshooter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+# Nanoshooter — [![Build Status](https://travis-ci.org/ChaseMoskal/Nanoshooter.svg?branch=master)](https://travis-ci.org/ChaseMoskal/Nanoshooter) — [![Join the chat at https://gitter.im/ChaseMoskal/Nanoshooter](https://badges.gitter.im/ChaseMoskal/Nanoshooter.svg)](https://gitter.im/ChaseMoskal/Nanoshooter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-***Nanoshooter is a free 3D open source online multiplayer action web game and framework, built on [BabylonJS](http://www.babylonjs.com/).***
+*Nanoshooter is a free 3D open source online multiplayer action web game and framework, built on [BabylonJS.](http://www.babylonjs.com/)*
+ - [**Launch the Nanoshooter Sandbox now!**](http://chasemoskal.github.io/Nanoshooter/)
+ - [Nanoshooter Development Roadmap on Trello.](https://trello.com/b/Tr656Gke/nanoshooter-roadmap)
+ - [Gitter text chat — say hi!](https://gitter.im/ChaseMoskal/Nanoshooter)
 
-The primary goals of the Nanoshooter project are to:
-  - Create a robust framework for building 3D online multiplayer action web games on [BabylonJS](https://github.com/BabylonJS/Babylon.js).
-  - Make an awesome tank game.
+## Project goals
 
-Eventually, the framework that is underneath the Nanoshooter game will move out into its own open source repository, and be given a legendary name that is worthy of a platform on which members the BabylonJS community build their own online multiplayer games with.
+  - Make a cool multiplayer tank game.
+    - Runs web-native: no install, no plugins, just straight webcode.
+    - Third-person. We're thinking little robotic drone tanks. Fighting for resources. On distant planets. In the distant future.
 
-Nanoshooter is a revival of our old highschool project. This is familiar territory for us, as we're basically recreating the framework and gameplay functionality that we once had running back in the Blender Game Engine. We want to bring this game to the same level of accomplishment, including a collaborative online map edtior. This time around, years later, we're doing Nanoshooter the right way, at a professional caliber, and running smoothly on the web.
+  - Create a robust framework 3D online multiplayer action web games on [BabylonJS](https://github.com/BabylonJS/Babylon.js).
+    - Online multiplayer action.
+    - Realtime collaborative map editing experience.
+    - Platform, tooling, and workflow for rapid web game development.
+    - Eventually, this networked framework will move out into its own repository, and be given its own legendary name.
 
-Reading around the web, it looks like most people are trying to use WebSockets and node servers to power their online games. I knew that would never be viable for the level of realtime action we'd need to achieve for a game like this, so I didn't even consider it — until WebRTC came along, and more specifically —
+## Free and open licensing
 
-  - [***RTCDataChannel***](https://www.w3.org/TR/webrtc/#rtcdatachannel) — *The Holy Grail of Web Multiplayer*
+**Nanoshooter is an open source project under the MIT License.**
 
-It's what I've been waiting for all this time, and it's still in the process of descending from the heavens (it's only supported by Chrome and Firefox at the moment). I won't gush about the details for why `RTCDataChannel` is such a beautiful gem *(the `unreliable` transfer functionality is necessary)*, but it really is the key for smooth responsive fast-paced realtime action.
+  - All Nanoshooter collaborator contributions — source code, art assets, and otherwise — are free open source contributions.
 
-### Help us out!
+  - You are free to reuse any of Nanoshooter's components (any art assets, source code) for your own purposes (commercial or otherwise).
 
-Are you an aspiring young programmer, eager to contribute to something open source *and* fun? Or maybe you're an ambitious and fully-bearded artist, inspired to unleash your full creativity which the world has been waiting for? Perhaps you have no skills whatsoever, and just want to feel like you're a part of something. *You've definitely come to the right place!*
+  - You are free to fork the Nanoshooter project, and totally make your own game based on it (commercial or otherwise).
 
-Say hi in the [***Gitter chat.***](https://gitter.im/ChaseMoskal/Nanoshooter)
+  - Third party libraries are included together with their own license files in this repository.
+
+## We welcome newcomers — join us!
+
+We want help with:
+ - Artwork of all kinds
+ - Gameplay/entity code
+ - Framework code
+ - Process and tooling
+ - Concepts and ideas
+ - And more!
+
+We're looking for collaborators of all skillsets and skill levels. This is a great project to practice or learn new skills, and to support free software and the open game development community.
+
+Whether you have your own ideas for Nanoshooter, or just want to build your own dream game that uses Nanoshooter's framework for online multiplayer action, we'd love to hear from you.
+
+Say hi in the [Gitter chat!](https://gitter.im/ChaseMoskal/Nanoshooter)
+
+# Development guide
 
 ## Software you need
 
@@ -29,47 +54,59 @@ Say hi in the [***Gitter chat.***](https://gitter.im/ChaseMoskal/Nanoshooter)
 
   - [**Node.js**](https://nodejs.org/en/) — development environment runtime (runs build scripts and stuff).
 
-  - **Code editor** — [**Visual Studio Code**](https://code.visualstudio.com/) is the editor of choice for this project. It's an open-source cross-platform full TypeScript IDE, and this project is preconfigured for it.
+  - [**Visual Studio Code**](https://code.visualstudio.com/) — editor of choice for this project.
 
-      - When you install VSCode, you'll definitely want to enable that *Open Code from Right-click Context Menu* option that the installer has. Handy.
+    - It's an open-source cross-platform full TypeScript IDE, and this project is preconfigured for it.
+
+    - When you install VSCode, you'll definitely want to enable that *Open Code from Right-click Context Menu* option that the installer has. *Very handy.*
 
   - **Command-line utility**
 
     - *On Linux/Mac* — just use the Terminal that came with your system.
 
-    - *On Windows* — install [**Cmder**](http://cmder.net/).
+    - *On Windows* — use Git Bash (comes with Git).
 
-      - Also with Cmder, follow [these lame instructions](https://github.com/cmderdev/cmder/wiki/%5BWindows%5D-%22Open-Cmder-Here%22-in-context-menu) to gain the lovely ability to *Open Cmder Here* into any folder from the right-click context menu.
+      - Or install [**Cmder**](http://cmder.net/).
 
-## How to start tinkering with the project
+        With Cmder, follow [these lame instructions](https://github.com/cmderdev/cmder/wiki/%5BWindows%5D-%22Open-Cmder-Here%22-in-context-menu) to gain the lovely ability to *Open Cmder Here* into any folder from the right-click context menu.
 
-  1. Clone this repo.
+## Build and run the game locally
 
-  2. Run these commands in the project directory, and run them again every time you pull down new changes *(after every `git pull`):*
+  1. **Clone this repo.**
 
-    1. `npm install` — install all project dependencies locally (in the project folder, in `node_modules`).
+  2. **Build the project.**
 
-    2. `npm run build` — build all of the project's TypeScript source code.
+      Run these commands in the project directory, and run them again every time you pull down new changes *(after every `git pull`):*
 
-  3. Run the dev server so you can launch the game locally *(do this whenever you start working):*
+      1. `npm install` — install all project dependencies locally (in the project folder, in `node_modules`).
 
-    1. `npm run server` — start running the project's internal web server. Hit `CTRL-C` when you want to stop the server process.
+      2. `npm run build` — build all of the project's TypeScript source code.
 
-    2. Visit [http://localhost:8080/](http://localhost:8080/) to launch the game. I put this dev server on port 8080 because port 80 was giving Lonnie issues (probably firewall related). You can change this port in the `package.json` *(try not to commit it though).*
+  3. **Launch the game locally.**
 
-## Some development notes
+      1. `npm run server` — start running the project's internal web server. Hit `CTRL-C` when you want to stop the server process.
+
+      2. Visit [http://localhost:8080/](http://localhost:8080/) to launch the game. I put this dev server on port 8080 because port 80 was giving Lonnie issues (probably firewall related).
+
+## Development tips
 
   - Art asset paths and filenames must be all lowercase, at least for now, as it seems to be some weird bug or limitation with the Babylon loaders.
 
-  - `npm run watch` — start a compile-on-save process, which will rebuild TypeScript files on the fly as you save changes.
-
-    - You might want to run this watch process in a separate Cmder tab (`CTRL-T` for new tab).
+  - `npm run watch` — start a compile-on-save process, which will rebuild TypeScript files on the fly as you save changes. Pro tip: Run this and the server at the same time.
 
   - [Travis CI will build each commit](https://travis-ci.org/ChaseMoskal/Nanoshooter), and email me when you break the build :P
 
-  - Later on, loading performance will be optimized via Almond module bundling.
+## Contribution guidelines
 
-## Art viewer mode for previewing any OBJ file
+We want to maintain a tidy codebase.
+
+  - Please don't: commit new code straight onto `master`, except for little bugfixes.
+
+  - Please do: push new feature branches and submit pull requests for them.
+
+More on this section forthcoming.
+
+## Art viewer mode — preview any OBJ file
 
 You can preview individual art assets in the Nanoshooter framework, by simply adding their path to the URL after a question mark. This feature, the "Art Viewer" allows you to view any `.obj` file in-game without the need to code up a new corresponding Entity in TypeScript.
 
@@ -84,19 +121,20 @@ For now at least, only `.obj` files will be loaded. If the file isn't found, or 
 
 The art viewer might be really handy while working on art assets in Blender. You can point the game at an `.obj` file to preview it, then tweak it in Blender, re-export the `.obj`, and then hit refresh in the browser to see results instantly. You can do this over and over again, no build step required.
 
-## Roadmap
+# Backstory and motivation
 
-  - [Nanoshooter Roadmap on Trello](https://trello.com/b/Tr656Gke/nanoshooter-roadmap).
+*The original Nanoshooter... those were the days*
 
-Issues are created and assigned to milestones based on this roadmap.
+[![](http://img.youtube.com/vi/DMLNCdJ3dls/mqdefault.jpg)](https://www.youtube.com/watch?v=DMLNCdJ3dls)
 
-## Licensing
+&nbsp;&nbsp; *↑ Click to watch some early gameplay on YouTube.*
 
-**Nanoshooter is an open source project under the MIT License.**
+The Nanoshooter project is a reboot of our old project on the Blender Game Engine. It was written in Python and gameplay streamed over UDP sockets. This is familiar territory for us: we're now rewriting this game framework architecture that we once had running back in the BGE. Years later, this time around we're redoing Nanoshooter the right way, at a professional caliber, and running openly on the web.
 
-This means:
-  - All Nanoshooter collaborator contributions — source code, art assets, and otherwise — are free open source contributions.
-  - You are free to reuse any of Nanoshooter's components (any art assets, source code) for your own purposes (commercial or otherwise).
-  - You are free to fork the Nanoshooter project, and totally make your own game based on it (commercial or otherwise).
+Eventually, once our networking framework became capable enough, we evolved Nanoshooter into what we called the [*First Person Shooter Project*](https://github.com/Gomer3261/fps-project). We continued to evolve the architecture until we had a realtime collaborative map editing experience, synchronized physics, and more. The FPS project was cool, but we've decided to bring back the tank game that Nanoshooter could have been, instead. There are plenty of first person shooters already around, wouldn't you say?
 
-*Note:* Third party libraries are included in the this repository with their own license files.
+Reading around the web, it looks like most game dev hobbyists are trying to use WebSockets and node servers to power their multiplayer web games. WebSockets are not viable for the level of realtime action we need for a game like this. Thankfully, WebRTC came along, and more specifically —
+
+  - [***RTCDataChannel***](https://www.w3.org/TR/webrtc/#rtcdatachannel) — *The Holy Grail of Web Multiplayer*
+
+It's what we've been waiting for all this time, and it's still in the process of descending from the heavens (it's only supported by Chrome and Firefox at the moment). `RTCDataChannel` is a beautiful gem. The `unreliable` transfer functionality is necessary — it really is the key to fast-paced realtime multiplayer action.

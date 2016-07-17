@@ -18,18 +18,6 @@
     - Platform, tooling, and workflow for rapid web game development.
     - Eventually, this networked framework will move out into its own repository, and be given its own legendary name.
 
-## Free and open licensing
-
-**Nanoshooter is an open source project under the MIT License.**
-
-  - All Nanoshooter collaborator contributions — source code, art assets, and otherwise — are free open source contributions.
-
-  - You are free to reuse any of Nanoshooter's components (any art assets, source code) for your own purposes (commercial or otherwise).
-
-  - You are free to fork the Nanoshooter project, and totally make your own game based on it (commercial or otherwise).
-
-  - Third party libraries are included together with their own license files in this repository.
-
 ## We welcome newcomers — join us!
 
 We want help with:
@@ -45,6 +33,18 @@ We're looking for collaborators of all skillsets and skill levels. This is a gre
 Whether you have your own ideas for Nanoshooter, or just want to build your own dream game that uses Nanoshooter's framework for online multiplayer action, we'd love to hear from you.
 
 Say hi in the [Gitter chat!](https://gitter.im/ChaseMoskal/Nanoshooter)
+
+## Free and open licensing
+
+**Nanoshooter is an open source project under the MIT License.**
+
+  - All Nanoshooter collaborator contributions — source code, art assets, and otherwise — are free open source contributions.
+
+  - You are free to reuse any of Nanoshooter's components (any art assets, source code) for your own purposes (commercial or otherwise).
+
+  - You are free to fork the Nanoshooter project, and totally make your own game based on it (commercial or otherwise).
+
+  - Third party libraries are included together with their own license files in this repository.
 
 # Development guide
 

@@ -60,17 +60,17 @@
         );
         border-bottom-left-radius: 0.5em;
         border-bottom-right-radius: 0.5em;
-        padding: 4%;
         width: 90%;
         height: 40%;
         max-width: 640px;
-        left: 0; right: 0; top: -50%;
+        left: 0; right: 0; top: -40%;
         margin: auto;
       }
       .infopane-content {
         overflow: auto;
-        width: 100%;
-        height: 100%;
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        padding: 4%;
       }
       .infopane[data-active="true"] {
         top: 0;
@@ -78,7 +78,8 @@
       .infopane-toggle {
         position: absolute;
         height: 2em;
-        bottom: -2.5em;
+        top: 100%;
+        padding: 0.5em;
         left: 0;
         right: 0;
         margin: auto;

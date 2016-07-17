@@ -1,12 +1,15 @@
-
 <!doctype html>
-
 <html>
   <head>
-    <title>Nanoshooter</title>
+    <title>Nanoshooter Sandbox WIP — Free open game project</title>
 
-    <!-- Standard Babylon styles. -->
+    <!-- Cool google font. -->
+    <link href="https://fonts.googleapis.com/css?family=Maven+Pro:400,700" rel="stylesheet" type="text/css">
+
+    <!-- CSS Styling. -->
     <style>
+
+      /** Page basics. */
       * { margin: 0; padding: 0; }
       html, body {
         overflow: hidden;
@@ -14,8 +17,11 @@
         height: 100%;
         margin: 0;
         padding: 0;
-        font-family: sans-serif;
+        font-family: "Maven Pro", sans-serif;
+        font-size: 16px;
       }
+
+      /** Babylon stuff. */
       canvas {
         width: 100%;
         height: 100%;
@@ -27,82 +33,115 @@
         height: 100%;
         cursor: crosshair;
       }
+
+      /** Frames per second display. **/
       .fps {
         z-index: 1;
         position: absolute;
-        top: 1em; left: 1em;
-        padding: 0.5em 1em;
+        top: 0.25em;
+        left: 0.5em;
         font-family: Consolas, monospace;
-        font-size: 2em;
+        font-size: 1.5em;
         color: white;
+        text-shadow: 1px 1px 3px rgba(0,0,0, 0.3);
       }
+
+      /** Slide-out information panel. **/
       .infopane {
         z-index: 1;
         cursor: default;
         position: absolute;
-        background: rgba(255, 255, 255, 0.8);
+        color: white;
+        background: rgba(40, 40, 40, 0.68);
         background: linear-gradient(
-          to bottom right,
-          rgba(255, 255, 255, 0.9),
-          rgba(255, 255, 255, 0.2)
+          170deg,
+          rgba(40, 40, 40, 0.98) 10%,
+          rgba(40, 40, 40, 0.6)
         );
         border-bottom-left-radius: 0.5em;
+        border-bottom-right-radius: 0.5em;
         padding: 4%;
-        top: 0; right: -38%;
-        width: 30%; height: 60%;
+        width: 90%;
+        height: 40%;
+        max-width: 640px;
+        left: 0; right: 0; top: -54%;
+        margin: auto;
+      }
+      .infopane-content {
+        overflow: auto;
+        width: 100%;
+        height: 100%;
       }
       .infopane[data-active="true"] {
-        right: 0;
+        top: 0;
       }
       .infopane-toggle {
         position: absolute;
-        top: 1.5em; left: -2em;
-        width: 2em;
+        height: 2em;
+        bottom: -2.5em;
+        left: 0;
+        right: 0;
+        margin: auto;
         text-align: center;
-        font-size: 2em;
-        color: rgba(255, 255, 255, 0.25);
+        font-size: 1em;
+        letter-spacing: 0.2em;
+        color: rgba(255, 255, 255, 0.4);
+        text-shadow: 1px 1px 3px rgba(0,0,0, 0.3);
         cursor: pointer;
       }
       .infopane-toggle:hover {
-        text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
-        color: rgba(255, 255, 255, 0.8);
+        text-shadow: 0 0 8px rgba(255, 255, 255, 1);
+        color: rgba(255, 255, 255, 1);
       }
+      .infopane h1 { font-variant: small-caps; }
+      .infopane p { margin: 1em auto; }
       .infopane ul { list-style: none; }
       .infopane li { margin: 0.5em auto; }
       .infopane li:before { content: "➢ "; }
-      .infopane p { margin: 1em auto; }
+      .infopane a { color: inherit; }
+      .infopane a:hover { text-shadow: 0 0 8px rgba(255,255,255, 0.6); }
     </style>
   </head>
 
   <body>
+
+    <!-- Container element for the game itself. -->
     <div class="game">
+
+      <!-- Frames per second display. -->
       <div class="fps"></div>
+
+      <!-- Slide-out information panel. ⇑ ⇓ ⇕ -->
       <div class="infopane" data-active="false">
-        <div class="infopane-toggle">-</div>
-        <h2>Nanoshooter.</h2>
-        <p><strong>Scenes</strong></p>
-        <ul>
-          <li><a href="./">Crude gameplay</a></li>
-          <li><a href="?art/tanks/alpha/tank-alpha.obj">Tank alpha</a></li>
-          <li><a href="?art/tanks/bravo/tank-bravo.obj">Tank bravo</a></li>
-        </ul>
-        <p>Open source multiplayer web game.</p>
-        <p><a target="_blank" href="https://github.com/ChaseMoskal/Nanoshooter">Nanoshooter on GitHub.</a></p>
+        <div class="infopane-toggle">⇕ INFO ⇕</div>
+        <div class="infopane-content">
+          <h1>Nanoshooter Sandbox WIP</h1>
+          <p>Nanoshooter is a work-in-progress free open source game project. We making an online multiplayer action game framework featuring collaborative map editing.</p>
+          <p>Check out <a target="_blank" href="https://github.com/ChaseMoskal/Nanoshooter">Nanoshooter on GitHub.</a></p>
+          <p><strong>Available game scenes</strong></p>
+          <ul>
+            <li><a href="./">Sandbox WIP</a></li>
+            <li><a href="?art/tanks/alpha/tank-alpha.obj">Art: Tank alpha</a></li>
+            <li><a href="?art/tanks/bravo/tank-bravo.obj">Art: Tank bravo</a></li>
+          </ul>
+        </div>
       </div>
     </div>
 
-    <!-- Scripts are placed at the end of the body for optimal loading. -->
-    <div class="scripts">
+    <!-- Scripts are placed here at the end of the body for optimal loading. -->
+    <div class="scripts" style="display: none;">
 
-      <!-- Infopane toggle action. -->
+      <!-- Behavior for the slide-out info-pane. -->
       <script>
         (function infopaneToggleAction(){
+          'use strict';
+
           const infopane = document.querySelector('.infopane')
           const button = document.querySelector('.infopane-toggle')
 
           function setInfopaneVisibility(visibility) {
             infopane.setAttribute('data-active', visibility ? 'true' : 'false')
-            button.textContent = visibility ? '⥤' : '⥢'
+            button.textContent = visibility ? '⇑ INFO ⇑' : '⇓ INFO ⇓'
           }
 
           const startingVisibility = localStorage.getItem('infopane-visibility') === 'true'
@@ -115,7 +154,7 @@
           }
 
           setInfopaneVisibility(startingVisibility)
-          infopane.style.transition = 'right 300ms ease-in-out';
+          infopane.style.transition = 'all 300ms ease-in-out';
         })()
       </script>
 

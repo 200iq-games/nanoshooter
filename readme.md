@@ -6,6 +6,8 @@
  - [Nanoshooter Development Roadmap on Trello.](https://trello.com/b/Tr656Gke/nanoshooter-roadmap)
  - [Gitter text chat — say hi!](https://gitter.im/ChaseMoskal/Nanoshooter)
 
+The Nanoshooter project is currently in its early stages of development.
+
 ## Project goals
 
   - Make a cool multiplayer tank game.

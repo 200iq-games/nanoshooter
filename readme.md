@@ -18,7 +18,7 @@
     - Platform, tooling, and workflow for rapid web game development.
     - Eventually, this networked framework will move out into its own repository, and be given its own legendary name.
 
-## We welcome newcomers — join us!
+## Newcomers welcome — join us!
 
 We want help with:
  - Artwork of all kinds
@@ -45,6 +45,8 @@ Say hi in the [Gitter chat!](https://gitter.im/ChaseMoskal/Nanoshooter)
   - You are free to fork the Nanoshooter project, and totally make your own game based on it (commercial or otherwise).
 
   - Third party libraries are included together with their own license files in this repository.
+
+  - See [license](https://github.com/ChaseMoskal/Nanoshooter/blob/master/license).
 
 # Development guide
 

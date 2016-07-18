@@ -12,7 +12,7 @@
     - Runs web-native: no install, no plugins, just straight webcode.
     - Third-person. We're thinking little robotic drone tanks. Fighting for resources. On distant planets. In the distant future.
 
-  - Create a robust framework 3D online multiplayer action web games on [BabylonJS](https://github.com/BabylonJS/Babylon.js).
+  - Create a robust framework for 3D online multiplayer action web games on [BabylonJS](https://github.com/BabylonJS/Babylon.js).
     - Online multiplayer action.
     - Realtime collaborative map editing experience.
     - Platform, tooling, and workflow for rapid web game development.

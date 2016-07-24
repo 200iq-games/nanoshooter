@@ -4,15 +4,12 @@
   "editor.wrappingColumn": 0,
   "editor.renderWhitespace": true,
   "editor.wrappingIndent": "indent",
-  "search.exclude": {
-    "bower_components": true,
-    "build": true,
-    "node_modules": true,
-    "typings": true,
-    "deps": true
-  },
   "files.exclude": {
     "node_modules": true,
     "typings": true
+  },
+  "search.exclude": {
+    "build": true,
+    "deps": true
   }
 }

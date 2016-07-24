@@ -1,0 +1,3 @@
+[submodule "node_modules/susa"]
+	path = node_modules/susa
+	url = https://github.com/AkkadianGames/Susa.git

@@ -15,7 +15,7 @@ The Nanoshooter project is currently in its early stages of development.
     - Third-person. We're thinking little robotic drone tanks. Fighting for resources. On distant planets. In the distant future.
 
   - Create a robust framework for 3D online multiplayer action web games on [BabylonJS](https://github.com/BabylonJS/Babylon.js).
-    - Online multiplayer action.
+    - Online multiplayer action (WebRTC).
     - Realtime collaborative map editing experience.
     - Platform, tooling, and workflow for rapid web game development.
     - Eventually, this networked framework will move out into its own repository, and be given its own legendary name.

@@ -1,59 +1,57 @@
 
+<center>
+
+## Akkadian Games — Table of Contents
+
+| Project | Links | Description | License |
+|:--------|:------|:------------|:-------:|
+| **Nanoshooter** | [GitHub](https://github.com/AkkadianGames/Nanoshooter) - [Roadmap](https://trello.com/b/Tr656Gke/nanoshooter-roadmap) - [Gitter](https://gitter.im/AkkadianGames/Nanoshooter) - [Sandbox](http://akkadiangames.github.io/Nanoshooter/) | Tank game | MIT |
+| Susa | [GitHub](https://github.com/AkkadianGames/Susa) - [Roadmap](https://trello.com/b/MGlfhN1a/susa-roadmap) | Networked game framework | MIT |
+
+</center>
+<br/>
+
+--------
+
 # Nanoshooter — [![Build Status](https://travis-ci.org/AkkadianGames/Nanoshooter.svg?branch=master)](https://travis-ci.org/AkkadianGames/Nanoshooter) [![Join the chat at https://gitter.im/AkkadianGames/Nanoshooter](https://badges.gitter.im/AkkadianGames/Nanoshooter.svg)](https://gitter.im/AkkadianGames/Nanoshooter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-***Free 3D open source online multiplayer action web game and framework.***
+## Robotic tank combat 3D multiplayer action web game
 
-  - [**Launch Nanoshooter Sandbox now!**](http://akkadiangames.github.io/Nanoshooter/)
-  - [Nanoshooter Roadmap on Trello](https://trello.com/b/Tr656Gke/nanoshooter-roadmap)
-  - [Gitter text chat — say hi!](https://gitter.im/AkkadianGames/Nanoshooter)
+  - Currently in early development.
+  - Free and open source (MIT Licensed).
+  - Built on [**Susa**](https://github.com/AkkadianGames/Susa) — framework which provides map editor and online multiplayer (Nanoshooter's sister project).
+  - Built on [BabylonJS](http://www.babylonjs.com/) — 3D web game engine we use.
 
-The Nanoshooter project is currently in its early stages of development.
 
-  - Nanoshooter is built on the [**Susa game framework**](https://github.com/AkkadianGames/Susa) — Nanoshooter's sister project, which provides map editor modes and online multiplayer.
+  - [**Sandbox**](http://akkadiangames.github.io/Nanoshooter/) — launch the in-progress sandbox gameplay immediately.
+  - [**Roadmap**](https://trello.com/b/Tr656Gke/nanoshooter-roadmap) — look into the project's future.
+  - [**Gitter**](https://gitter.im/AkkadianGames/Nanoshooter) — text chat. Pop in and say hi!
 
-  - Nanoshooter uses [BabylonJS](http://www.babylonjs.com/) — open source 3D web game engine.
 
-## Project goals
+  - Our goal is to make a cool multiplayer action game.
+    - Runs web-native: no install, no plugins – just straight webcode.
+    - Third-person.
+    - Robotic drone tank combat.
+    - Fight for resources. On distant planets. In the distant future.
 
-  - Nanoshooter — Make a cool multiplayer tank game.
-    - Runs web-native: no install, no plugins, just straight webcode.
-    - Third-person. We're thinking little robotic drone tanks. Fighting for resources. On distant planets. In the distant future.
+--------
 
-  - [Susa](https://github.com/AkkadianGames/Susa) — Create a robust framework for 3D online multiplayer action web games.
-    - Online multiplayer action (WebRTC).
-    - Realtime collaborative map editing experience.
-    - Platform, tooling, and workflow for rapid web game development.
-    - **We're currently in the process moving Nanoshooter framework code into Susa.**
+## Help wanted — Newcomers, join us!
 
-## Newcomers welcome — join us!
-
-We want help with:
  - Artwork of all kinds
  - Gameplay/entity code
- - Framework code
+ - Framework code (Susa)
  - Process and tooling
  - Concepts and ideas
  - And more!
 
 We're looking for collaborators of all skillsets and skill levels. This is a great project to practice or learn new skills, and to support free software and the open game development community.
 
-Whether you have your own ideas for Nanoshooter, or just want to build your own dream game that uses Nanoshooter's framework for online multiplayer action, we'd love to hear from you.
+Whether you have your own ideas for Nanoshooter, or just want to build your own dream game that uses Susa for online multiplayer action, we'd love to hear from you.
 
-Say hi in the [Gitter chat!](https://gitter.im/ChaseMoskal/Nanoshooter)
+Say hi in the [Gitter chat!](https://gitter.im/AkkadianGames/Nanoshooter)
 
-## Free and open licensing
-
-**Nanoshooter is an open source project under the MIT License.**
-
-  - All Nanoshooter collaborator contributions — source code, art assets, and otherwise — are free open source contributions.
-
-  - You are free to reuse any of Nanoshooter's components (any art assets, source code) for your own purposes (commercial or otherwise).
-
-  - You are free to fork the Nanoshooter project, and totally make your own game based on it (commercial or otherwise).
-
-  - Third party libraries are included together with their own license files in this repository.
-
-  - See [license](https://github.com/ChaseMoskal/Nanoshooter/blob/master/license).
+--------
 
 # Development guide
 
@@ -74,10 +72,6 @@ Say hi in the [Gitter chat!](https://gitter.im/ChaseMoskal/Nanoshooter)
     - *On Linux/Mac* — just use the Terminal that came with your system.
 
     - *On Windows* — use Git Bash (comes with Git).
-
-      - Or install [**Cmder**](http://cmder.net/).
-
-        With Cmder, follow [these lame instructions](https://github.com/cmderdev/cmder/wiki/%5BWindows%5D-%22Open-Cmder-Here%22-in-context-menu) to gain the lovely ability to *Open Cmder Here* into any folder from the right-click context menu.
 
 ## Build and run the game locally
 
@@ -105,30 +99,13 @@ Say hi in the [Gitter chat!](https://gitter.im/ChaseMoskal/Nanoshooter)
 
   - [Travis CI will build each commit](https://travis-ci.org/AkkadianGames/Nanoshooter), and email me when you break the build :P
 
-## Contribution guidelines
+  - Art viewer mode, preview any OBJ file. Add a question mark "?" followed by the path of an OBJ file to view.
 
-We want to maintain a tidy codebase.
+      - Change your link like so:
+        - http://akkadiangames.github.io/Nanoshooter/
+        - [http://akkadiangames.github.io/Nanoshooter/**?art/tanks/alpha/tank-alpha.obj**](http://akkadiangames.github.io/Nanoshooter/?art/tanks/alpha/tank-alpha.obj)
 
-  - Please don't: commit new code straight onto `master`, except for little bugfixes.
-
-  - Please do: push new feature branches and submit pull requests for them.
-
-More on this section forthcoming.
-
-## Art viewer mode — preview any OBJ file
-
-You can preview individual art assets in the Nanoshooter framework, by simply adding their path to the URL after a question mark. This feature, the "Art Viewer" allows you to view any `.obj` file in-game without the need to code up a new corresponding Entity in TypeScript.
-
-So, if the game's link is normally this *(it'll be 'localhost' if you're working locally):*
-  - http://akkadiangames.github.io/Nanoshooter/
-
-Activate the Art Viewer by adding a question mark followed by the `.obj` file path:
-  - [http://akkadiangames.github.io/Nanoshooter/**?art/tanks/alpha/tank-alpha.obj**](http://akkadiangames.github.io/Nanoshooter/?art/tanks/alpha/tank-alpha.obj)
-  - [http://akkadiangames.github.io/Nanoshooter/**?art/tanks/bravo/tank-bravo.obj**](http://akkadiangames.github.io/Nanoshooter/?art/tanks/bravo/tank-bravo.obj)
-
-For now at least, only `.obj` files will be loaded. If the file isn't found, or there's an error loading the file, nothing will appear, and the error will be reported to the javascript developer console (F12). Interestingly, we've discovered that any full URL to a remotely hosted OBJ on the internet will load up fine.
-
-The art viewer might be really handy while working on art assets in Blender. You can point the game at an `.obj` file to preview it, then tweak it in Blender, re-export the `.obj`, and then hit refresh in the browser to see results instantly. You can do this over and over again, no build step required.
+--------
 
 # Backstory and motivation
 
@@ -147,3 +124,11 @@ Reading around the web, it looks like most game dev hobbyists are trying to use 
   - [***RTCDataChannel***](https://www.w3.org/TR/webrtc/#rtcdatachannel) — *The Holy Grail of Web Multiplayer*
 
 It's what we've been waiting for all this time, and it's still in the process of descending from the heavens (it's only supported by Chrome and Firefox at the moment). `RTCDataChannel` is a beautiful gem. The `unreliable` transfer functionality is necessary — it really is the key to fast-paced realtime multiplayer action.
+
+--------
+
+<center>
+
+  [❤ Akkadian Games](https://github.com/AkkadianGames)
+
+</center>

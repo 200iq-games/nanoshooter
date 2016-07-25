@@ -3,8 +3,8 @@
 
 | Project | Links | Description | License |
 |:--------|:------|:------------|:-------:|
-| **Nanoshooter** | [GitHub](https://github.com/AkkadianGames/Nanoshooter) - [Roadmap](https://trello.com/b/Tr656Gke/nanoshooter-roadmap) - [Gitter](https://gitter.im/AkkadianGames/Nanoshooter) - [Sandbox](http://akkadiangames.github.io/Nanoshooter/) | Tank game | MIT |
-| Susa | [GitHub](https://github.com/AkkadianGames/Susa) - [Roadmap](https://trello.com/b/MGlfhN1a/susa-roadmap) | Networked game framework | MIT |
+| **Nanoshooter** | [GitHub](https://github.com/AkkadianGames/Nanoshooter#readme) - [Roadmap](https://trello.com/b/Tr656Gke/nanoshooter-roadmap) - [Gitter](https://gitter.im/AkkadianGames/Nanoshooter) - [Sandbox](http://akkadiangames.github.io/Nanoshooter/) | Tank game | MIT |
+| Susa | [GitHub](https://github.com/AkkadianGames/Susa#readme) - [Roadmap](https://trello.com/b/MGlfhN1a/susa-roadmap) | Networked web game framework | MIT |
 
 --------
 

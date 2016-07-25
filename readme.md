@@ -1,24 +1,29 @@
 
-# Nanoshooter — [![Build Status](https://travis-ci.org/ChaseMoskal/Nanoshooter.svg?branch=master)](https://travis-ci.org/ChaseMoskal/Nanoshooter) [![Join the chat at https://gitter.im/ChaseMoskal/Nanoshooter](https://badges.gitter.im/ChaseMoskal/Nanoshooter.svg)](https://gitter.im/ChaseMoskal/Nanoshooter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) — [***Launch sandbox***](http://chasemoskal.github.io/Nanoshooter/)
+# Nanoshooter — [![Build Status](https://travis-ci.org/AkkadianGames/Nanoshooter.svg?branch=master)](https://travis-ci.org/AkkadianGames/Nanoshooter) [![Join the chat at https://gitter.im/AkkadianGames/Nanoshooter](https://badges.gitter.im/AkkadianGames/Nanoshooter.svg)](https://gitter.im/AkkadianGames/Nanoshooter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-*Nanoshooter is a free 3D open source online multiplayer action web game and framework, built on [BabylonJS.](http://www.babylonjs.com/)*
- - [**Launch the Nanoshooter Sandbox now!**](http://chasemoskal.github.io/Nanoshooter/)
- - [Nanoshooter Development Roadmap on Trello.](https://trello.com/b/Tr656Gke/nanoshooter-roadmap)
- - [Gitter text chat — say hi!](https://gitter.im/ChaseMoskal/Nanoshooter)
+***Free 3D open source online multiplayer action web game and framework.***
+
+  - [**Launch Nanoshooter Sandbox now!**](http://akkadiangames.github.io/Nanoshooter/)
+  - [Nanoshooter Roadmap on Trello](https://trello.com/b/Tr656Gke/nanoshooter-roadmap)
+  - [Gitter text chat — say hi!](https://gitter.im/AkkadianGames/Nanoshooter)
 
 The Nanoshooter project is currently in its early stages of development.
 
+  - Nanoshooter is built on the [**Susa game framework**](https://github.com/AkkadianGames/Susa) — Nanoshooter's sister project, which provides map editor modes and online multiplayer.
+
+  - Nanoshooter uses [BabylonJS](http://www.babylonjs.com/) — open source 3D web game engine.
+
 ## Project goals
 
-  - Make a cool multiplayer tank game.
+  - Nanoshooter — Make a cool multiplayer tank game.
     - Runs web-native: no install, no plugins, just straight webcode.
     - Third-person. We're thinking little robotic drone tanks. Fighting for resources. On distant planets. In the distant future.
 
-  - Create a robust framework for 3D online multiplayer action web games on [BabylonJS](https://github.com/BabylonJS/Babylon.js).
-    - Online multiplayer action.
+  - [Susa]((https://github.com/AkkadianGames/Susa)) — Create a robust framework for 3D online multiplayer action web games.
+    - Online multiplayer action (WebRTC).
     - Realtime collaborative map editing experience.
     - Platform, tooling, and workflow for rapid web game development.
-    - Eventually, this networked framework will move out into its own repository, and be given its own legendary name.
+    - **We're currently in the process moving Nanoshooter framework code into Susa.**
 
 ## Newcomers welcome — join us!
 
@@ -98,7 +103,7 @@ Say hi in the [Gitter chat!](https://gitter.im/ChaseMoskal/Nanoshooter)
 
   - `npm run watch` — start a compile-on-save process, which will rebuild TypeScript files on the fly as you save changes. Pro tip: Run this and the server at the same time.
 
-  - [Travis CI will build each commit](https://travis-ci.org/ChaseMoskal/Nanoshooter), and email me when you break the build :P
+  - [Travis CI will build each commit](https://travis-ci.org/AkkadianGames/Nanoshooter), and email me when you break the build :P
 
 ## Contribution guidelines
 
@@ -115,11 +120,11 @@ More on this section forthcoming.
 You can preview individual art assets in the Nanoshooter framework, by simply adding their path to the URL after a question mark. This feature, the "Art Viewer" allows you to view any `.obj` file in-game without the need to code up a new corresponding Entity in TypeScript.
 
 So, if the game's link is normally this *(it'll be 'localhost' if you're working locally):*
-  - http://chasemoskal.github.io/Nanoshooter/
+  - http://akkadiangames.github.io/Nanoshooter/
 
 Activate the Art Viewer by adding a question mark followed by the `.obj` file path:
-  - [http://chasemoskal.github.io/Nanoshooter/**?art/tanks/alpha/tank-alpha.obj**](http://chasemoskal.github.io/Nanoshooter/?art/tanks/alpha/tank-alpha.obj)
-  - [http://chasemoskal.github.io/Nanoshooter/**?art/tanks/bravo/tank-bravo.obj**](http://chasemoskal.github.io/Nanoshooter/?art/tanks/bravo/tank-bravo.obj)
+  - [http://akkadiangames.github.io/Nanoshooter/**?art/tanks/alpha/tank-alpha.obj**](http://akkadiangames.github.io/Nanoshooter/?art/tanks/alpha/tank-alpha.obj)
+  - [http://akkadiangames.github.io/Nanoshooter/**?art/tanks/bravo/tank-bravo.obj**](http://akkadiangames.github.io/Nanoshooter/?art/tanks/bravo/tank-bravo.obj)
 
 For now at least, only `.obj` files will be loaded. If the file isn't found, or there's an error loading the file, nothing will appear, and the error will be reported to the javascript developer console (F12). Interestingly, we've discovered that any full URL to a remotely hosted OBJ on the internet will load up fine.
 

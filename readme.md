@@ -1,15 +1,10 @@
 
-<center>
-
 ## Akkadian Games — Table of Contents
 
 | Project | Links | Description | License |
 |:--------|:------|:------------|:-------:|
 | **Nanoshooter** | [GitHub](https://github.com/AkkadianGames/Nanoshooter) - [Roadmap](https://trello.com/b/Tr656Gke/nanoshooter-roadmap) - [Gitter](https://gitter.im/AkkadianGames/Nanoshooter) - [Sandbox](http://akkadiangames.github.io/Nanoshooter/) | Tank game | MIT |
 | Susa | [GitHub](https://github.com/AkkadianGames/Susa) - [Roadmap](https://trello.com/b/MGlfhN1a/susa-roadmap) | Networked game framework | MIT |
-
-</center>
-<br/>
 
 --------
 
@@ -22,17 +17,19 @@
   - Built on [**Susa**](https://github.com/AkkadianGames/Susa) — framework which provides map editor and online multiplayer (Nanoshooter's sister project).
   - Built on [BabylonJS](http://www.babylonjs.com/) — 3D web game engine we use.
 
+Links:
 
   - [**Sandbox**](http://akkadiangames.github.io/Nanoshooter/) — launch the in-progress sandbox gameplay immediately.
   - [**Roadmap**](https://trello.com/b/Tr656Gke/nanoshooter-roadmap) — look into the project's future.
   - [**Gitter**](https://gitter.im/AkkadianGames/Nanoshooter) — text chat. Pop in and say hi!
 
+Goals:
 
-  - Our goal is to make a cool multiplayer action game.
-    - Runs web-native: no install, no plugins – just straight webcode.
-    - Third-person.
-    - Robotic drone tank combat.
-    - Fight for resources. On distant planets. In the distant future.
+  - Make a cool multiplayer action game.
+  - Run web-native: no install, no plugins – just straight webcode.
+  - Third-person.
+  - Robotic drone tank combat.
+  - Fight for resources. On distant planets. In the distant future.
 
 --------
 
@@ -127,8 +124,4 @@ It's what we've been waiting for all this time, and it's still in the process of
 
 --------
 
-<center>
-
   [❤ Akkadian Games](https://github.com/AkkadianGames)
-
-</center>

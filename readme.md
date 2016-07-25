@@ -19,7 +19,7 @@ The Nanoshooter project is currently in its early stages of development.
     - Runs web-native: no install, no plugins, just straight webcode.
     - Third-person. We're thinking little robotic drone tanks. Fighting for resources. On distant planets. In the distant future.
 
-  - [Susa]((https://github.com/AkkadianGames/Susa)) — Create a robust framework for 3D online multiplayer action web games.
+  - [Susa](https://github.com/AkkadianGames/Susa) — Create a robust framework for 3D online multiplayer action web games.
     - Online multiplayer action (WebRTC).
     - Realtime collaborative map editing experience.
     - Platform, tooling, and workflow for rapid web game development.

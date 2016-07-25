@@ -27,10 +27,7 @@
             true,
             "never"
         ],
-        "triple-equals": [
-            true,
-            "allow-null-check"
-        ],
+        "triple-equals": true,
         "typedef-whitespace": [
             true,
             {
@@ -52,6 +49,9 @@
             "check-operator",
             "check-separator",
             "check-type"
-        ]
+        ],
+        "jsdoc-format": true,
+        "interface-name": [true, "never-prefix"],
+        "eofline": true
     }
 }

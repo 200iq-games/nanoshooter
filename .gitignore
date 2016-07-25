@@ -1,6 +1,7 @@
 
 build
-node_modules
-bower_components
-npm-debug.log
 **/*.blend1
+
+node_modules
+npm-debug.log
+bower_components

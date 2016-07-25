@@ -87,7 +87,7 @@ export default class Watcher {
 
   /**
    * Start watching keyboard activity, by adding event listeners.
-  */
+   */
   start() {
     addEventListener('keydown', this.keydown)
     addEventListener('keyup', this.keyup)

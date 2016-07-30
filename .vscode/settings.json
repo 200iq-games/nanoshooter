@@ -5,11 +5,17 @@
   "editor.renderWhitespace": true,
   "editor.wrappingIndent": "indent",
   "files.exclude": {
-    "node_modules": true,
-    "typings": true
-  },
-  "search.exclude": {
+    ".vscode": true,
     "build": true,
-    "deps": true
-  }
+    "deps": true,
+    "node_modules": true,
+    "typings": true,
+    ".*": true,
+    "license": true,
+    "package.json": true,
+    "tsconfig.json": true,
+    "tslint.json": true,
+    "typings.json": true
+  },
+  "search.exclude": {}
 }

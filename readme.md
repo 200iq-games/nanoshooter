@@ -1,39 +1,35 @@
 
-## Akkadian Games — Table of Contents
-
-| Project | Links | Description | License |
-|:--------|:------|:------------|:-------:|
-| **Nanoshooter** | [GitHub](https://github.com/AkkadianGames/Nanoshooter#readme) - [Roadmap](https://trello.com/b/Tr656Gke/nanoshooter-roadmap) - [Gitter](https://gitter.im/AkkadianGames/Nanoshooter) - [Sandbox](http://akkadiangames.github.io/Nanoshooter/) | Tank game | ISC |
-| Susa | [GitHub](https://github.com/AkkadianGames/Susa#readme) - [Roadmap](https://trello.com/b/MGlfhN1a/susa-roadmap) | Networked web game framework | ISC |
-
---------
-
 # Nanoshooter — [![Build Status](https://travis-ci.org/AkkadianGames/Nanoshooter.svg?branch=master)](https://travis-ci.org/AkkadianGames/Nanoshooter) [![Join the chat at https://gitter.im/AkkadianGames/Nanoshooter](https://badges.gitter.im/AkkadianGames/Nanoshooter.svg)](https://gitter.im/AkkadianGames/Nanoshooter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Robotic tank combat 3D multiplayer action web game
 
-  - Currently in early development.
-  - Free and open source (ISC Licensed).
-  - Built on [**Susa**](https://github.com/AkkadianGames/Susa) — framework which provides map editor and online multiplayer (Nanoshooter's sister project).
-  - Built on [BabylonJS](http://www.babylonjs.com/) — 3D web game engine we use.
-
-Links:
-
   - [**Sandbox**](http://akkadiangames.github.io/Nanoshooter/) — launch the in-progress sandbox gameplay immediately.
   - [**Roadmap**](https://trello.com/b/Tr656Gke/nanoshooter-roadmap) — look into the project's future.
-  - [**Gitter**](https://gitter.im/AkkadianGames/Nanoshooter) — text chat. Pop in and say hi!
+  - [**Gitter**](https://gitter.im/AkkadianGames/Nanoshooter) — text chat, pop in and say hi!
+  - [**Susa**](https://github.com/AkkadianGames/Susa) — networked game framework (Nanoshooter's sister project).
 
-Goals:
+Nanoshooter is:
+
+  - Currently in early development.
+  - Free and open source — ISC licensed.
+  - Written in TypeScript.
+  - Built on [BabylonJS](http://www.babylonjs.com/) — 3D web game engine that we use.
+  - Seeking contributors.
+
+Overarching goals:
 
   - Make a cool multiplayer action game.
   - Run web-native: no install, no plugins – just straight webcode.
-  - Third-person.
-  - Robotic drone tank combat.
-  - Fight for resources. On distant planets. In the distant future.
+  - Third-person robotic tank combat. Fight for resources. On distant planets. In the distant future.
+  - Powerful online collaborative map editing experience.
+  - Link friends directly into your game. They start as anon's and they can choose a nickname or register an account.
+  - Simple server browser.
 
 --------
 
 ## Help wanted — Newcomers, join us!
+
+We're looking for collaborators of all skillsets and skill levels. This is a great project to practice or learn new skills, and to support free software and the open game development community. We need help with:
 
  - Artwork of all kinds
  - Gameplay/entity code
@@ -41,8 +37,6 @@ Goals:
  - Process and tooling
  - Concepts and ideas
  - And more!
-
-We're looking for collaborators of all skillsets and skill levels. This is a great project to practice or learn new skills, and to support free software and the open game development community.
 
 Whether you have your own ideas for Nanoshooter, or just want to build your own dream game that uses Susa for online multiplayer action, we'd love to hear from you.
 
@@ -80,7 +74,7 @@ Say hi in the [Gitter chat!](https://gitter.im/AkkadianGames/Nanoshooter)
 
       1. `npm install` — install all project dependencies locally (in the project folder, in `node_modules`).
 
-      2. `npm run build` — build all of the project's TypeScript source code.
+      2. `npm run build` — build all of the project's TypeScript source code (for Susa and Nanoshooter).
 
   3. **Launch the game locally.**
 
@@ -91,8 +85,6 @@ Say hi in the [Gitter chat!](https://gitter.im/AkkadianGames/Nanoshooter)
 ## Development tips
 
   - Art asset paths and filenames must be all lowercase, at least for now, as it seems to be some weird bug or limitation with the Babylon loaders.
-
-  - `npm run watch` — start a compile-on-save process, which will rebuild TypeScript files on the fly as you save changes. Pro tip: Run this and the server at the same time.
 
   - [Travis CI will build each commit](https://travis-ci.org/AkkadianGames/Nanoshooter), and email me when you break the build :P
 
@@ -124,4 +116,9 @@ It's what we've been waiting for all this time, and it's still in the process of
 
 --------
 
-  [❤ Akkadian Games](https://github.com/AkkadianGames)
+## [❂ Akkadian Games](https://github.com/AkkadianGames)
+
+| Project | Links | Description | License |
+|:--------|:------|:------------|:-------:|
+| **Nanoshooter** | [GitHub](https://github.com/AkkadianGames/Nanoshooter#readme) - [Roadmap](https://trello.com/b/Tr656Gke/nanoshooter-roadmap) - [Gitter](https://gitter.im/AkkadianGames/Nanoshooter) - [Sandbox](http://akkadiangames.github.io/Nanoshooter/) | Tank game | ISC |
+| Susa | [GitHub](https://github.com/AkkadianGames/Susa#readme) - [Roadmap](https://trello.com/b/MGlfhN1a/susa-roadmap) | Networked web game framework | ISC |

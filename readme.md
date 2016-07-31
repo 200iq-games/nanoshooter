@@ -14,7 +14,10 @@ Nanoshooter is:
   - Free and open source — ISC licensed.
   - Written in TypeScript.
   - Built on [BabylonJS](http://www.babylonjs.com/) — 3D web game engine that we use.
-  - Seeking contributors.
+  - Seeking collaborators.
+  - **An [❂ Akkadian Games](https://github.com/AkkadianGames) project:**
+    - [Nanoshooter](https://github.com/AkkadianGames/Nanoshooter#readme) → *robotic tank combat 3D multiplayer action web game.*
+    - [Susa](https://github.com/AkkadianGames/Susa#readme) → *networked web game framework.*
 
 Overarching goals:
 
@@ -111,12 +114,3 @@ Reading around the web, it looks like most game dev hobbyists are trying to use 
   - [***RTCDataChannel***](https://www.w3.org/TR/webrtc/#rtcdatachannel) — *The Holy Grail of Web Multiplayer*
 
 It's what we've been waiting for all this time, and it's still in the process of descending from the heavens (it's only supported by Chrome and Firefox at the moment). `RTCDataChannel` is a beautiful gem. The `unreliable` transfer functionality is necessary — it really is the key to fast-paced realtime multiplayer action.
-
---------
-
-## [❂ Akkadian Games](https://github.com/AkkadianGames)
-
-| Project | Links | Description | License |
-|:--------|:------|:------------|:-------:|
-| **Nanoshooter** | [GitHub](https://github.com/AkkadianGames/Nanoshooter#readme) - [Roadmap](https://trello.com/b/Tr656Gke/nanoshooter-roadmap) - [Gitter](https://gitter.im/AkkadianGames/Nanoshooter) - [Sandbox](http://akkadiangames.github.io/Nanoshooter/) | Tank game | ISC |
-| Susa | [GitHub](https://github.com/AkkadianGames/Susa#readme) - [Roadmap](https://trello.com/b/MGlfhN1a/susa-roadmap) | Networked web game framework | ISC |

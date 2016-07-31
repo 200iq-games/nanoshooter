@@ -1,8 +1,9 @@
 
-import Game, {GameOptions} from './Framework/Game'
-import Stage from './Framework/Stage'
-import {EntityState} from './Framework/Entity'
-import Watcher, { Input } from './Toolbox/Watcher'
+import Game, {GameOptions} from 'susa/build/Game'
+import Stage from 'susa/build/Stage'
+import {EntityState} from 'susa/build/Entity'
+import Watcher, { Input } from 'susa/build/Watcher'
+
 import {TankState} from './Entities/Tank'
 
 /**

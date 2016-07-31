@@ -1,6 +1,6 @@
 
-import Entity, {EntityOptions, EntityLogicInput, EntityLogicOutput, EntityState} from '../Framework/Entity'
-import Watcher, { Input } from '../Toolbox/Watcher'
+import Entity, {EntityOptions, EntityLogicInput, EntityLogicOutput, EntityState} from 'susa/build/Entity'
+import Watcher, { Input } from 'susa/build/Watcher'
 
 /**
  * Options for creating a tank.

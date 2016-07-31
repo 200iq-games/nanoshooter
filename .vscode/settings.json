@@ -4,15 +4,18 @@
   "editor.wrappingColumn": 0,
   "editor.renderWhitespace": true,
   "editor.wrappingIndent": "indent",
-  "search.exclude": {
-    "bower_components": true,
+  "files.exclude": {
+    ".vscode": true,
     "build": true,
+    "deps": true,
     "node_modules": true,
     "typings": true,
-    "deps": true
+    ".*": true,
+    "license": true,
+    "package.json": true,
+    "tsconfig.json": true,
+    "tslint.json": true,
+    "typings.json": true
   },
-  "files.exclude": {
-    "node_modules": true,
-    "typings": true
-  }
+  "search.exclude": {}
 }

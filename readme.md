@@ -3,8 +3,8 @@
 
 | Project | Links | Description | License |
 |:--------|:------|:------------|:-------:|
-| **Nanoshooter** | [GitHub](https://github.com/AkkadianGames/Nanoshooter#readme) - [Roadmap](https://trello.com/b/Tr656Gke/nanoshooter-roadmap) - [Gitter](https://gitter.im/AkkadianGames/Nanoshooter) - [Sandbox](http://akkadiangames.github.io/Nanoshooter/) | Tank game | MIT |
-| Susa | [GitHub](https://github.com/AkkadianGames/Susa#readme) - [Roadmap](https://trello.com/b/MGlfhN1a/susa-roadmap) | Networked web game framework | MIT |
+| **Nanoshooter** | [GitHub](https://github.com/AkkadianGames/Nanoshooter#readme) - [Roadmap](https://trello.com/b/Tr656Gke/nanoshooter-roadmap) - [Gitter](https://gitter.im/AkkadianGames/Nanoshooter) - [Sandbox](http://akkadiangames.github.io/Nanoshooter/) | Tank game | ISC |
+| Susa | [GitHub](https://github.com/AkkadianGames/Susa#readme) - [Roadmap](https://trello.com/b/MGlfhN1a/susa-roadmap) | Networked web game framework | ISC |
 
 --------
 
@@ -13,7 +13,7 @@
 ## Robotic tank combat 3D multiplayer action web game
 
   - Currently in early development.
-  - Free and open source (MIT Licensed).
+  - Free and open source (ISC Licensed).
   - Built on [**Susa**](https://github.com/AkkadianGames/Susa) — framework which provides map editor and online multiplayer (Nanoshooter's sister project).
   - Built on [BabylonJS](http://www.babylonjs.com/) — 3D web game engine we use.
 

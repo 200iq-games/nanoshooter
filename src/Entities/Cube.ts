@@ -1,5 +1,5 @@
 
-import Entity, {EntityOptions, EntityState} from '../Framework/Entity'
+import Entity, {EntityOptions, EntityState} from 'susa/build/Entity'
 
 /**
  * A simple cube object in the game world.

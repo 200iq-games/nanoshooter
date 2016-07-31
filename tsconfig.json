@@ -6,13 +6,10 @@
     "rootDir": "src",
     "outDir": "build",
     "sourceMap": true,
-    "declaration": true
+    "declaration": true,
+    "moduleResolution": "node"
   },
   "exclude": [
-    "node_modules",
-    "bower_components",
-    "build",
-    "deps",
-    "typings"
+    "node_modules"
   ]
 }

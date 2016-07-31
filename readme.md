@@ -25,9 +25,7 @@ Overarching goals:
   - Link friends directly into your game. They start as anon's and they can choose a nickname or register an account.
   - Simple server browser.
 
---------
-
-## Help wanted — Newcomers, join us!
+## Help wanted — newcomers, join us!
 
 We're looking for collaborators of all skillsets and skill levels. This is a great project to practice or learn new skills, and to support free software and the open game development community. We need help with:
 

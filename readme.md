@@ -1,6 +1,8 @@
 
 # Nanoshooter — [![Build Status](https://travis-ci.org/AkkadianGames/Nanoshooter.svg?branch=master)](https://travis-ci.org/AkkadianGames/Nanoshooter) [![Join the chat at https://gitter.im/AkkadianGames/Nanoshooter](https://badges.gitter.im/AkkadianGames/Nanoshooter.svg)](https://gitter.im/AkkadianGames/Nanoshooter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+![Nanoshooter](art/banner/banner.jpg)
+
 ## Robotic tank combat 3D multiplayer action web game
 
   - [**Sandbox**](http://akkadiangames.github.io/Nanoshooter/) — launch the in-progress sandbox gameplay immediately.

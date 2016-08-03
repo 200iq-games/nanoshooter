@@ -3,7 +3,6 @@
   "compilerOptions": {
     "module": "amd",
     "target": "es5",
-    "rootDir": "src",
     "outDir": "build",
     "sourceMap": true,
     "declaration": true,

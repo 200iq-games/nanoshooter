@@ -9,7 +9,7 @@
   - [**Roadmap**](https://trello.com/b/Tr656Gke/nanoshooter-roadmap) — peer into the Nanoshooter's future.
   - [**Gitter**](https://gitter.im/AkkadianGames/AkkadianLounge) — text chat, pop in and say hi!
 
-Nanoshooter is:
+### Nanoshooter is
 
   - Currently in early development.
   - Free and open source — ISC licensed.
@@ -21,7 +21,7 @@ Nanoshooter is:
     - [Nanoshooter](https://github.com/AkkadianGames/Nanoshooter#readme) → *robotic tank combat 3D multiplayer action web game.*
     - [Susa](https://github.com/AkkadianGames/Susa#readme) → *networked web game framework.*
 
-Vision:
+### Vision
 
   - Third-person robotic tank combat. Fight for resources. On distant planets. In the distant future.
   - Run web-native: no install, no plugins – just straight webcode.

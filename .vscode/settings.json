@@ -5,12 +5,10 @@
   "editor.renderWhitespace": true,
   "editor.wrappingIndent": "indent",
   "files.exclude": {
-    ".vscode": true,
     "build": true,
     "deps": true,
     "node_modules": true,
-    "typings": true,
-    ".*": true
+    "typings": true
   },
   "search.exclude": {}
 }

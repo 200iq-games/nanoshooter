@@ -16,7 +16,7 @@
   - Seeking collaborators.
   - Written in TypeScript.
   - Built on [Susa](https://github.com/AkkadianGames/Susa) — a networked game framework (Nanoshooter's sister project).
-  - Built on [BabylonJS](http://www.babylonjs.com/), a 3D web game engine.
+  - Built on [BabylonJS](http://www.babylonjs.com/) — a 3D web game engine.
   - **An [❂ Akkadian Games](https://github.com/AkkadianGames) project:**
     - [Nanoshooter](https://github.com/AkkadianGames/Nanoshooter#readme) → *robotic tank combat 3D multiplayer action web game.*
     - [Susa](https://github.com/AkkadianGames/Susa#readme) → *networked web game framework.*

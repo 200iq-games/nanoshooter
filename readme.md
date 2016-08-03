@@ -1,4 +1,6 @@
 
+--------
+
 # Nanoshooter — [![Build Status](https://travis-ci.org/AkkadianGames/Nanoshooter.svg?branch=master)](https://travis-ci.org/AkkadianGames/Nanoshooter) [![Join the chat at https://gitter.im/AkkadianGames/AkkadianLounge](https://badges.gitter.im/AkkadianGames/AkkadianLounge.svg)](https://gitter.im/AkkadianGames/AkkadianLounge?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ![Nanoshooter](art/banner/banner.jpg)

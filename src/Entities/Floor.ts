@@ -1,5 +1,5 @@
 
-import Entity, {EntityOptions, EntityState} from 'susa/build/Entity'
+import Entity, {EntityOptions, EntityState} from 'susa/src/Entity'
 
 /**
  * A floor object for the game world.

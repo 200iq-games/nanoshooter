@@ -1,5 +1,5 @@
 
-import Entity, {EntityState} from 'susa/build/Entity'
+import Entity, {EntityState} from 'susa/src/Entity'
 
 /**
  * Just spawns cubes when spacebar is pressed.

@@ -1,5 +1,5 @@
 
-import Entity, {EntityOptions, EntityState} from 'susa/src/Entity'
+import Entity, {EntityOptions, EntityState} from 'Susa/Entity'
 
 /**
  * Spectator camera which the player may control.

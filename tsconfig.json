@@ -2,11 +2,17 @@
   "compileOnSave": true,
   "compilerOptions": {
     "module": "amd",
-    "target": "es5",
+    "target": "es6",
+    "moduleResolution": "node",
+    "rootDir": "src",
     "outDir": "build",
+    "baseUrl": ".",
+    "paths": {
+      "Susa/*": ["node_modules/susa/build/*"],
+      "Nanoshooter/*": ["src/*"]
+    },
     "sourceMap": true,
-    "declaration": true,
-    "moduleResolution": "node"
+    "declaration": true
   },
   "exclude": [
     "node_modules"

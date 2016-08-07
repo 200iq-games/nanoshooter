@@ -1,5 +1,5 @@
 
-import Entity, {EntityLogicInput, EntityLogicOutput, EntityState} from 'susa/src/Entity'
+import Entity, {EntityLogicInput, EntityLogicOutput, EntityState} from 'Susa/Entity'
 
 /**
  * Preview by providing the art path as a query string.

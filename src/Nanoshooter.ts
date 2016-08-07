@@ -1,10 +1,10 @@
 
-import Game, {GameOptions} from 'susa/src/Game'
-import Stage from 'susa/src/Stage'
-import {EntityState} from 'susa/src/Entity'
-import Watcher, { Input } from 'susa/src/Watcher'
+import Game, {GameOptions} from 'Susa/Game'
+import Stage from 'Susa/Stage'
+import {EntityState} from 'Susa/Entity'
+import Watcher, { Input } from 'Susa/Watcher'
 
-import {TankState} from './Entities/Tank'
+import {TankState} from 'Nanoshooter/Entities/Tank'
 
 /**
  * Nanoshooter game.

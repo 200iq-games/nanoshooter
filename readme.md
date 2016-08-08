@@ -1,4 +1,6 @@
 
+--------
+
 # Nanoshooter — [![Build Status](https://travis-ci.org/AkkadianGames/Nanoshooter.svg?branch=master)](https://travis-ci.org/AkkadianGames/Nanoshooter) [![Join the chat at https://gitter.im/AkkadianGames/AkkadianLounge](https://badges.gitter.im/AkkadianGames/AkkadianLounge.svg)](https://gitter.im/AkkadianGames/AkkadianLounge?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ![Nanoshooter](art/banner/banner.jpg)
@@ -9,19 +11,19 @@
   - [**Roadmap**](https://trello.com/b/Tr656Gke/nanoshooter-roadmap) — peer into the Nanoshooter's future.
   - [**Gitter**](https://gitter.im/AkkadianGames/AkkadianLounge) — text chat, pop in and say hi!
 
-Nanoshooter is:
+### Nanoshooter is
 
   - Currently in early development.
   - Free and open source — ISC licensed.
   - Seeking collaborators.
   - Written in TypeScript.
   - Built on [Susa](https://github.com/AkkadianGames/Susa) — a networked game framework (Nanoshooter's sister project).
-  - Built on [BabylonJS](http://www.babylonjs.com/), a 3D web game engine.
+  - Built on [BabylonJS](http://www.babylonjs.com/) — a 3D web game engine.
   - **An [❂ Akkadian Games](https://github.com/AkkadianGames) project:**
     - [Nanoshooter](https://github.com/AkkadianGames/Nanoshooter#readme) → *robotic tank combat 3D multiplayer action web game.*
     - [Susa](https://github.com/AkkadianGames/Susa#readme) → *networked web game framework.*
 
-Vision:
+### Vision
 
   - Third-person robotic tank combat. Fight for resources. On distant planets. In the distant future.
   - Run web-native: no install, no plugins – just straight webcode.

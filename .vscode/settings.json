@@ -6,7 +6,6 @@
   "editor.wrappingIndent": "indent",
   "files.exclude": {
     "build": true,
-    "deps": true,
     "node_modules": true,
     "typings": true
   },

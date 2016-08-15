@@ -16,7 +16,7 @@
   - Currently in early development.
   - Free and open source — ISC licensed.
   - Seeking collaborators.
-  - Written in TypeScript.
+  - Written in TypeScript 2.0.
   - Built on [Susa](https://github.com/AkkadianGames/Susa) — a networked game framework (Nanoshooter's sister project).
   - Built on [BabylonJS](http://www.babylonjs.com/) — a 3D web game engine.
   - **An [❂ Akkadian Games](https://github.com/AkkadianGames) project:**
@@ -76,7 +76,7 @@ Say hi in the [Gitter chat!](https://gitter.im/AkkadianGames/AkkadianLounge)
 
       Run these commands in the project directory, and run them again every time you pull down new changes *(after every `git pull`):*
 
-      1. `npm install` — install all project dependencies locally (in the project folder, in `node_modules`).
+      1. `npm run go` — locally install the project dependencies (node_modules and susa git submodule).
 
       2. `npm run build` — build all of the project's TypeScript source code (for Susa and Nanoshooter).
 
@@ -97,6 +97,12 @@ Say hi in the [Gitter chat!](https://gitter.im/AkkadianGames/AkkadianLounge)
       - Change your link like so:
         - http://akkadiangames.github.io/Nanoshooter/
         - [http://akkadiangames.github.io/Nanoshooter/**?art/tanks/alpha/tank-alpha.obj**](http://akkadiangames.github.io/Nanoshooter/?art/tanks/alpha/tank-alpha.obj)
+
+  - Troubleshooting? Try going nuclear by completely wiping your working copy:
+
+    `git clean -xdf`
+
+    Warning: Git will destroy everything that isn't tracked.
 
 --------
 

@@ -4,17 +4,19 @@
     "module": "amd",
     "target": "es6",
     "moduleResolution": "node",
-    "rootDir": "src",
+    "rootDirs": ["src", "deps/susa/"],
     "outDir": "build",
     "baseUrl": ".",
     "paths": {
-      "Susa/*": ["node_modules/susa/build/*"],
+      "Susa/*": ["deps/susa/src/*"],
       "Nanoshooter/*": ["src/*"]
     },
     "sourceMap": true,
     "declaration": true
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "deps/susa/node_modules",
+    "deps/susa/deps"
   ]
 }

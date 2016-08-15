@@ -4,7 +4,7 @@
     "module": "amd",
     "target": "es6",
     "moduleResolution": "node",
-    "rootDirs": ["src", "deps/susa/"],
+    "rootDirs": ["src", "deps/susa/src"],
     "outDir": "build",
     "baseUrl": ".",
     "paths": {
@@ -17,6 +17,7 @@
   "exclude": [
     "node_modules",
     "deps/susa/node_modules",
+    "deps/susa/build",
     "deps/susa/deps"
   ]
 }

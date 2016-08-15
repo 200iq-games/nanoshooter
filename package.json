@@ -4,14 +4,10 @@
   "description": "Robotic tank combat 3D multiplayer action web game.",
   "main": "index.js",
   "scripts": {
-    "go": "echo Installing dependencies. && npm install && typings install && npm run go-susa --silent",
-    "go-susa": "git submodule init && git submodule update && cd deps/susa && npm install && npm run initialize --silent",
-    "clean": "rimraf build",
-    "build-susa": "cd deps/susa && rimraf build && npm run build --silent",
-    "build-nanoshooter": "echo Building Nanoshooter. && npm run clean --silent && tsc && tslint src/**/*.ts",
-    "build": "npm run build-susa && npm run build-nanoshooter && echo Project build complete!",
+    "ready": "echo Installing dependencies.. && npm install && typings install && git submodule init && git submodule update",
+    "build": "rimraf build && tsc && tslint src/**/*.ts && echo Nanoshooter build complete.",
     "watch": "echo Watching Nanoshooter TypeScript. && tsc -w",
-    "test": "echo No tests yet, lol && exit 0",
+    "test": "echo Not test driven, lol && exit 0",
     "server": "http-server -p 8080"
   },
   "repository": {

@@ -2,10 +2,10 @@
 language: node_js
 
 node_js:
-  - "5"
+  - "6"
 
 install:
-  - npm install --silent
+  - npm run ready --silent
 
 script:
   - npm run build --silent

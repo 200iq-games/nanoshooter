@@ -1,26 +1,26 @@
 
+/*
+
+This main script is the browser entry point.
+
+*/
+
 ///<reference path="../deps/babylon/babylon.d.ts"/>
 
 import Nanoshooter from 'Nanoshooter/Nanoshooter'
 
-// This main script is the entry point for the web browser.
-//   - Instantiate and start the Nanoshooter game.
-//   - Log some timing/profiling information.
-//   - Start running the game.
-
+// Let's keep track of how long initialization takes.
 const timeBeforeInitialize = (+new Date)
 
 // Initialize the Nanoshooter game.
 const nanoshooter = window['nanoshooter'] = new Nanoshooter({
-  hostElement: <HTMLElement>document.querySelector('.game'),
-  log: (...messages: any[]) => (<any>console.log).apply(console, messages)
+  hostElement: <HTMLElement>document.querySelector('.game')
 })
 
-// Establish a framerate display.
+// Update the framerate display.
 const fpsElement = <HTMLElement>document.querySelector('.fps')
-
 setInterval(() => {
-  fpsElement.textContent = nanoshooter.getFramerate().toFixed(0)
+  fpsElement.textContent = nanoshooter.getFrameRate().toFixed(0)
 }, 100)
 
 // Start running the game engine.
@@ -30,4 +30,4 @@ nanoshooter.start()
 const timeAfterInitialize = (+new Date)
 const loadTime = (timeBeforeInitialize - performance.timing.navigationStart).toFixed(0)
 const initializeTime = (timeAfterInitialize - timeBeforeInitialize).toFixed(0)
-console.debug(`(→) Page load ${loadTime} ms / Game initialization ${initializeTime} ms`)
+nanoshooter.logger.log(`(→) Page load ${loadTime} ms / Game initialization ${initializeTime} ms`)

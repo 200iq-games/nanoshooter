@@ -76,7 +76,7 @@ Say hi in the [Gitter chat!](https://gitter.im/AkkadianGames/AkkadianLounge)
 
       Run these commands in the project directory, and run them again every time you pull down new changes *(after every `git pull`):*
 
-      1. `npm run go` — locally install the project dependencies (node_modules and susa git submodule).
+      1. `npm run ready` — locally install the project dependencies (node_modules and susa git submodule).
 
       2. `npm run build` — build all of the project's TypeScript source code (for Susa and Nanoshooter).
 

@@ -1,16 +1,22 @@
 
-import Entity, {EntityOptions, EntityState} from 'Susa/Entity'
+import BabylonEntity from 'Susa/BabylonEntity'
+import Entity, {EntityOptions, EntityData} from 'Susa/Entity'
 
 /**
  * A simple cube object in the game world.
  */
-export default class Cube extends Entity {
+export default class Cube extends BabylonEntity {
 
   static type = 'Nanoshooter/Entities/Cube'
 
+  /** Cube mesh. */
   private mesh: BABYLON.Mesh
 
-  protected initialize(entityState: EntityState) {
+  /**
+   * Create a Cube.
+   */
+  constructor(options: EntityOptions) {
+    super(options)
     const mesh = this.mesh = BABYLON.Mesh.CreateBox(this.id, 1.5, this.stage.scene)
     mesh['cube'] = true
 
@@ -31,7 +37,8 @@ export default class Cube extends Entity {
   /**
    * Cleanup for removal from the game.
    */
-  destructor() {
+  destructor(): Promise<void> {
     this.mesh.dispose()
+    return Promise.resolve()
   }
 }

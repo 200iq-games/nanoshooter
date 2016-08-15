@@ -1,6 +1,8 @@
 
-import Entity, {EntityOptions, EntityLogicInput, EntityLogicOutput, EntityState} from 'Susa/Entity'
+import {Tick} from 'Susa/Ticker'
 import Watcher, { Input } from 'Susa/Watcher'
+import BabylonEntity from 'Susa/BabylonEntity'
+import Entity, {EntityOptions, EntityLogicInput, EntityData} from 'Susa/Entity'
 
 /**
  * Options for creating a tank.
@@ -12,7 +14,7 @@ export interface TankOptions extends EntityOptions {
 /**
  * It's a full blown tank!
  */
-export default class Tank extends Entity {
+export default class Tank extends BabylonEntity {
   static type = 'Nanoshooter/Entities/Tank'
 
   public static get TURN_RIGHT(): number { return 1 }
@@ -102,7 +104,7 @@ export default class Tank extends Entity {
    * Load tank art (.obj file) into the scene.
    */
   loadTank(path: string): Promise<void> {
-    return this.loader.loadObject({path}).then(loaded => {
+    return this.stage.loader.loadAsset({path}).then(loaded => {
       this.meshes = loaded.meshes
 
       // Find the right meshes.
@@ -129,7 +131,7 @@ export default class Tank extends Entity {
   /**
    * Run the tank's game logic.
    */
-  logic(input: EntityLogicInput): EntityLogicOutput {
+  logic(tick: Tick) {
 
     // If meshes are loaded.
     if (this.meshes) {
@@ -142,8 +144,6 @@ export default class Tank extends Entity {
         this.handleKeyboardInput()
       }
     }
-
-    return
   }
 
 
@@ -235,7 +235,7 @@ export default class Tank extends Entity {
   /**
    * Cleanup for removal from the game.
    */
-  destructor() {
+  destructor(): Promise<void> {
 
     // Remove all meshes from the scene.
     for (const mesh of this.meshes) {
@@ -244,13 +244,15 @@ export default class Tank extends Entity {
 
     // Cleanup the watcher.
     this.watcher.destructor()
+
+    return Promise.resolve()
   }
 }
 
 /**
  * State data for a Tank!
  */
-export interface TankState extends EntityState {
+export interface TankState extends EntityData {
   playerControlled?: boolean
   artPath?: string
   position?: number[]

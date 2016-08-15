@@ -1,16 +1,18 @@
 
-import Entity, {EntityState} from 'Susa/Entity'
+import BabylonEntity from 'Susa/BabylonEntity'
+import Entity, {EntityOptions, EntityData} from 'Susa/Entity'
 
 /**
  * Just spawns cubes when spacebar is pressed.
  */
-export default class Spawner extends Entity {
+export default class Spawner extends BabylonEntity {
 
   static type = 'Nanoshooter/Entities/Spawner'
 
   private keyupAction: (event: KeyboardEvent) => void
 
-  protected initialize(entityState: EntityState) {
+  constructor(options: EntityOptions) {
+    super(options)
     window.addEventListener('keyup', this.keyupAction = (event: KeyboardEvent) => {
 
       //                Spacebar.
@@ -19,7 +21,7 @@ export default class Spawner extends Entity {
 
         this.game.addEntity({
           type: 'Nanoshooter/Entities/Cube',
-          label: 'SpawnedCube'
+          tags: ['SpawnedCube']
         })
       }
     })
@@ -28,7 +30,8 @@ export default class Spawner extends Entity {
   /**
    * Cleanup for removal from the game.
    */
-  destructor() {
+  destructor(): Promise<void> {
     window.removeEventListener('keyup', this.keyupAction)
+    return Promise.resolve()
   }
 }

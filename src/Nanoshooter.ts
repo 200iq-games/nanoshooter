@@ -1,35 +1,35 @@
 
-import Game, {GameOptions} from 'Susa/Game'
-import Stage from 'Susa/Stage'
-import {EntityState} from 'Susa/Entity'
-import Watcher, { Input } from 'Susa/Watcher'
+import State from 'Susa/State'
+import Logger from 'Susa/Logger'
+import {EntityData} from 'Susa/Entity'
+import Watcher, {Input} from 'Susa/Watcher'
+import BabylonStage from 'Susa/BabylonStage'
+import BabylonGame, {BabylonGameOptions} from 'Susa/BabylonGame'
 
 import {TankState} from 'Nanoshooter/Entities/Tank'
 
 /**
- * Nanoshooter game.
- * Establishes the scene's fundamentals (like floor).
- * Adds entities.
- * Responds to user input (respawning and such).
- * Manages which camera is active.
+ * The Nanoshooter instance prepares the babylon game and sets the stage.
  */
-export default class Nanoshooter extends Game {
+export default class Nanoshooter extends BabylonGame {
 
-  /**
-   * Watch for spawn button press.
-   */
-  watcher: Watcher = new Watcher({
-    bindings: {
-      'spawn': Input.Space
-    }
-  })
+  /** Watching for button presses. Like the spawn button. */
+  private readonly watcher: Watcher
 
   /**
    * Initialize the Nanoshooter game.
    */
-  constructor(options: GameOptions) {
+  constructor(options: NanoshooterOptions = {}) {
     super(options)
-    const {canvas, scene} = this.stage
+
+    this.watcher = new Watcher({
+      bindings: {
+        'spawn': Input.Space
+      }
+    })
+
+    const {hostElement, canvas, engine, scene, loader}
+      = this.stage
 
     // Physics.
     const gravity = new BABYLON.Vector3(0, -9.81, 0)
@@ -48,6 +48,7 @@ export default class Nanoshooter extends Game {
     const camera = new BABYLON.UniversalCamera('fallback-camera', new BABYLON.Vector3(-5, 15, -15), scene)
     camera.setTarget(BABYLON.Vector3.Zero())
     camera.attachControl(canvas, false)
+    scene.activeCamera = camera
 
     // Floor.
     this.addEntity({
@@ -55,57 +56,63 @@ export default class Nanoshooter extends Game {
       tags: ['FancyFloor']
     })
 
-    // If the page has a querystring, display an empty scene with the art viewer.
-    if (location.search) {
+    // // If the page has a querystring, display an empty scene with the art viewer.
+    // if (location.search) {
 
-      // Art viewer.
-      this.addEntity({
-        type: 'Nanoshooter/Entities/ArtViewer',
-        tags: ['ArtViewer']
-      })
-    }
+    //   // Art viewer.
+    //   this.addEntity({
+    //     type: 'Nanoshooter/Entities/ArtViewer',
+    //     tags: ['ArtViewer']
+    //   })
+    // }
 
-    // Load up some kind of demo scene.
-    else {
+    // // Load up some kind of demo scene.
+    // else {
 
-      // Spawn tank alpha whenever the spawn key is pressed.
-      this.watcher.on('spawn', report => {
-        if (!!report.status)
-          this.addEntity<TankState>({
-            type: 'Nanoshooter/Entities/Tank',
-            tags: ['tank', 'alpha'],
-            playerControlled: true,
-            artPath: 'art/tanks/alpha/tank-alpha.obj',
-            position: [-4, 0, 0]
-          })
-      })
+    //   // Spawn tank alpha whenever the spawn key is pressed.
+    //   this.watcher.on('spawn', report => {
+    //     if (!!report.status)
+    //       this.addEntity<TankState>({
+    //         type: 'Nanoshooter/Entities/Tank',
+    //         tags: ['tank', 'alpha'],
+    //         playerControlled: true,
+    //         artPath: 'art/tanks/alpha/tank-alpha.obj',
+    //         position: [-4, 0, 0]
+    //       })
+    //   })
 
-      // Tank bravo.
-      this.addEntity<TankState>({
-        type: 'Nanoshooter/Entities/Tank',
-        tags: ['tank', 'bravo'],
-        artPath: 'art/tanks/bravo/tank-bravo.obj',
-        position: [4, 0, 0]
-      })
+    //   // Tank bravo.
+    //   this.addEntity<TankState>({
+    //     type: 'Nanoshooter/Entities/Tank',
+    //     tags: ['tank', 'bravo'],
+    //     artPath: 'art/tanks/bravo/tank-bravo.obj',
+    //     position: [4, 0, 0]
+    //   })
 
-      // Spawner.
-      this.addEntity({
-        type: 'Nanoshooter/Entities/Spawner',
-        tags: ['spawnlord']
-      })
+    //   // Spawner.
+    //   this.addEntity({
+    //     type: 'Nanoshooter/Entities/Spawner',
+    //     tags: ['spawnlord']
+    //   })
 
-      // Spectator.
-      this.addEntity({
-        type: 'Nanoshooter/Entities/Spectator',
-        tags: ['spectator']
-      })
-    }
+    //   // Spectator.
+    //   this.addEntity({
+    //     type: 'Nanoshooter/Entities/Spectator',
+    //     tags: ['spectator']
+    //   })
+    // }
   }
 
   /**
    * Shutdown the game.
    */
-  destructor() {
+  destructor(): Promise<void> {
     this.watcher.destructor()
+    return Promise.resolve()
   }
 }
+
+/**
+ * Options for creating a Nanoshooter instance.
+ */
+export interface NanoshooterOptions extends BabylonGameOptions {}

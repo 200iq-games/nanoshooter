@@ -1,14 +1,12 @@
 {
   "name": "nanoshooter",
   "version": "0.0.0",
-  "description": "Robotic tank combat 3D multiplayer action web game.",
+  "description": "robotic tank combat multiplayer action web game",
   "main": "index.js",
   "scripts": {
-    "ready": "echo Installing dependencies.. && npm install && typings install && git submodule init && git submodule update",
-    "build": "rimraf build && tsc && tslint src/**/*.ts && echo Nanoshooter build complete.",
-    "watch": "echo Watching Nanoshooter TypeScript. && tsc -w",
-    "test": "echo Not test driven, lol && exit 0",
-    "server": "http-server -p 8080"
+    "build": "rimraf build && tsc && tslint src/**/*.ts && echo Done build",
+    "test": "exit 0",
+    "start": "http-server"
   },
   "repository": {
     "type": "git",
@@ -22,11 +20,10 @@
   },
   "homepage": "https://github.com/ChaseMoskal/Nanoshooter#readme",
   "devDependencies": {
-    "http-server": "^0.9.0",
-    "rimraf": "^2.5.2",
-    "tslint": "^3.13.0",
-    "typescript": "^2.0.0",
-    "typings": "^1.3.2"
+    "http-server": "0.10.0",
+    "rimraf": "2.6.1",
+    "tslint": "5.5.0",
+    "typescript": "2.4.1"
   },
   "dependencies": {}
 }

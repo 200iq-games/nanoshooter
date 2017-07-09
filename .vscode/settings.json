@@ -1,21 +1,12 @@
 {
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
-  "editor.wrappingColumn": 0,
-  "editor.renderWhitespace": true,
-  "editor.wrappingIndent": "indent",
+  "editor.renderWhitespace": "boundary",
+
   "files.exclude": {
     "build": true,
-    "node_modules": true,
-    "typings": true,
-    "deps/susa/build": true,
-    "deps/susa/node_modules": true
+    "node_modules": true
   },
-  "search.exclude": {
-    "deps/babylon": true,
-    "deps/cannon": true,
-    "deps/hand": true,
-    "deps/require": true
-  },
+
   "typescript.tsdk": "node_modules/typescript/lib/"
 }

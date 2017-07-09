@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "rootDirs": ["src"],
-    "outDir": "build",
+    "rootDirs": ["s"],
+    "outDir": "o",
     "target": "es6",
     "module": "commonjs",
     "moduleResolution": "node",

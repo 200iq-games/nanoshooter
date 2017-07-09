@@ -4,8 +4,13 @@
   "editor.renderWhitespace": "boundary",
 
   "files.exclude": {
-    "build": true,
+    "o": true,
     "node_modules": true
+  },
+
+  "search.exclude": {
+    "deps": true,
+    "s/_archive": true
   },
 
   "typescript.tsdk": "node_modules/typescript/lib/"

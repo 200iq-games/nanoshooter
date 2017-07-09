@@ -2,5 +2,5 @@
 o
 node_modules
 
-**/*.blend1
-npm-debug.log
+*.blend1
+*.log

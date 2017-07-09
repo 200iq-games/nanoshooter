@@ -9,7 +9,6 @@
   },
 
   "search.exclude": {
-    "deps": true,
     "s/_archive": true
   },
 

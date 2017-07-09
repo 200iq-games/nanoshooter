@@ -2,9 +2,8 @@
   "name": "nanoshooter",
   "version": "0.1.0-dev",
   "description": "robotic tank combat multiplayer action web game",
-  "main": "index.js",
   "scripts": {
-    "build": "rimraf o && tsc && tslint -e 's/_archive/**' 's/**/*.ts' && echo Done build",
+    "build": "rimraf o && mkdir o && browserify --debug -p tsify s/script.ts > o/script.bundle.js && tslint -e 's/_archive/**' 's/**/*.ts' && echo Done build",
     "test": "exit 0",
     "prepare": "npm run build -s && npm test -s",
     "start": "http-server"
@@ -21,10 +20,15 @@
   },
   "homepage": "https://github.com/ChaseMoskal/Nanoshooter#readme",
   "devDependencies": {
+    "browserify": "14.4.0",
     "http-server": "0.10.0",
     "rimraf": "2.6.1",
+    "tsify": "3.0.1",
     "tslint": "5.5.0",
     "typescript": "2.4.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "babylonjs": "3.0.4-beta",
+    "monarch-engine": "0.1.0"
+  }
 }

@@ -1,6 +1,6 @@
 {
   "name": "nanoshooter",
-  "version": "0.1.0",
+  "version": "0.2.0-dev",
   "description": "robotic tank combat multiplayer action web game",
   "scripts": {
     "build": "rimraf o && mkdir o && browserify --debug -p tsify s/script.ts > o/script.bundle.js && tslint -e 's/_archive/**' 's/**/*.ts' && echo Done build",

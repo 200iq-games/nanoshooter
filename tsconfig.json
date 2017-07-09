@@ -11,7 +11,8 @@
   },
   "exclude": [
     "art",
+    "deps",
     "node_modules",
-    "deps"
+    "s/_archive"
   ]
 }

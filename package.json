@@ -4,8 +4,9 @@
   "description": "robotic tank combat multiplayer action web game",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf o && tsc && tslint s/**/*.ts && echo Done build",
+    "build": "rimraf o && tsc && tslint -e 's/_archive/**' 's/**/*.ts' && echo Done build",
     "test": "exit 0",
+    "prepare": "npm run build -s && npm test -s",
     "start": "http-server"
   },
   "repository": {

@@ -1,10 +1,11 @@
 
-import Entity, {EntityOptions, EntityState} from 'Susa/Entity'
+import BabylonEntity from 'Susa/BabylonEntity'
+import Entity, {EntityOptions, EntityData} from 'Susa/Entity'
 
 /**
  * Spectator camera which the player may control.
  */
-export default class Spectator extends Entity {
+export default class Spectator extends BabylonEntity {
 
   static type = 'Nanoshooter/Entities/Spectator'
 
@@ -14,7 +15,8 @@ export default class Spectator extends Entity {
   /**
    * Create and configure the spectator cam.
    */
-  protected initialize(entityState: EntityState) {
+  constructor(options: EntityOptions) {
+    super(options)
 
     // Create the camera.
     this.camera = new BABYLON.UniversalCamera(
@@ -33,7 +35,8 @@ export default class Spectator extends Entity {
   /**
    * Cleanup for removal from the game.
    */
-  destructor() {
+  destructor(): Promise<void> {
     this.stage.scene.removeCamera(this.camera)
+    return Promise.resolve()
   }
 }

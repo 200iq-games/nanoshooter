@@ -1,22 +1,18 @@
 {
-  "compileOnSave": true,
   "compilerOptions": {
-    "module": "amd",
-    "target": "es6",
-    "moduleResolution": "node",
-    "rootDirs": ["src", "deps/susa/"],
-    "outDir": "build",
     "baseUrl": ".",
-    "paths": {
-      "Susa/*": ["deps/susa/src/*"],
-      "Nanoshooter/*": ["src/*"]
-    },
+    "rootDirs": ["s"],
+    "outDir": "o",
+    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "node",
     "sourceMap": true,
     "declaration": true
   },
   "exclude": [
+    "art",
+    "deps",
     "node_modules",
-    "deps/susa/node_modules",
-    "deps/susa/deps"
+    "s/_archive"
   ]
 }

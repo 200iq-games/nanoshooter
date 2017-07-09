@@ -1,16 +1,22 @@
 
-import Entity, {EntityOptions, EntityState} from 'Susa/Entity'
+import BabylonEntity from 'Susa/BabylonEntity'
+import Entity, {EntityOptions, EntityData} from 'Susa/Entity'
 
 /**
  * A floor object for the game world.
  */
-export default class Floor extends Entity {
+export default class Floor extends BabylonEntity {
 
   static type = 'Nanoshooter/Entities/Floor'
 
+  /** Floor mesh. */
   private mesh: BABYLON.Mesh
 
-  protected initialize(entityState: EntityState) {
+  /**
+   * Create a Floor.
+   */
+  constructor(options: EntityOptions) {
+    super(options)
     const mesh = this.mesh = BABYLON.Mesh.CreateGround(this.id, 128, 128, 2, this.stage.scene)
 
     const material = new BABYLON.StandardMaterial('floor', this.stage.scene)
@@ -25,7 +31,8 @@ export default class Floor extends Entity {
   /**
    * Cleanup for removal from the game.
    */
-  destructor() {
+  destructor(): Promise<void> {
     this.mesh.dispose()
+    return Promise.resolve()
   }
 }

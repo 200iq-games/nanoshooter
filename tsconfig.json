@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDirs": ["s"],
+    "paths": {"*": ["node_modules/*", "*"]},
     "outDir": "o",
     "target": "es6",
     "module": "commonjs",

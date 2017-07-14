@@ -28,7 +28,7 @@
     "typescript": "2.4.1"
   },
   "dependencies": {
-    "babylonjs": "3.0.4-beta",
-    "monarch-engine": "0.1.0"
+    "babylonjs": "3.0.7",
+    "monarch-engine": "0.2.0"
   }
 }

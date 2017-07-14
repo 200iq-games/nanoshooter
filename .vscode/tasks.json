@@ -1,10 +1,11 @@
 {
   "version": "0.1.0",
   "command": "npm",
-  "args": ["run", "--silent"],
+  "args": ["install", "--silent"],
   "isShellCommand": true,
   "tasks": [
     {
+      "suppressTaskName": true,
       "taskName": "build",
       "problemMatcher": "$tsc",
       "isBuildCommand": true

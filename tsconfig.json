@@ -5,14 +5,20 @@
     "paths": {"*": ["node_modules/*", "*"]},
     "outDir": "o",
     "target": "es6",
+    "lib": ["es2016", "dom"],
     "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": true,
     "declaration": true
   },
+  "include": [
+    "s"
+  ],
   "exclude": [
-    "art",
+    "o",
+    "s/_archive",
     "node_modules",
-    "s/_archive"
+    "../engine",
+    "../engine/**/*"
   ]
 }

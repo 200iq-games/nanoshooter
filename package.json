@@ -29,6 +29,6 @@
   },
   "dependencies": {
     "babylonjs": "3.0.7",
-    "monarch-engine": "0.2.0"
+    "monarch-engine": "file:../engine"
   }
 }

@@ -13,7 +13,7 @@ const game = new Nanoshooter({
 
 game.monarch.addEntry<EnvironmentEntry>({
   type: "Environment",
-  babylonFile: "art/arena/arena.babylon"
+  babylonFile: "assets/arena/arena.babylon"
 })
 
 game.monarch.addEntry<SpectatorEntry>({
@@ -23,7 +23,7 @@ game.monarch.addEntry<SpectatorEntry>({
 
 game.monarch.addEntry<TankEntry>({
   type: "Tank",
-  babylonFile: "art/tanks/alpha/tank-alpha.babylon",
+  babylonFile: "assets/tanks/alpha/tank-alpha.babylon",
   position: [8, 0.5, 4],
 })
 

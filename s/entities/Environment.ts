@@ -11,7 +11,7 @@ export interface EnvironmentEntry extends StateEntry {
   babylonFile: string
 }
 
-export default class Environment extends Entity {
+export default class Environment extends Entity<NanoshooterContext, EnvironmentEntry> {
   context: NanoshooterContext
 
   constructor(o) {
@@ -42,5 +42,5 @@ export default class Environment extends Entity {
     for (const receiver of shadowReceivers) if (receiver) receiver.receiveShadows = true
   }
 
-  terminate() {}
+  destructor() {}
 }

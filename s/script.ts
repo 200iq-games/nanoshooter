@@ -1,5 +1,5 @@
 
-import Spectator, {SpectatorEntry} from "monarch-engine/o/playground/Spectator"
+import Spectator, {SpectatorEntry} from "monarch-engine/o/playground/entities/Spectator"
 
 import Nanoshooter from "./Nanoshooter"
 import Tank, {TankEntry} from "./entities/Tank"

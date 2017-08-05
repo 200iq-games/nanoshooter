@@ -11,7 +11,7 @@ export interface TankEntry extends StateEntry {
   position: [number, number, number]
 }
 
-export default class Tank extends Entity {
+export default class Tank extends Entity<NanoshooterContext, TankEntry> {
   context: NanoshooterContext
 
   constructor(o) {
@@ -24,10 +24,10 @@ export default class Tank extends Entity {
     const result = await loadBabylonFile(scene, this.entry.babylonFile)
     const chassis = <Mesh> scene.getMeshByName("Chassis")
     const turret = <Mesh> scene.getMeshByName("Turret")
-    const p = Vector3.FromArray(this.entry.position)
-    chassis.position.addInPlace(p)
-    turret.position.addInPlace(p)
+    const position = Vector3.FromArray(this.entry.position)
+    chassis.position.addInPlace(position)
+    turret.position.addInPlace(position)
   }
 
-  terminate() {}
+  destructor() {}
 }

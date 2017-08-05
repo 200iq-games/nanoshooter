@@ -1,7 +1,7 @@
 
 import {Mesh, Vector3} from "babylonjs"
 import {Entity, StateEntry} from "monarch-engine"
-import {loadBabylonFile} from "monarch-engine/o/Susa"
+import {loadBabylonFile} from "monarch-engine/o/susa"
 
 import {NanoshooterContext} from "../Nanoshooter"
 

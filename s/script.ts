@@ -1,14 +1,16 @@
 
-import Spectator, {SpectatorEntry} from "monarch-engine/o/playground/entities/Spectator"
+import Cube, {CubeEntry} from "monarch-engine/o/common/entities/cube"
+import Editor, {EditorEntry} from "monarch-engine/o/common/entities/editor"
+import Spectator, {SpectatorEntry} from "monarch-engine/o/common/entities/spectator"
 
-import Nanoshooter from "./Nanoshooter"
-import Tank, {TankEntry} from "./entities/Tank"
-import Environment, {EnvironmentEntry} from "./entities/Environment"
+import Nanoshooter from "./nanoshooter"
+import Tank, {TankEntry} from "./entities/tank"
+import Environment, {EnvironmentEntry} from "./entities/environment"
 
 const game = new Nanoshooter({
   window,
   canvas: document.querySelector("canvas"),
-  entityClasses: {Environment, Spectator, Tank}
+  entityClasses: {Environment, Spectator, Editor, Cube, Tank}
 })
 
 game.monarch.addEntry<EnvironmentEntry>({
@@ -16,8 +18,8 @@ game.monarch.addEntry<EnvironmentEntry>({
   babylonFile: "assets/arena/arena.babylon"
 })
 
-game.monarch.addEntry<SpectatorEntry>({
-  type: "Spectator",
+game.monarch.addEntry<EditorEntry>({
+  type: "Editor",
   position: [-8, 8, 12]
 })
 

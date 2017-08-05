@@ -1,10 +1,10 @@
 
 import {HemisphericLight, FreeCamera, Mesh, Vector3, Color4, ShadowGenerator, SpotLight, DirectionalLight} from "babylonjs"
 
-import {loadBabylonFile} from "monarch-engine/o/Susa"
-import {StateEntry, Message, Entity} from "monarch-engine/o/Monarch"
+import {loadBabylonFile} from "monarch-engine/o/susa"
+import {StateEntry, Message, Entity} from "monarch-engine/o/monarch"
 
-import {NanoshooterContext} from "../Nanoshooter"
+import {NanoshooterContext} from "../nanoshooter"
 
 export interface EnvironmentEntry extends StateEntry {
   type: "Environment"

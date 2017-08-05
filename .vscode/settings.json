@@ -5,7 +5,8 @@
 
   "files.exclude": {
     "o": true,
-    "node_modules": true
+    "node_modules": true,
+    "package-lock.json": true
   },
 
   "search.exclude": {

@@ -1,17 +1,55 @@
 <!doctype html>
-
 <html>
-  <head>
-    <meta charset="utf-8"/>
-    <title>nanoshooter proving grounds</title>
-    <style>
-      * { margin: 0; padding: 0; }
-      html, body { height: 100%; overflow: hidden; }
-      canvas { width: 100%; height: 100%; }
-    </style>
-  </head>
-  <body>
-    <canvas></canvas>
-    <script src="o/script.bundle.js"></script>
-  </body>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title>nanoshooter</title>
+		<style>
+			* { margin: 0; padding: 0; }
+			html, body { width: 100%; height: 100%; overflow: hidden; }
+			canvas { width: 100%; height: 100%; }
+			.overlay {
+				position: absolute;
+				pointer-events: none;
+				width: 100%;
+				height: 100%;
+				z-index: 1;
+				top: 0;
+				left: 0;
+			}
+			.thumbsticks {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				height: 40%;
+			}
+			.leftstick {
+				position: absolute;
+				pointer-events: all;
+				width: 40%;
+				height: 100%;
+				top: 0;
+				left: 0;
+			}
+			.rightstick {
+				position: absolute;
+				pointer-events: all;
+				width: 40%;
+				height: 100%;
+				top: 0;
+				right: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas></canvas>
+		<div class="overlay">
+			<div class="thumbsticks">
+				<div class="leftstick"></div>
+				<div class="rightstick"></div>
+			</div>
+		</div>
+		<script src="dist/index.bundle.js"></script>
+	</body>
 </html>

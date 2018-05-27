@@ -1,35 +1,39 @@
 {
-  "name": "nanoshooter",
-  "version": "0.2.0-dev",
-  "description": "robotic tank combat multiplayer action web game",
-  "scripts": {
-    "build": "rimraf o && mkdir o && browserify -p tsify s/script.ts > o/script.bundle.js && tslint -e 's/_archive/**' 's/**/*.ts' && echo Done production build",
-    "build-debug": "rimraf o && mkdir o && browserify --debug -p tsify s/script.ts > o/script.bundle.js && tslint -e 's/_archive/**' 's/**/*.ts' && echo Done debug build",
-    "test": "exit 0",
-    "prepare": "npm run build -s && npm test -s",
-    "start": "http-server"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ChaseMoskal/Nanoshooter.git"
-  },
-  "author": "Chase Moskal <chasemoskal@gmail.com>",
-  "private": true,
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ChaseMoskal/Nanoshooter/issues"
-  },
-  "homepage": "https://github.com/ChaseMoskal/Nanoshooter#readme",
-  "devDependencies": {
-    "browserify": "14.4.0",
-    "http-server": "0.10.0",
-    "rimraf": "2.6.1",
-    "tsify": "3.0.1",
-    "tslint": "5.5.0",
-    "typescript": "2.4.1"
-  },
-  "dependencies": {
-    "babylonjs": "3.0.7",
-    "monarch-engine": "file:../engine"
-  }
+	"name": "nanoshooter",
+	"version": "0.2.0-dev.1",
+	"description": "robotic tank combat multiplayer action web game",
+	"scripts": {
+		"prepare": "run-s -s build-production test",
+		"start": "http-server",
+		"clean": "rimraf dist && mkdirp dist",
+		"lint": "tslint -e 'source/_archive/**' 'source/**/*.ts'",
+		"build-production": "run-s clean && browserify -p tsify source/index.ts > dist/index.bundle.js && run-s lint && echo ✔ done production build",
+		"build-debug": "run-s clean && browserify --debug -p tsify source/index.ts > dist/index.bundle.js && run-s lint && echo ✔ done debug build",
+		"test": "exit 0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/monarch-games/nanoshooter.git"
+	},
+	"author": "Chase Moskal <chasemoskal@gmail.com>",
+	"private": true,
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/monarch-games/nanoshooter/issues"
+	},
+	"homepage": "https://github.com/monarch-games/nanoshooter#readme",
+	"devDependencies": {
+		"browserify": "16.2.2",
+		"http-server": "0.11.1",
+		"mkdirp": "0.5.1",
+		"npm-run-all": "4.1.3",
+		"rimraf": "2.6.2",
+		"tsify": "4.0.0",
+		"tslint": "5.10.0",
+		"typescript": "2.8.3"
+	},
+	"dependencies": {
+		"babylonjs": "3.2.0",
+		"monarch-engine": "0.4.0-dev.17"
+	}
 }

@@ -1,14 +1,42 @@
 {
-  "version": "0.1.0",
-  "command": "npm",
-  "args": ["install", "--silent"],
-  "isShellCommand": true,
-  "tasks": [
-    {
-      "suppressTaskName": true,
-      "taskName": "build",
-      "problemMatcher": "$tsc",
-      "isBuildCommand": true
-    }
-  ]
+	"version": "0.1.0",
+	"command": "npm",
+	"isShellCommand": true,
+	"showOutput": "always",
+	"suppressTaskName": true,
+	"tasks": [
+		{
+			"taskName": "install (production build)",
+			"args": ["install", "--silent"],
+			"problemMatcher": {
+				"owner": "typescript",
+				"fileLocation": ["relative", "${workspaceRoot}"],
+				"pattern": {
+					"regexp": "^TypeScript (warning|error): (.*)\\((\\d+),(\\d+)\\): (.*)$",
+					"severity": 1,
+					"file": 2,
+					"line": 3,
+					"column": 4,
+					"message": 5
+				}
+			}
+		},
+		{
+			"isBuildCommand": true,
+			"taskName": "development build",
+			"args": ["run", "build-debug", "--silent"],
+			"problemMatcher": {
+				"owner": "typescript",
+				"fileLocation": ["relative", "${workspaceRoot}"],
+				"pattern": {
+					"regexp": "^TypeScript (warning|error): (.*)\\((\\d+),(\\d+)\\): (.*)$",
+					"severity": 1,
+					"file": 2,
+					"line": 3,
+					"column": 4,
+					"message": 5
+				}
+			}
+		}
+	]
 }

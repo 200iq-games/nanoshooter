@@ -1,6 +1,6 @@
 
-o
-node_modules
+/dist
+/node_modules
 
 *.blend1
 *.log

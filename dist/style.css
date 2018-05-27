@@ -1,0 +1,225 @@
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+*:focus {
+	outline: none;
+}
+
+html, body {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	font-family: Oswald, sans-serif;
+}
+
+canvas {
+	width: 100%;
+	height: 100%;
+}
+
+/* overlay */
+
+.overlay {
+	position: absolute;
+	pointer-events: none;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	top: 0;
+	left: 0;
+}
+
+.overlay > * {
+	pointer-events: all;
+}
+
+.thumbsticks {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 40%;
+}
+
+.stick {
+	position: absolute;
+	width: 40%;
+	height: 100%;
+	top: 0;
+}
+
+.stick:first-of-type { left: 0; }
+.stick:last-of-type { right: 0; }
+
+/* menu basics */
+
+.menu-bar {
+	display: flex;
+	justify-content: flex-start;
+	padding: 0 20%;
+}
+
+.menu {
+	z-index: 999;
+	flex: 0 1 auto;
+	position: relative;
+	margin-left: 1em;
+}
+
+.menu-button {
+	opacity: 0.2;
+	padding: 0.5em 1em;
+	user-select: none;
+	cursor: pointer;
+	text-transform: uppercase;
+}
+
+.menu[data-open="true"] .menu-button {
+	opacity: 0.9;
+}
+
+.menu-button:hover {
+	opacity: 0.9;
+}
+
+.menu-panel {
+	position: absolute;
+	padding: 0.5em;
+	top: 100%;
+	width: 20em;
+	border-radius: 0 5px 5px 5px;
+}
+
+.menu { color: white; }
+.menu-button { background: black; }
+.menu-panel { background: rgba(0,0,0, 0.6); }
+
+@media (max-width: 1000px) {
+	.menu-bar {
+		padding: 0;
+	}
+
+	.menu {
+		position: static;
+	}
+
+	.menu-panel {
+		top: 2.5em;
+		left: 0;
+		max-width: 100%;
+	}
+}
+
+/* standard menu panel */
+
+.menu-panel h2 {
+	font-size: 1em;
+	font-weight: normal;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: rgba(255,255,255, 0.9);
+}
+
+/* main menu */
+
+.main-menu > div + div {
+	margin-top: 0.5em;
+}
+
+.main-menu .setting {
+	display: flex;
+	justify-content: space-between;
+	border-radius: 3px;
+	color: rgba(255,255,255, 0.8);
+	background: rgba(255,255,255, 0.2);
+}
+
+.main-menu .setting > * {
+	flex: 0;
+	margin: 0.5em;
+}
+
+.main-menu .setting label {
+	user-select: none;
+	flex: 1;
+}
+
+.main-menu .input-wrapper {
+	position: relative;
+	flex: 0 0 4em;
+}
+
+.main-menu .input-wrapper > input {
+	position: absolute;
+	width: 100%;
+}
+
+.main-menu input[type="number"] {
+	background: rgba(0,0,0, 0.5);
+	color: white;
+	border: none;
+	padding: 0.4em 0.8em;
+	border-radius: 3px;
+}
+
+.main-menu .stats {
+	display: flex;
+	flex-direction: row;
+	user-select: none;
+}
+
+.main-menu .stats > div {
+	flex: 1 1 auto;
+	display: flex;
+	flex-direction: column;
+	background: rgba(255,255,255, 0.1);
+	border-radius: 3px;
+	text-align: center;
+	padding: 0.5em;
+}
+
+.main-menu .stats > div + div {
+	margin-left: 0.4em;
+}
+
+.main-menu .stats > div > label {
+	font-size: 0.8em;
+	color: rgba(255,255,255, 0.5);
+	order: 1;
+}
+
+.main-menu .stats > div > output {
+	font-family: "Courier New", monospace;
+}
+
+/* editor menu */
+
+.editor-menu .tools {
+	display: flex;
+}
+
+.editor-menu .tool {
+	flex: 1 1 auto;
+}
+
+.editor-menu .tool + .tool {
+	margin-left: 0.4em;
+}
+
+.editor-menu .tool {
+	display: inline-block;
+	padding: 0.5em 1em;
+	text-decoration: none;
+	color: inherit;
+	border-radius: 5px;
+	border: none;
+	background: rgba(255,255,255, 0.2);
+}
+
+.editor-menu .tools .tool[data-active="true"] {
+	background: rgba(255,255,255, 0.5);
+}

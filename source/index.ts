@@ -3,12 +3,12 @@ import {Game} from "monarch-engine/dist/game"
 import {Entity} from "monarch-engine/dist/entity"
 import {ModeOfConduct} from "monarch-engine/dist/interfaces"
 import {Cube, CubeEntry} from "monarch-engine/dist/common/entities/cube"
-import {Agent, AgentEntry} from "monarch-engine/dist/common/entities/agent"
 import {Editor, EditorEntry} from "monarch-engine/dist/common/entities/editor"
 import {Terrain, TerrainEntry} from "monarch-engine/dist/common/entities/terrain"
-import {Director, DirectorEntry} from "monarch-engine/dist/common/entities/director"
 import {Spectator, SpectatorEntry} from "monarch-engine/dist/common/entities/spectator"
-import {Environment, EnvironmentEntry} from "monarch-engine/dist/common/entities/environment"
+
+import {Agent, AgentEntry} from "./entities/agent"
+import {Director, DirectorEntry} from "./entities/director"
 
 const game = new Game({
 	mode: ModeOfConduct.Alone,
@@ -19,9 +19,7 @@ const game = new Game({
 		Agent,
 		Terrain,
 		Editor,
-		Director,
-		Spectator,
-		Environment
+		Director
 	}
 })
 

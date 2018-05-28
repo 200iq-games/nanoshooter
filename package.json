@@ -1,6 +1,6 @@
 {
 	"name": "nanoshooter",
-	"version": "0.2.0-dev.1",
+	"version": "0.2.0-dev.2",
 	"description": "robotic tank combat multiplayer action web game",
 	"scripts": {
 		"prepare": "run-s -s build-production test",
@@ -34,6 +34,6 @@
 	},
 	"dependencies": {
 		"babylonjs": "3.2.0",
-		"monarch-engine": "0.4.0-dev.17"
+		"monarch-engine": "0.4.0-dev.21"
 	}
 }

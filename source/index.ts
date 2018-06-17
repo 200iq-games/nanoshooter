@@ -1,19 +1,17 @@
 
-import {Game} from "monarch-engine/dist/game"
-import {Entity} from "monarch-engine/dist/entity"
-import {ModeOfConduct} from "monarch-engine/dist/interfaces"
-import {Cube, CubeEntry} from "monarch-engine/dist/common/entities/cube"
+import {Game, ModeOfConduct} from "monarch-engine"
+import {Cube} from "monarch-engine/dist/common/entities/cube"
 import {Editor, EditorEntry} from "monarch-engine/dist/common/entities/editor"
-import {Terrain, TerrainEntry} from "monarch-engine/dist/common/entities/terrain"
-import {Spectator, SpectatorEntry} from "monarch-engine/dist/common/entities/spectator"
 
-import {Agent, AgentEntry} from "./entities/agent"
+import {Agent} from "./entities/agent"
+import {Terrain, TerrainEntry} from "./entities/terrain"
 import {Director, DirectorEntry} from "./entities/director"
 
 const game = new Game({
 	mode: ModeOfConduct.Alone,
 	canvas: document.querySelector("canvas"),
 	overlay: document.querySelector(".overlay"),
+	gravity: 3.7,
 	entityClasses: {
 		Cube,
 		Agent,

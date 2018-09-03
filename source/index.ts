@@ -1,20 +1,24 @@
 
-import {Game, ModeOfConduct} from "monarch-engine"
-import {Cube} from "monarch-engine/dist/common/entities/cube"
-import {Editor, EditorEntry} from "monarch-engine/dist/common/entities/editor"
+import {
+	Cube,
+	Game,
+	Editor,
+	EditorEntry,
+	ModeOfConduct
+} from "monarch-engine"
 
-import {Agent} from "./entities/agent"
+// import {Agent} from "./entities/agent"
 import {Terrain, TerrainEntry} from "./entities/terrain"
 import {Director, DirectorEntry} from "./entities/director"
 
 const game = new Game({
 	mode: ModeOfConduct.Alone,
 	canvas: document.querySelector("canvas"),
-	overlay: document.querySelector(".overlay"),
-	gravity: 3.7,
+	overlayElement: document.querySelector(".overlay"),
+	gravity: [0, -3.7, 0],
 	entityClasses: {
 		Cube,
-		Agent,
+		// Agent,
 		Terrain,
 		Editor,
 		Director

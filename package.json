@@ -1,6 +1,6 @@
 {
 	"name": "nanoshooter",
-	"version": "0.2.0-dev.7",
+	"version": "0.2.0-dev.8",
 	"description": "robotic tank combat multiplayer action web game",
 	"scripts": {
 		"prepare": "run-s -s build-production test",

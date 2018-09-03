@@ -36,6 +36,6 @@
 	},
 	"dependencies": {
 		"babylonjs": "3.2.0",
-		"monarch-engine": "0.4.0-dev.53"
+		"monarch-engine": "0.4.0-dev.54"
 	}
 }

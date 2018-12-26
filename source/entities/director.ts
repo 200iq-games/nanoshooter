@@ -1,13 +1,13 @@
 
-import {autorun, reaction} from "mobx"
+import {autorun} from "mobx"
 
-import {Context} from "monarch-engine/dist/game"
-import {Entity} from "monarch-engine/dist/entity"
-import {Manager} from "monarch-engine/dist/manager"
-import {Watcher, Input, Bindings} from "monarch-engine/dist/watcher"
-import {StateEntry, VectorZero, QuaternionZero} from "monarch-engine/dist/interfaces"
-
-// import {Agent, AgentEntry} from "./agent"
+import {
+	Context,
+	Entity,
+	Watcher,
+	StateEntry,
+	Input
+} from "monarch-engine"
 
 export interface DirectorEntry extends StateEntry {
 	type: "Director"

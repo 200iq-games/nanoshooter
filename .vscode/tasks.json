@@ -24,7 +24,7 @@
 		{
 			"isBuildCommand": true,
 			"taskName": "development build",
-			"args": ["run", "build-debug", "--silent"],
+			"args": ["run", "build:debug", "--silent"],
 			"problemMatcher": {
 				"owner": "typescript",
 				"fileLocation": ["relative", "${workspaceRoot}"],
